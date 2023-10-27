@@ -1,1 +1,1 @@
-# SQLI-MatchMaking-Frontend
+# SQLI-Matchmaking-Frontend
