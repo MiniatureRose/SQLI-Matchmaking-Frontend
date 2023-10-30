@@ -1,0 +1,42 @@
+.first{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight:bolder;
+    font-size: 40px;
+    color: blue;
+    margin: 0px;
+    
+}
+.second{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight:bold;
+    font-size: 15px;
+    color:rgb(221, 177, 66);
+    margin: 0px;
+    
+}
+label{
+    font-weight: bold; 
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Facultatif pour centrer verticalement sur toute la hauteur de la vue */
+}
+
+.input{
+    display: flex;
+    flex-direction: column;
+}
+
+.input input{
+    padding: 5px;
+    border: 2px solid #969595;
+    background-color: rgb(246, 246, 246) ;
+    border-radius: 7px;
+    font-size: 16px;
+}
+.input label{
+    font-weight: 500;
+}

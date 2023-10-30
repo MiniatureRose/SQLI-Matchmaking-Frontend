@@ -1,1 +1,24 @@
-<p>authentification works!</p>
+
+
+<div class=" container">
+    <p class="first"> MatchMingle</p>
+    <br>
+    <p class="second">Unissant les joueurs, créant des <br> moments, un match à la fois</p>
+    <br>
+    <form (ngSubmit)="onSubmit()">
+        <div class="input">
+            <label for="input1">Email</label>
+            <input type="text" id="input1" [(ngModel)]="email" name="input1" />
+        </div>
+        <br>
+        <div class="input">
+            <label for="input2">Password</label>
+            <input type="text" id="input2" [(ngModel)]="password" name="input2" />
+        </div>
+        <br>
+        <button type="submit">Submit</button>
+    
+    </form>
+ 
+</div>
+
