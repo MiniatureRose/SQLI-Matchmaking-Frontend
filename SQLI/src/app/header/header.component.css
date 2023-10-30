@@ -1,0 +1,95 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:100");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: indigo;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+nav {
+  background-color: #333;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+
+nav img {
+  width: 150px;
+  height: auto;
+  margin-right: 20px;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+}
+
+nav ul li {
+  margin-right: 20px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: white;
+}
+
+nav ul li a:hover {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+/* Styling for the "coolBeans" class */
+
+.coolBeans {
+  border: 2px solid currentColor;
+  border-radius: 2rem;
+  color: yellow;
+  font-family: 'Roboto', sans-serif;
+  font-size: 2rem;
+  font-weight: 100;
+  overflow: hidden;
+  padding: 0.5rem 1rem;
+  position: relative;
+  text-decoration: none;
+  transition: 0.2s transform ease-in-out;
+  will-change: transform;
+  z-index: 0;
+}
+
+.coolBeans::after {
+  background-color: yellow;
+  border-radius: 2rem;
+  content: '';
+  display: block;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(-100%, 0) rotate(10deg);
+  transform-origin: top left;
+  transition: 0.2s transform ease-out;
+  will-change: transform;
+  z-index: -1;
+}
+
+.coolBeans:hover::after {
+  transform: translate(0, 0);
+}
+
+.coolBeans:hover {
+  border: 2px solid transparent;
+  color: indigo;
+  transform: scale(1.05);
+  will-change: transform;
+}
