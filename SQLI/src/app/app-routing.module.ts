@@ -4,10 +4,8 @@ import { AuthentificationComponent } from './authentification/authentification.c
 import { EventsComponent } from './events/events.component';
 
 const routes: Routes = [
-  
-  {path: '', component : AuthentificationComponent},
-  {path: 'events', component : EventsComponent}
-  
+  {path: 'Authentification', component : AuthentificationComponent},
+  {path: 'Events', component : EventsComponent}
 
 ];
 

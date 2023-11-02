@@ -1,4 +1,4 @@
-import { Component, Injectable } from '@angular/core';
+import { Component } from '@angular/core';
 
 
 @Component({
@@ -6,9 +6,6 @@ import { Component, Injectable } from '@angular/core';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-@Injectable({
-  providedIn: 'root', // Indique que ce service sera un service global
-})
 export class HeaderComponent {
-  
+
 }
