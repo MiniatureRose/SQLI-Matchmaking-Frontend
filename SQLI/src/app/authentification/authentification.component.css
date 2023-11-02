@@ -6,6 +6,24 @@
     margin: 0px;
     
 }
+
+.imgBackround{
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    
+    
+    width: 664px;
+    height:700px ;
+    flex-shrink: 0;
+    border-radius: 50px;
+    background: #D9D9D9;
+}
+.stade{
+    width: 400px;
+    height: 400px;
+    flex-shrink: 0;
+}
 .second{
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-weight:bold;
@@ -17,26 +35,107 @@
 label{
     font-weight: bold; 
 }
-.container{
+.container0{
+    margin: 20px;
     display: flex;
+    background: #FFF;
+   
+}
+.container1{
+    margin: 80px 0px 10px 200px ; 
+    display:flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Facultatif pour centrer verticalement sur toute la hauteur de la vue */
+    text-align: center;
+   
+    flex-shrink: 0;
 }
 
 .input{
     display: flex;
     flex-direction: column;
 }
+.input2 {
+    position: relative;
+    
+}
 
+.left-aligned-label {
+    text-align: left; /* This will left-align the label text */
+    font-weight: bold; /* You can add other styles as needed */
+    /* Add any additional styles you want for the label here */
+}
+
+button{
+    width: 226px;
+    height: 46px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: var(--Secondary, #3062C8);
+    font-size: 20px;
+    color: white;
+}
 .input input{
-    padding: 5px;
-    border: 2px solid #969595;
-    background-color: rgb(246, 246, 246) ;
-    border-radius: 7px;
-    font-size: 16px;
+    padding: 0px 10px 0px 10px;
+    width: 433px;
+    height: 41px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    border: 2px solid var(--Gray, #E0E0E0);
+    background: var(--White, #FAFAFA);
+    font-size: large;
 }
 .input label{
     font-weight: 500;
+}
+.input2 i.fas.fa-eye-slash{
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    color: #777;
+    cursor: pointer;
+}
+.input2 i.fas.fa-eye {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    color: #777;
+    cursor: pointer;
+}
+
+.remember-forgot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0px;
+}
+.remember label{
+    color: var(--Gray_2, #9E9D9D);
+    text-align: center;
+    font-family: Poppins;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.remember{
+    display: flex;
+    align-items: center;
+}
+
+.remember-forgot a {
+    color: var(--Gray_2, #9E9D9D);
+    text-align: center;
+    font-family: Poppins;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration: none; /* Remove underline */
+}
+
+.remember-forgot a:hover {
+    text-decoration: underline; /* Add underline on hover */
 }
