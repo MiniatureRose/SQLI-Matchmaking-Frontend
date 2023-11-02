@@ -27,13 +27,17 @@ nav img {
   height: auto;
   margin-right: 20px;
 }
-
+li a{
+  font-weight: 900;
+}
 nav ul {
   list-style: none;
   padding: 0;
   display: flex;
 }
-
+.active{
+  background-color: yellow;
+}
 nav ul li {
   margin-right: 20px;
 }
