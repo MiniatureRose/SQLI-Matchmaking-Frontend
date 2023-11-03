@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -19,9 +19,6 @@ export class AuthentificationComponent{
   constructor(private http: HttpClient, private router:Router) {
   }
 
-  ngOnInit() {
-    // Appelez la méthode pour masquer le Header dans ngOnInit
-  }
 
  
   togglePasswordVisibility() {
@@ -29,12 +26,10 @@ export class AuthentificationComponent{
   }
 
   onSubmit() {
-    this.router.navigate(['/events']);
-    /*
-    const apiUrl = 'URL_DE_VOTRE_API';
+    const apiUrl = 'http://localhost:8080/auth/signin';
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const data={'email': this.email, 'password': this.password};
-
+    console.log(data);
     
     this.http.post(apiUrl, data, { headers }).subscribe(
       (response) => {
@@ -45,7 +40,6 @@ export class AuthentificationComponent{
         console.error('Erreur lors de la requête POST :', error);
       }
     );
-*/
   }
   
 }

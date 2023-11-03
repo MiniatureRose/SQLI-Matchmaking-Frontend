@@ -19,7 +19,7 @@
                 <label for="input2" class="left-aligned-label">Password</label>
                 <br>
                 <div class="input2">
-                    <input [type]="isPasswordVisible ? 'text':'password'" id="passwordInput" [(ngModel)]="password" placeholder="Password">
+                    <input [type]="isPasswordVisible ? 'text':'password'" id="input2" [(ngModel)]="password" name="input2" placeholder="Password">
                     <i class="initial-eye fas" [ngClass]="isPasswordVisible ? 'fa-eye':'fa-eye-slash'" (click)="togglePasswordVisibility()"></i>
 
                 </div>
