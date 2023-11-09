@@ -139,3 +139,16 @@ button{
 .remember-forgot a:hover {
     text-decoration: underline; /* Add underline on hover */
 }
+
+.create-account {
+    color: #9E9D9D;
+    font-size: 15px;
+    font-family: Poppins;
+    font-weight: 400;
+    word-wrap: break-word;
+    text-decoration: none;
+}
+
+.create-account:hover {
+    text-decoration: underline; /* Add underline on hover */
+}
