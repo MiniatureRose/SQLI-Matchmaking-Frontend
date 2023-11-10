@@ -1,1 +1,68 @@
-<p>signup works!</p>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MatchMingle Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="container0">
+        <div class="imgBackround">
+            <img src="assets/stade.png" class="stade">
+        </div>
+
+        <div class="container1">
+            <p class="first">MatchMingle</p>
+
+            <p class="second">Unissant les joueurs, créant des <br> moments, un match à la fois</p>
+
+            <form (ngSubmit)="onSubmit()">
+                <div class="input">
+                    <label for="input1" class="left-aligned-label">Nom</label><br>
+                    <input type="text" id="input1" [(ngModel)]="Nom" name="input1" />
+                    <br>
+
+                    <label for="input1" class="left-aligned-label">Prenom</label><br>
+                    <input type="text" id="input1" [(ngModel)]="Prenom" name="input1" />
+                    <br>
+
+                    <label for="input1" class="left-aligned-label">Numéro de telephone</label><br>
+                    <input type="text" id="input1" [(ngModel)]="Phone" name="input2" />
+                    <br>
+
+                    <label for="input1" class="left-aligned-label">E-mail</label><br>
+                    <input type="text" id="input1" [(ngModel)]="Email" name="input3" />
+                    <br>
+
+                    <label for="input2" class="left-aligned-label">Mot de passe</label><br>
+                    <div class="input2">
+                        <input [type]="isPasswordVisible ? 'text':'password'" id="input2" [(ngModel)]="Password" name="input2" placeholder="Password">
+                        <i class="initial-eye fas" [ngClass]="isPasswordVisible ? 'fa-eye':'fa-eye-slash'" (click)="togglePasswordVisibility()"></i>
+                    </div>
+                    <br>
+                </div>
+
+                <div class="remember-forgot">
+                    <div class="remember">
+                        <label for="rememberMe">Se souvenir de moi</label>
+                        <input type="checkbox" id="rememberMe" name="rememberMe">
+                    </div>
+                    <a href="#">Mot de passe oublié</a>
+                </div>
+
+                <button class="button" type="submit">Créer un compte</button>
+
+                <div class="create">
+                    <a href="\Authentification" class="create-account">Se connecter</a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,166 @@
+.first {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: bolder;
+    font-size: 40px;
+    color: blue;
+    margin: 0px;
+}
+
+.imgBackround {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 664px;
+    height: 700px;
+    flex-shrink: 0;
+    border-radius: 50px;
+    background: #D9D9D9;
+    margin-bottom: 20px; /* Add margin-bottom for spacing */
+}
+
+.stade {
+    width: 400px;
+    height: 400px;
+    flex-shrink: 0;
+}
+
+.second {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+    color: rgb(221, 177, 66);
+    margin: 0px;
+    margin-bottom: 20px; /* Add margin-bottom for spacing */
+}
+
+label {
+    font-weight: bold;
+}
+
+.container0 {
+    margin: 20px;
+    display: flex;
+    background: #FFF;
+}
+
+.container1 {
+    margin: 80px 0px 10px 200px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    flex-shrink: 0;
+    margin-bottom: 20px; /* Add margin-bottom for spacing */
+}
+
+.input {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px; /* Add margin-bottom for spacing */
+}
+
+.input2 {
+    position: relative;
+    margin-bottom: -20px;
+}
+
+.left-aligned-label {
+    text-align: left;
+    font-weight: bold;
+}
+
+button {
+    width: 226px;
+    height: 46px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: var(--Secondary, #3062C8);
+    font-size: 20px;
+    color: white;
+    margin-bottom: 20px; /* Add margin-bottom for spacing */
+}
+
+.input input {
+    padding: 0px 10px 0px 10px;
+    width: 433px;
+    height: 41px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    border: 2px solid var(--Gray, #E0E0E0);
+    background: var(--White, #FAFAFA);
+    font-size: large;
+    margin-bottom: 20px;
+}
+
+.input label {
+    font-weight: 500;
+}
+
+.input2 i.fas.fa-eye-slash {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    color: #777;
+    cursor: pointer;
+}
+
+.input2 i.fas.fa-eye {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    color: #777;
+    cursor: pointer;
+}
+
+.remember-forgot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0px;
+    margin-bottom: 20px; /* Add margin-bottom for spacing */
+}
+
+.remember label {
+    color: var(--Gray_2, #9E9D9D);
+    text-align: center;
+    font-family: Poppins;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.remember {
+    display: flex;
+    align-items: center;
+}
+
+.remember-forgot a {
+    color: var(--Gray_2, #9E9D9D);
+    text-align: center;
+    font-family: Poppins;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration: none;
+}
+
+.remember-forgot a:hover {
+    text-decoration: underline;
+}
+
+
+.create-account {
+    color: #9E9D9D;
+    font-size: 15px;
+    font-family: Poppins;
+    font-weight: 400;
+    word-wrap: break-word;
+    text-decoration: none;
+}
+
+.create-account:hover {
+    text-decoration: underline;
+}
