@@ -2,6 +2,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
+//TMP
+interface ApiResponse {
+  message: string;
+  // autres propriétés correspondantes dans la réponse
+}
+
 @Component({
   selector: 'app-authentification',
   templateUrl: './authentification.component.html',
@@ -31,9 +37,12 @@ export class AuthentificationComponent{
     const data={'email': this.email, 'password': this.password};
     console.log(data);
     
-    this.http.post(apiUrl, data, { headers }).subscribe(
+    this.http.post<ApiResponse>(apiUrl, data, { headers }).subscribe(
       (response) => {
-        console.log('Réponse du serveur :', response);
+        // console.log('Réponse du serveur :', response);
+        if (response && response.message === 'User signed in successfully!') {
+          this.router.navigate(['/']); // Redirection vers la page home
+        }
       },
       
       (error) => {

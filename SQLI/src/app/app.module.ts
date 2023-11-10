@@ -11,6 +11,11 @@ import { EventsComponent } from './events/events.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { SignupComponent } from './signup/signup.component';
+import { ButtonComponent } from './~Component/ButtonIcon/ButtonIcon';
+import { Table } from './~Component/Table/Table';
+import { Profil } from './~Component/Profil/Profil';
+import { Icon } from './~Component/Icon/Icon';
+import { ListButtons } from './~Component/ListButtons/ListButtons';
 
 @NgModule({
   declarations: [
@@ -20,7 +25,11 @@ import { SignupComponent } from './signup/signup.component';
     AuthentificationComponent,
     EventsComponent,
     SignupComponent,
-  
+    ButtonComponent,
+    Profil,
+    Table,
+    Icon,
+    ListButtons
   ],
   imports: [
     BrowserModule,

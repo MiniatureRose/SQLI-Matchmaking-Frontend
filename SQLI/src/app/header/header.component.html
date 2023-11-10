@@ -1,12 +1,20 @@
 <nav>
-  <a href="https://www.sqli.com/fr-fr/agences/bordeaux">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/SQLI_DX_LOGO_violet.png?20190206140615" >
-  </a> 
-  <ul>
-    <li class="coolBeans"><a href="/">Home</a></li>
-    <li class="coolBeans"><a href="/SQLI">SQLI</a></li>
-    <li class="coolBeans"><a href="/Events">Events</a></li>
-    <li class="coolBeans"><a href="/Authentification">Authentification</a></li>
-</ul>
+  <div class="logo" >
+    <img src="/assets/Logo.svg" style="width: 62px; height: 42px;">
+    <div class="logo-title" >MatchMingle</div>
+  </div> 
+    <ul>
+      <li class="aa" (click)="togglePlus()"> <app-icon imageUrl="/assets/Plus.svg"></app-icon> </li>
+      <li class="aa" (click)="navigateToEvent()"><app-icon imageUrl="/assets/Evennement.svg"></app-icon> </li>
+      <li class="aa"> <app-icon imageUrl="/assets/Notification.svg"></app-icon> </li>
+      <li class="aa" (click)="toggleProfile()"> <img src="/assets/Profil.svg" style="width: 60px; height: 60px;"> </li>
+      <!-- <li class="aa"> <app-icon imageUrl="/assets/Profil.svg"></app-icon> </li> -->
+    </ul>
 </nav>
+<div *ngIf="isProfileClicked">
+  <app-profil></app-profil>
+</div>
 
+<div *ngIf="isPlusClicked">
+  <app-list-buttons></app-list-buttons>
+</div>

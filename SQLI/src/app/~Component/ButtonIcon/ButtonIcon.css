@@ -1,0 +1,23 @@
+.custom-button {
+    /* background-color: #007bff; */
+    /* color: white; */
+    /* border: none; */
+    /* border-radius: 4px; */
+    /* padding: 10px 20px; */
+    /* cursor: pointer; */
+    /* font-size: 16px; */
+    /* transition: background-color 0.3s ease; */
+
+    width: 92px;
+    height: 102px;
+    flex-shrink: 0;
+
+    border-radius: 15px;
+    border: 1px solid var(--Yellow, #FFBB24);
+    background: var(--secondary-light, rgba(48, 98, 200, 0.30));
+  }
+  
+  .custom-button:hover {
+    background-color: #0056b3;
+  }
+  
