@@ -5,7 +5,7 @@ import { Component, Input } from '@angular/core';
   templateUrl: './ButtonIcon.html',
   styleUrls: ['./ButtonIcon.css']
 })
-export class ButtonComponent {
+export class ButtonIconComponent {
   @Input() imageUrl: string = '';
   @Input() buttonText: string = '';
   @Input() width: number=92;

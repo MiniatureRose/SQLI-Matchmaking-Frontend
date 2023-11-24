@@ -1,21 +1,33 @@
 <div class="profil">
     <!-- <ng-content></ng-content> -->
-    <app-table title="Mon Profil">
+    <app-table title="Mon Profil" >
         <div class="profil-buttons">
             <div class="profil-buttons-left">
-                <app-button-icon imageUrl="/assets/Historique.svg" buttonText="Historique"></app-button-icon>        
+                <app-button-icon (click)="navigateToHistory()" imageUrl="/assets/Historique.svg" buttonText="Historique"></app-button-icon>        
             </div>
             <div class="profil-buttons-middle" >
-                <app-button-icon imageUrl="/assets/Matches.svg" buttonText="Mes matches" [width]="120"></app-button-icon>
+                <app-button-icon (click)="navigateToMatches()" imageUrl="/assets/Matches.svg" buttonText="Mes matches" [width]="120"></app-button-icon>
                 <img class="icon-image" src="/assets/Profil.svg" >
+                <div class="profil-name">PIERRE ROLAND</div>
+                <div class="profil-post">Administrateur</div>
             </div>
             <div class="profil-buttons-right">
-                <app-button-icon imageUrl="/assets/Statistique.svg" buttonText="Statistique"></app-button-icon>
+                <app-button-icon (click)="navigateToStatistics()" imageUrl="/assets/Statistique.svg" buttonText="Statistique"></app-button-icon>
             </div>
         </div>
 
-        <!-- <app-button-icon imageUrl="/assets/Historique.svg" buttonText="Mon Bouton"></app-button-icon> -->
+        <div class="profil-infos">
+            <app-info-field [isEditMode]="isEditMode" title="Poste" content="Chef de projet urbanisme et environnement"></app-info-field>
+            <app-info-field [isEditMode]="isEditMode" title="Contact" content="pierre.roland@sqli.fr"></app-info-field>
+            <app-info-field [isEditMode]="isEditMode" title="Entreprise" content="SQLI"></app-info-field>
 
+            <app-button (toggleEdit)="toggleEditMode()" [buttonText]="isEditMode? 'Valider les modifications' : 'Modifier mon profil'" (onclick)="navigateToMatches()"></app-button>
+            
+        </div>
+
+        <!-- <button class="button" type="submit">se connecter</button> -->
+        
+        <!-- <app-button-icon imageUrl="/assets/Historique.svg" buttonText="Mon Bouton"></app-button-icon> -->
     </app-table>
 
 </div>

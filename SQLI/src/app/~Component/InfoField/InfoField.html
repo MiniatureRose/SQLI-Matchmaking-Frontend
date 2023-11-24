@@ -1,0 +1,13 @@
+<div class="app-info-field">
+    <div class="app-info-field-title">
+        {{ title }}
+    </div>
+    <ng-container *ngIf="isEditMode; else displayMode">
+        <input [(ngModel)]="content" (keydown.enter)="toggleEditMode()">
+    </ng-container>
+    <ng-template #displayMode>
+        <div class="app-info-field-content" (click)="toggleEditMode()">
+            {{ content }}
+        </div>
+    </ng-template>
+</div>

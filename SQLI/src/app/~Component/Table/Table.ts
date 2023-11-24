@@ -1,4 +1,5 @@
-import { Component, Input } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { SharedService } from "../SharedService/SharedService";
 
 @Component({
     selector : 'app-table',
@@ -7,6 +8,14 @@ import { Component, Input } from "@angular/core";
 })
 
 export class Table {
-    @Input() title : string = '';
+    constructor(private sharedService: SharedService) {
+        
+    }
 
+    @Input() title : string = '';
+    @Input() closeFunction!: () => void;
+
+    closeTable() {
+        this.sharedService.toggleProfileClicked(false);
+      }
 }
