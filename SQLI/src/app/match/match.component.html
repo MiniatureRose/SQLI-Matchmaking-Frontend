@@ -1,0 +1,25 @@
+<!-- src/app/match/match.component.html -->
+
+<div class="match">
+    <div class="match-component">
+        <img [src]="imageUrl"/>
+        <div>{{name}}</div>
+    </div>
+    
+    <div class="match-component">
+        <img src="/assets/{{sport}}.svg"/>
+        <div>{{sport}}</div>
+    </div>
+    <div class="match-component">
+        <img src="/assets/Calender.svg"/>
+        <div>{{date}}</div>
+    </div>
+
+    <div class="match-component" style="position: absolute; display: flex; right: 20px;">
+        <div [class.full]="isFull()" class="rectangle">
+            <div class="match-size">
+                {{nbPlayer}}/{{size}}
+            </div>
+        </div>
+    </div>
+</div>

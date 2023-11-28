@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './home/home.component';
 import { AuthentificationComponent } from './authentification/authentification.component';
 import { EventsComponent } from './events/events.component';
 import { SignupComponent } from './signup/signup.component';
 
 const routes: Routes = [
+  {path: 'Home', component : HomeComponent},
   {path: 'Authentification', component : AuthentificationComponent},
   {path: 'Events', component : EventsComponent},
   {path: 'signup', component : SignupComponent}

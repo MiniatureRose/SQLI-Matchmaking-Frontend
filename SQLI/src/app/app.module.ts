@@ -16,6 +16,8 @@ import { Table } from './~Component/Table/Table';
 import { Profil } from './~Component/Profil/Profil';
 import { Icon } from './~Component/Icon/Icon';
 import { ListButtons } from './~Component/ListButtons/ListButtons';
+import { MatchComponent } from './match/match.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { ListButtons } from './~Component/ListButtons/ListButtons';
     Profil,
     Table,
     Icon,
-    ListButtons
+    ListButtons,
+    MatchComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
