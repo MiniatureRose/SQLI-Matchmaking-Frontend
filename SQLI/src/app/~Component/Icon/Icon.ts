@@ -7,4 +7,7 @@ import { Component, Input } from '@angular/core';
 })
 export class Icon {
   @Input() imageUrl: string = '';
+  @Input() width: number=52;
+  @Input() color: string="#FFBB24"
+
 }

@@ -1,0 +1,17 @@
+.app-button-item {
+  width: 249px;
+  height: 41px;
+  flex-shrink: 0;
+
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  gap: 20px;
+  border-radius: 15px;
+  background: var(--White, #FAFAFA);
+  }
+  
+.app-button-item:hover {
+    background-color: #0056b3;
+  }
+  

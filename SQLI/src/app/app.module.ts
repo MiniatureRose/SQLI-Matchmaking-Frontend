@@ -18,6 +18,9 @@ import { Profil } from './~Component/Profil/Profil';
 import { Icon } from './~Component/Icon/Icon';
 import { ListButtons } from './~Component/ListButtons/ListButtons';
 import { InfoField } from './~Component/InfoField/InfoField';
+import { ButtonItemComponent } from './~Component/ButtonItem/ButtonItem';
+import { MatcheDetails } from './MatcheDetails/MatcheDetails';
+import { CerclePlanComponent } from './~Component/CerclePlan/CerclePlan';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,10 @@ import { InfoField } from './~Component/InfoField/InfoField';
     Table,
     Icon,
     ListButtons,
-    InfoField
+    InfoField,
+    ButtonItemComponent,
+    MatcheDetails,
+    CerclePlanComponent,
   ],
   imports: [
     BrowserModule,

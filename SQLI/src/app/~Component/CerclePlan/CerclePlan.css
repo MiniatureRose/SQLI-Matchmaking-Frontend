@@ -1,0 +1,33 @@
+.app-cercle-plan{
+    width: 500px;
+    height: 500px;
+    flex-shrink: 0;
+
+    /* border-radius: 500px; */
+    border: 5px solid var(--Secondary, #3062C8);
+    background: var(--secondary-light, rgba(48, 98, 200, 0.30));
+}
+
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center; 
+    justify-content: center; 
+    list-style-type: none;
+
+    margin: 10px;
+    gap: 10px;
+    padding: 0;
+
+    /* border: 2px solid red; */
+}
+
+.app-cercle-plan-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+    /* border: 2px solid red; */
+}

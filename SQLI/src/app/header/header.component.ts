@@ -38,7 +38,8 @@ export class HeaderComponent {
   navigateToEvent() {
     this.isPlusClicked = false;
     this.isProfileClicked = false;
-    this.router.navigate(['/Events']);
+    // this.router.navigate(['/Events']);
+    this.router.navigate(['/matche-details']);
   }
 
 }
