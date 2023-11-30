@@ -18,6 +18,8 @@ import { Profil } from './~Component/Profil/Profil';
 import { Icon } from './~Component/Icon/Icon';
 import { ListButtons } from './~Component/ListButtons/ListButtons';
 import { InfoField } from './~Component/InfoField/InfoField';
+import { MatchComponent } from './match/match.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { InfoField } from './~Component/InfoField/InfoField';
     Table,
     Icon,
     ListButtons,
+    MatchComponent,
+    HomeComponent,
     InfoField
   ],
   imports: [
