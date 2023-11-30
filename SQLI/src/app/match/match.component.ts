@@ -1,4 +1,5 @@
 import { Component, HostBinding, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-match',
@@ -14,13 +15,17 @@ export class MatchComponent {
   @Input() size: number = 0;
   @Input() nbPlayer: number = 0;
 
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit(): void {
   }
 
   isFull(): boolean {
     return this.size === this.nbPlayer;
+  }
+
+  toMatcheDetails() {
+    this.router.navigate(['/matche-details']);
   }
 
 
