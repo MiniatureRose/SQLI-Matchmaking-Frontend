@@ -1,0 +1,8 @@
+<button class="app-button-item" [style.width.px]="width">
+    <!-- <ng-content></ng-content> -->
+    <img *ngIf="imageUrl" [src]="imageUrl" alt="Image">
+    <div>
+        {{ buttonText }}
+    </div>
+</button>
+  

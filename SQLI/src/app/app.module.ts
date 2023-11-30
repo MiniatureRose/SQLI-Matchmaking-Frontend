@@ -20,6 +20,9 @@ import { ListButtons } from './~Component/ListButtons/ListButtons';
 import { InfoField } from './~Component/InfoField/InfoField';
 import { MatchComponent } from './match/match.component';
 import { HomeComponent } from './home/home.component';
+import { ButtonItemComponent } from './~Component/ButtonItem/ButtonItem';
+import { MatcheDetails } from './MatcheDetails/MatcheDetails';
+import { CerclePlanComponent } from './~Component/CerclePlan/CerclePlan';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,10 @@ import { HomeComponent } from './home/home.component';
     ListButtons,
     MatchComponent,
     HomeComponent,
-    InfoField
+    InfoField,
+    ButtonItemComponent,
+    MatcheDetails,
+    CerclePlanComponent,
   ],
   imports: [
     BrowserModule,
