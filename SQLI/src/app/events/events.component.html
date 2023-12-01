@@ -1,1 +1,15 @@
-<p>events works!</p>
+<div class="app-events">
+    <div class="app-events-title">
+        Tous les matchs
+    </div>
+    <div class="app-events-filtre">
+        <app-multi-choice-list title="Trier" imageUrl="/assets/Trier.svg"></app-multi-choice-list>
+        <app-multi-choice-list title="Filtrer" imageUrl="/assets/Filtrer.svg"></app-multi-choice-list>
+    </div>
+    <div class="upcoming-matches-container">
+        <app-match name = "Salim bekkari" imageUrl="/assets/Salim.svg" date="16/11/2023" sport="Foot" [size]="10" [nbPlayer]="6"></app-match>
+        <app-match name = "Salim bekkari" imageUrl="/assets/Salim.svg" date="16/11/2023" sport="Foot" [size]="10" [nbPlayer]="10"></app-match>
+        <app-match name = "Salim bekkari" imageUrl="/assets/Salim.svg" date="16/11/2023" sport="Foot" [size]="10" [nbPlayer]="6"></app-match>
+    </div>
+
+</div>

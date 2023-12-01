@@ -23,6 +23,7 @@ import { HomeComponent } from './home/home.component';
 import { ButtonItemComponent } from './~Component/ButtonItem/ButtonItem';
 import { MatcheDetails } from './MatcheDetails/MatcheDetails';
 import { CerclePlanComponent } from './~Component/CerclePlan/CerclePlan';
+import { multiChoiceList } from './~Component/multiChoiceList/multiChoiceList';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { CerclePlanComponent } from './~Component/CerclePlan/CerclePlan';
     ButtonItemComponent,
     MatcheDetails,
     CerclePlanComponent,
+    multiChoiceList,
   ],
   imports: [
     BrowserModule,
