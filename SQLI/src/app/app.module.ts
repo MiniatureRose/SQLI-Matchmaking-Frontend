@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AuthentificationComponent } from './authentification/authentification.component';
@@ -24,6 +25,8 @@ import { ButtonItemComponent } from './~Component/ButtonItem/ButtonItem';
 import { MatcheDetails } from './MatcheDetails/MatcheDetails';
 import { CerclePlanComponent } from './~Component/CerclePlan/CerclePlan';
 import { multiChoiceList } from './~Component/multiChoiceList/multiChoiceList';
+import { NewMatchComponent } from './new-match/new-match.component';
+
 
 @NgModule({
   declarations: [
@@ -46,8 +49,10 @@ import { multiChoiceList } from './~Component/multiChoiceList/multiChoiceList';
     MatcheDetails,
     CerclePlanComponent,
     multiChoiceList,
+    NewMatchComponent,
   ],
   imports: [
+    ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
     NgbModule,

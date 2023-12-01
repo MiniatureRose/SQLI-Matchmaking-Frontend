@@ -8,11 +8,13 @@ import { MatcheDetails } from './MatcheDetails/MatcheDetails';
 import { MatchesComponent } from './Matches/Matches';
 import { SignupComponent } from './signup/signup.component';
 import { Statistics } from './Statistics/Statistics';
+import { NewMatchComponent } from './new-match/new-match.component';
 
 const routes: Routes = [
   {path: 'Home', component : HomeComponent},
   {path: 'Authentification', component : AuthentificationComponent},
   {path: 'Events', component : EventsComponent},
+  {path: 'NewMatch', component : NewMatchComponent},
   {path: 'signup', component : SignupComponent},
   {path: 'matches', component : MatchesComponent},
   {path: 'history', component : History},

@@ -25,7 +25,6 @@ export class MatcheDetails {
     {color : "#3062C8", imageUrl : "/assets/Player7.svg"}, 
     {color : "#3062C8", imageUrl : "/assets/Player8.svg"}, 
     {color : "#3062C8", imageUrl : "/assets/Player9.svg"}, 
-    {color : "#3062C8", imageUrl : "/assets/Player10.svg"}, 
   ];
 
 
