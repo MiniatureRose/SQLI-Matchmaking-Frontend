@@ -26,6 +26,7 @@ import { MatcheDetails } from './MatcheDetails/MatcheDetails';
 import { CerclePlanComponent } from './~Component/CerclePlan/CerclePlan';
 import { NewMatchComponent } from './new-match/new-match.component';
 
+import { multiChoiceList } from './~Component/multiChoiceList/multiChoiceList';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { NewMatchComponent } from './new-match/new-match.component';
     MatcheDetails,
     CerclePlanComponent,
     NewMatchComponent,
+    multiChoiceList,
   ],
   imports: [
     ReactiveFormsModule,

@@ -40,5 +40,14 @@ export class HeaderComponent {
     this.isProfileClicked = false;
     this.router.navigate(['/Events']);
   }
+  
+  navigateToHome() {
+    this.isPlusClicked = false;
+    this.isProfileClicked = false;
+    this.router.navigate(['/Home']);
+  }
 
+  toNewMatch() {
+    this.router.navigate(['/new-match']);
+  }
 }

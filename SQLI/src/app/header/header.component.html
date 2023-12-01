@@ -1,6 +1,6 @@
 <nav>
   <div class="logo" >
-    <img src="/assets/Logo.svg" style="width: 62px; height: 42px;">
+    <img (click)="navigateToHome()" src="/assets/Logo.svg" style="width: 62px; height: 42px; cursor: pointer;">
     <div class="logo-title" >MatchMingle</div>
   </div> 
     <ul>
@@ -17,7 +17,7 @@
 
 <div *ngIf="isPlusClicked">
   <app-list-buttons>
-    <app-button-item imageUrl="/assets/Matche.svg" buttonText="Creer un match"/>
+    <app-button-item (click)="toNewMatch()" imageUrl="/assets/Matche.svg" buttonText="Creer un match"/>
     <app-button-item imageUrl="/assets/Terrain.svg" buttonText="Ajouter un terrain"/>
     <app-button-item imageUrl="/assets/Sport.svg" buttonText="Ajouter un sport"/>
   </app-list-buttons>
