@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AuthentificationComponent } from './authentification/authentification.component';
@@ -23,6 +24,8 @@ import { HomeComponent } from './home/home.component';
 import { ButtonItemComponent } from './~Component/ButtonItem/ButtonItem';
 import { MatcheDetails } from './MatcheDetails/MatcheDetails';
 import { CerclePlanComponent } from './~Component/CerclePlan/CerclePlan';
+import { NewMatchComponent } from './new-match/new-match.component';
+
 
 @NgModule({
   declarations: [
@@ -44,8 +47,10 @@ import { CerclePlanComponent } from './~Component/CerclePlan/CerclePlan';
     ButtonItemComponent,
     MatcheDetails,
     CerclePlanComponent,
+    NewMatchComponent,
   ],
   imports: [
+    ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
     NgbModule,

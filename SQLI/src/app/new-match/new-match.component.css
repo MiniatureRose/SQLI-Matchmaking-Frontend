@@ -1,0 +1,89 @@
+@keyframes floatAnimation {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.image-container {
+    width: auto;
+    height: auto; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.text {
+    color: blue;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 40px;
+    font-style: normal;
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.image-link {
+    margin: 30px;
+    text-decoration: none; 
+    position: relative;
+    overflow: hidden;
+}
+
+.image-link img {
+    width: 125px;
+    height: 125px;
+    flex-shrink: 0; 
+    border-radius: 10px;
+    background: #D9D9D9;
+    animation: none; /* Set the default state to no animation */
+}
+
+.image-link:hover img {
+    animation: floatAnimation 2s infinite; /* Apply animation on hover */
+}
+
+.input {
+    width: 433px;
+    height: 51px;
+    border-radius: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: large;
+    border: 2px solid var(--Gray, #E0E0E0);
+    background: var(--White, #FAFAFA);  
+}
+
+.inputDesc{
+    width: 433px;
+    height: 90px;
+    border-radius: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: large;
+    border: 2px solid var(--Gray, #E0E0E0);
+    background: var(--White, #FAFAFA);  
+}
+
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+button {
+    width: 226px;
+    height: 46px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: var(--Secondary, #3062C8);
+    font-size: 20px;
+    color: white;
+    margin-top: 30px; 
+}
