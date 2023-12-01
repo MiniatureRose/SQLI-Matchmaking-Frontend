@@ -1,9 +1,8 @@
 <form [formGroup]="matchForm" (ngSubmit)="onSubmit()">
     <div *ngIf="currentPage === 1" class="firstpage">
         <div class="text">
-            Choix du sport 
-        </div>  
-    
+            Choix du sport
+        </div>
         <div class="image-container">
             <a  class="image-link" (click)="choisirSport('Football')">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRW-je7JATaE2RceERCvhDyI2Slg_S8h6Xwzg&usqp=CAU" alt="Football">
@@ -19,38 +18,56 @@
             </a>
         </div>
     </div>
-    <div  *ngIf="currentPage === 2" class="SecondPage">
-        <div class="text">
-            Date de l'événement
-          </div>
-          <div class="container">
-            <input class="input" type="datetime-local" formControlName="dateDebut" />
-        </div>
-        <div class="text">
-            Nombre de joueurs
-        </div>
+
+    <div *ngIf="currentPage === 2" class="SecondPage">
         <div class="container">
-            <input class="input" type="text" formControlName="nbplayers" />
-        </div>
-        <div class="text">
-            Nombre de remplaçants
-        </div>
-        <div class="container">
-            <input class="input" type="text" formControlName="nbsubstituts" />
-        </div>
-        <div class="text">
-            Description
-          </div>
-          <div class="container">
-            <textarea class="inputDesc" formControlName="description"></textarea>
-          </div>
-        <div class="container">
-            <button class="button" type="submit" (click)="previousPage()" >
-                Précedent
-            </button>
-            <button class="button" type="submit" (click)="onSubmit()" >
-                Valider
-            </button>
+            <div class="form-row">
+                <div class="input-data">
+                    <input type="datetime-local" formControlName="dateDebut">
+                    <div class="underline"></div>
+                    <label for="dateDebut">Date de l'événement</label>
+                </div>
+                <div class="input-data">
+                    <input type="text" formControlName="location">
+                    <div class="underline"></div>
+                    <label for="location">Adresse de l'événement</label>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="input-data">
+                    <input type="text" formControlName="nbplayers">
+                    <div class="underline"></div>
+                    <label for="nbplayers">Nombre de joueurs</label>
+                </div>
+                <div class="input-data">
+                    <input type="text" formControlName="nbsubstituts">
+                    <div class="underline"></div>
+                    <label for="nbsubstituts">Nombre de remplaçants</label>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="input-data textarea">
+                    <textarea rows="8" cols="80" formControlName="description"></textarea>
+                    <br />
+                    <div class="underline"></div>
+                    <label for="description">Description</label>
+                </div>
+            </div>
+            <div class="form-row submit-btn">
+                <div class="input-data">
+                    <div class="inner"></div>
+                    <button class="button" type="button" (click)="previousPage()">
+                        Précédent
+                    </button>
+                    <button class="button" type="submit">
+                        Valider
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </form>
+
+
+
+

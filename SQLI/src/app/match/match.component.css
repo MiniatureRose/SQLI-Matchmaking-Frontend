@@ -1,19 +1,20 @@
 .match {
     display: flex;
     align-items: center;
+    justify-content: space-between; /* Distribute elements along the main axis */
     position: relative;
-    gap: 90px;
-    width: 99%;
     height: 4.0625rem;
     flex-shrink: 0;
     background: #FFF;
-
     cursor: pointer;
+    border: 2px solid #000; /* Add a black border */
+    border-radius: 10px; /* Add rounded corners */
 }
 
 .match-component {
     display: flex;
     align-items: center;
+    margin: 10px;
     gap: 10px;
 }
 
@@ -35,9 +36,27 @@
 .match-size {
     color: var(--Secondary, #3062C8);
     text-align: center;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
     font-size: 1.5625rem;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
 }
+
+/* Media Query for screens smaller than 768px */
+@media only screen and (max-width: 768px) {
+    .match {
+        flex-direction: row; /* Display components horizontally */
+        flex-wrap: wrap; /* Allow components to wrap onto the next line */
+        justify-content: center; /* Center components if there's only one in a line */
+        align-items: center; /* Align components to the center */
+        gap: 20px; /* Adjust the gap between components */
+        height: auto; /* Allow the height to adjust based on content */
+    }
+
+    .match-component {
+        flex-direction: column; /* Stack text and image vertically */
+        align-items: flex-start; /* Align components to the start */
+    }
+}
+

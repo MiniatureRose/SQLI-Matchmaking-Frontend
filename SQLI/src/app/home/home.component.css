@@ -1,35 +1,52 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap");
 
 .home {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 40px;
     position: relative;
-    margin: 3.56rem;
 }
-
-
 
 .title {
     color: #000;
     margin-left: 2%;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
     font-size: 2.1875rem;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
 }
 
-
 .upcoming-matches-container {
     position: relative;
     margin: 1%;
-    width: 80%;
-    padding: 0.5%;
-    min-width: 500px;
+    width: 60%;
+    padding: 0.5%; /* Use percentage-based padding for adaptability */
     display: flex;
     flex-direction: column;
     gap: 10px;
     flex-shrink: 0;
     border-radius: 0.9375rem;
-    border: 1.5px solid var(--Secondary, #3062C8);
+    border: 2px solid var(--Secondary, #3062C8);
     background: var(--White, #FAFAFA);
 }
 
+
+/* Media Query for screens smaller than 768px */
+@media only screen and (max-width: 768px) {
+    .home {
+        margin: 1.5rem;
+    }
+
+    .title {
+        font-size: 1.875rem;
+    }
+
+    .upcoming-matches-container {
+        width: 100%;
+        min-width: auto;
+    }
+}
