@@ -48,6 +48,6 @@ export class HeaderComponent {
   }
 
   toNewMatch() {
-    this.router.navigate(['/new-match']);
+    this.router.navigate(['/NewMatch']);
   }
 }

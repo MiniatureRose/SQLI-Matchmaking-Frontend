@@ -20,7 +20,6 @@ const routes: Routes = [
   {path: 'history', component : History},
   {path: 'statistics', component : Statistics},
   {path: 'matche-details', component : MatcheDetails},
-  {path: 'new-match', component : EventsComponent},
 
 ];
 
