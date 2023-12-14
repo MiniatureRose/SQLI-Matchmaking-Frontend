@@ -11,58 +11,83 @@
 <body>
 
     <div class="container0">
-        <div class="imgBackround">
-            <img src="assets/stade.png" class="stade">
-        </div>
-
-        <div class="container1">
-            <p class="first">MatchMingle</p>
-
-            <p class="second">Unissant les joueurs, créant des <br> moments, un match à la fois</p>
-
-            <form (ngSubmit)="onSubmit()">
-                <div class="input">
-                    <label for="input1" class="left-aligned-label">Nom</label><br>
-                    <input type="text" id="input1" [(ngModel)]="Nom" name="input1" />
-                    <br>
-
-                    <label for="input1" class="left-aligned-label">Prenom</label><br>
-                    <input type="text" id="input1" [(ngModel)]="Prenom" name="input1" />
-                    <br>
-
-                    <label for="input1" class="left-aligned-label">Numéro de telephone</label><br>
-                    <input type="text" id="input1" [(ngModel)]="Phone" name="input2" />
-                    <br>
-
-                    <label for="input1" class="left-aligned-label">E-mail</label><br>
-                    <input type="text" id="input1" [(ngModel)]="Email" name="input3" />
-                    <br>
-
-                    <label for="input2" class="left-aligned-label">Mot de passe</label><br>
-                    <div class="input2">
-                        <input [type]="isPasswordVisible ? 'text':'password'" id="input2" [(ngModel)]="Password" name="input2" placeholder="Password">
-                        <i class="initial-eye fas" [ngClass]="isPasswordVisible ? 'fa-eye':'fa-eye-slash'" (click)="togglePasswordVisibility()"></i>
-                    </div>
-                    <br>
+      <div class="imgBackround">
+        <img src="assets/stade.png" class="stade">
+      </div>
+  
+      <div class="container1">
+        <p class="first">MatchMingle</p>
+  
+        <p class="second">Unissant les joueurs, créant des <br> moments, un match à la fois</p>
+  
+        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+  
+          <div class="input">
+            <label for="nom" class="left-aligned-label">Nom</label><br>
+            <input type="text" id="lastname" formControlName="lastname" />
+            <br>
+  
+            <label for="prenom" class="left-aligned-label">Prénom</label><br>
+            <input type="text" id="firstname" formControlName="firstname" />
+            <br>
+  
+            <label for="phone" class="left-aligned-label">Numéro de téléphone</label>
+            <input type="text" id="phone" formControlName="phone" />
+            <div class="error" *ngIf="signupForm.get('phone')?.invalid && signupForm.get('phone')?.touched">
+                <div *ngIf="signupForm.get('phone')?.hasError('required')">
+                  <span >Le numéro de téléphone est requis.</span>
                 </div>
-
-                <div class="remember-forgot">
-                    <div class="remember">
-                        <label for="rememberMe">Se souvenir de moi</label>
-                        <input type="checkbox" id="rememberMe" name="rememberMe">
-                    </div>
-                    <a href="#">Mot de passe oublié</a>
+                <div *ngIf="signupForm.get('phone')?.hasError('pattern')">
+                  <span >Numéro de téléphone invalide. Veuillez entrer un numéro valide.</span>
                 </div>
-
-                <button class="button" type="submit">Créer un compte</button>
-
-                <div class="create">
-                    <a href="\Authentification" class="create-account">Se connecter</a>
+              </div>
+              
+            
+  
+              <label for="email" class="left-aligned-label">Email</label>
+              <input type="email" id="email" formControlName="email" />
+              <div class="error" *ngIf="emailexists">
+                <span>Cet email existe déjà. Veuillez choisir un autre email.</span>
+              </div>
+              <div class="error" *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched"  >
+                <div *ngIf="signupForm.get('email')?.hasError('required')">
+                  <span>Le champ Email est requis.</span>
                 </div>
-            </form>
-
-        </div>
+                <div *ngIf="signupForm.get('email')?.hasError('pattern')">
+                  <span>Email invalide. Veuillez entrer une adresse e-mail valide.</span>
+                </div>
+              </div>
+              
+  
+            <label for="password" class="left-aligned-label">Mot de passe</label><br>
+            <div class="input2">
+              <input [type]="isPasswordVisible ? 'text':'password'" formControlName="password" placeholder="password">
+              <i class="initial-eye fas" [ngClass]="isPasswordVisible ? 'fa-eye':'fa-eye-slash'" (click)="togglePasswordVisibility()"></i>
+            </div>
+            <br>
+          </div>
+  
+          <div class="remember-forgot">
+            <div class="remember">
+              <label for="rememberMe">Se souvenir de moi</label>
+              <input type="checkbox" id="rememberMe" name="rememberMe">
+            </div>
+            <a href="#">Mot de passe oublié</a>
+          </div>
+  
+          <button class="button" type="submit" [disabled]="signupForm.invalid" [ngStyle]="{'background-color': signupForm.invalid ? 'gray' : 'blue'}">
+            Créer un compte
+          </button>
+          
+  
+          <div class="create">
+            <a href="\Authentification" class="create-account">Se connecter</a>
+          </div>
+        </form>
+  
+      </div>
     </div>
-</body>
-
-</html>
+  </body>
+  
+  </html>
+  

@@ -1,0 +1,53 @@
+.container {
+    width: 813px;
+    height: 244px;
+    flex-shrink: 0; 
+    fill: #FFF; 
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: center;
+}
+
+.Title {
+    width: 813px;
+    height: 110px;
+    background: #3062C8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.titre {
+    color: #FFF;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 40px;
+    font-style: normal;
+}
+
+.button {
+    width: 302px;
+    height: 46px;
+    flex-shrink: 0; 
+    border-radius: 10px;
+    background: var(--Secondary, #3062C8); 
+    display: flex;
+    align-items: center;  
+    justify-content: center;
+    margin: auto;
+}
+
+.button_texte {
+    color: #FFF;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 10px; 
+}
+
+.overlay {
+    pointer-events: none;
+}
+  
+  

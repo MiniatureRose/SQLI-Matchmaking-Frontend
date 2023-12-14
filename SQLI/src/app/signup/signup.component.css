@@ -58,6 +58,13 @@ label {
     margin-bottom: 20px; /* Add margin-bottom for spacing */
 }
 
+.error {
+    color:red;
+    font-size: medium;
+    margin-top: -10px;
+    margin-bottom: 10px;
+
+}
 .input2 {
     position: relative;
     margin-bottom: -20px;
