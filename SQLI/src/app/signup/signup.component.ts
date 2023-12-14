@@ -14,6 +14,7 @@ export class SignupComponent {
   Phone: String = '';
   Email: String = '';
   Password: String = '';
+  role: String = '';
 
   constructor(private http: HttpClient, private router:Router) {
   }
@@ -23,9 +24,16 @@ export class SignupComponent {
   }
 
   onSubmit() {
-    const apiUrl = 'http://localhost:8080/auth/signup';
+    const apiUrl = 'http://localhost:8081/create/user';
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const data={'firstname': this.Prenom, 'lastname': this.Nom,'email': this.Email,'phone' : this.Phone, 'password': this.Password};
+    const data = {
+      'firstName': this.Prenom, 
+      'lastName': this.Nom,
+      'email': this.Email,
+      'phone': this.Phone, 
+      'password': this.Password,
+      'role': this.role
+    };
     console.log(data);
     
     this.http.post(apiUrl, data, { headers }).subscribe(

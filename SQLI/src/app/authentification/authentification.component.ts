@@ -32,7 +32,7 @@ export class AuthentificationComponent{
   }
 
   onSubmit() {
-    const apiUrl = 'http://localhost:8080/auth/signin';
+    const apiUrl = 'http://localhost:8081/auth/signin';
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const data={'email': this.email, 'password': this.password};
     console.log(data);
@@ -41,7 +41,7 @@ export class AuthentificationComponent{
       (response) => {
         // console.log('Réponse du serveur :', response);
         if (response && response.message === 'User signed in successfully!') {
-          this.router.navigate(['/']); // Redirection vers la page home
+          this.router.navigate(['/Home']); // Redirection vers la page home
         }
       },
       
