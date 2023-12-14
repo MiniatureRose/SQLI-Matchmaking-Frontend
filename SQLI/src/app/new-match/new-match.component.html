@@ -3,29 +3,29 @@
     <div class="form-group">
         <label for="sport">Sport</label>
         <select id="sport" formControlName="sport">
-            <option value="">Select a Sport</option>
+            <option value="">Sélectionnez un sport</option>
             <option *ngFor="let sport of sports" [value]="sport">{{ sport }}</option>
         </select>
     </div>
 
         <div class="form-group">
-            <label for="dateDebut">Start Date</label>
-            <input type="date" id="dateDebut" formControlName="dateDebut">
+            <label for="dateDebut">Date de début</label>
+            <input type="datetime-local" id="dateDebut" formControlName="dateDebut">
         </div>
 
         <div class="form-group">
-            <label for="nbplayers">Number of Players</label>
+            <label for="nbplayers">Nombre de Joueurs</label>
             <input type="number" id="nbplayers" formControlName="nbplayers">
         </div>
 
         <div class="form-group">
-            <label for="nbsubstituts">Number of Substitutes</label>
+            <label for="nbsubstituts">Nombre de Remplaçants</label>
             <input type="number" id="nbsubstituts" formControlName="nbsubstituts">
         </div>
 
         <div class="form-group">
-            <label for="address">Address</label>
-            <input type="text" id="address" formControlName="address" placeholder="Enter address">
+            <label for="address">Adresse</label>
+            <input type="text" id="address" formControlName="address" placeholder="Entrez une adresse">
         </div>
 
 
@@ -35,7 +35,7 @@
         </div>
 
         <div class="form-navigation">
-            <button type="submit">Submit</button>
+            <button type="submit">Valider</button>
         </div>
     </form>
 </div>
