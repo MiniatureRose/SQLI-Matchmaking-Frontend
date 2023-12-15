@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 //TMP
 interface ApiResponse {
   message: string;
+  userId: string;
   // autres propriétés correspondantes dans la réponse
 }
 
@@ -41,6 +42,7 @@ export class AuthentificationComponent{
       (response) => {
         // console.log('Réponse du serveur :', response);
         if (response && response.message === 'User signed in successfully!') {
+          localStorage.setItem('userId', response.userId);  // or sessionStorage.setItem(...)
           this.router.navigate(['/Home']); // Redirection vers la page home
         }
       },

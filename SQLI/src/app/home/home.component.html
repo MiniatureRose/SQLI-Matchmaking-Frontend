@@ -1,19 +1,17 @@
+<!-- home.component.html -->
 <div class="home">
-    <div class="title">
-        Mes prochains matchs
-    </div>
+    <div class="title">Mes prochains matchs</div>
     <div class="upcoming-matches-container">
-        <app-match [idMatch]="1" name = "Salim bekkari" imageUrl="/assets/Salim.svg" date="16/11/2023" sport="Foot" [size]="10" [nbPlayer]="6"></app-match>
-        <app-match [idMatch]="2" name = "Salim bekkari" imageUrl="/assets/Salim.svg" date="16/11/2023" sport="Foot" [size]="10" [nbPlayer]="10"></app-match>
-        <app-match [idMatch]="3" name = "Salim bekkari" imageUrl="/assets/Salim.svg" date="16/11/2023" sport="Foot" [size]="10" [nbPlayer]="6"></app-match>
+        <app-match *ngFor="let match of myMatches" [name]="match.organizerName" [imageUrl]="match.organizerImageUrl"
+            [date]="match.date" [sport]="match.sport" [size]="match.size" [nbPlayer]="match.nbPlayer">
+        </app-match>
     </div>
 
-    <div class="title">
-        Suggestions
-    </div>
+    <div class="title">Suggestions</div>
     <div class="upcoming-matches-container">
-        <app-match [idMatch]="4" name = "Salim bekkari" imageUrl="/assets/Salim.svg" date="16/11/2023" sport="Foot" [size]="10" [nbPlayer]="6"></app-match>
-        <app-match [idMatch]="5" name = "Salim bekkari" imageUrl="/assets/Salim.svg" date="16/11/2023" sport="Foot" [size]="10" [nbPlayer]="6"></app-match>
-        <app-match [idMatch]="6" name = "Salim bekkari" imageUrl="/assets/Salim.svg" date="16/11/2023" sport="Foot" [size]="10" [nbPlayer]="6"></app-match>
+        <app-match *ngFor="let match of suggestedMatches" [name]="match.organizerName"
+            [imageUrl]="match.organizerImageUrl" [date]="match.date" [sport]="match.sport" [size]="match.size"
+            [nbPlayer]="match.nbPlayer">
+        </app-match>
     </div>
 </div>
