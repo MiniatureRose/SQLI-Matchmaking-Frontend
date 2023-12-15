@@ -2,16 +2,17 @@
 <div class="home">
     <div class="title">Mes prochains matchs</div>
     <div class="upcoming-matches-container">
-        <app-match *ngFor="let match of myMatches" [name]="match.organizerName" [imageUrl]="match.organizerImageUrl"
-            [date]="match.date" [sport]="match.sport" [size]="match.size" [nbPlayer]="match.nbPlayer">
+        <app-match *ngFor="let match of myMatches" [name]="match.organizerName" [imageUrl]="match.profileImageUrl" 
+            [date]="match.matchDate | date:'short'" [sport]="match.sportName" [size]="match.capacity"
+            [nbPlayer]="match.registeredPlayers">
         </app-match>
     </div>
 
     <div class="title">Suggestions</div>
     <div class="upcoming-matches-container">
         <app-match *ngFor="let match of suggestedMatches" [name]="match.organizerName"
-            [imageUrl]="match.organizerImageUrl" [date]="match.date" [sport]="match.sport" [size]="match.size"
-            [nbPlayer]="match.nbPlayer">
+            [imageUrl]="match.profileImageUrl" [date]="match.matchDate | date:'short'" [sport]="match.sportName"
+            [size]="match.capacity" [nbPlayer]="match.registeredPlayers">
         </app-match>
     </div>
 </div>

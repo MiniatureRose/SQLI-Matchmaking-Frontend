@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatchService } from '../services/match.service';
+import { MatchService } from '../services/match.service'; // Update this path according to your project structure
 
 @Component({
   selector: 'app-home',
@@ -21,15 +21,24 @@ export class HomeComponent implements OnInit {
 
   private loadMatches(userId: string) {
     this.matchService.getMyMatches(userId).subscribe(matches => {
-      this.myMatches = matches;
+      this.myMatches = this.processMatchData(matches);
     });
-    
 
     this.matchService.getSuggestedMatches(userId).subscribe(matches => {
-      this.suggestedMatches = matches;
+      this.suggestedMatches = this.processMatchData(matches);
     });
+  }
 
-    console.log(this.myMatches);
-    console.log(this.suggestedMatches);
+  private processMatchData(matches: any[]): any[] {
+    return matches.map(match => ({
+        ...match,
+        organizerName: match.organizer?.firstName + ' ' + match.organizer?.lastName,
+        profileImageUrl: match.organizer?.profileImage || 'assets/Salim.svg', // Default image if null
+        capacity: match.noPlayers,
+        sportName: match.sport?.name,
+        matchDate: match.date,
+        matchDuration: match.duration,
+        registeredPlayers: match.noPlayers
+    }));
   }
 }

@@ -10,11 +10,11 @@ import { SharedService } from '../~Component/SharedService/SharedService';
 export class MatchComponent {
 
   @Input() idMatch: number = 0;
-  @Input() name: string = '';
-  @Input() imageUrl: string = '';
-  @Input() date: string = '';
-  @Input() sport: string = '';
-  @Input() size: number = 0;
+  @Input() name: string | null = '';
+  @Input() imageUrl: string | null = '';
+  @Input() date: string | null = '';
+  @Input() sport: string | null = '';
+  @Input() size: number  = 0;
   @Input() nbPlayer: number = 0;
 
   constructor(private router:Router, private sharedservice:SharedService) { }
