@@ -32,7 +32,7 @@ export class SignupComponent {
       'email': this.Email,
       'phone': this.Phone, 
       'password': this.Password,
-      'role': this.role
+      'role': 'none'
     };
     console.log(data);
     

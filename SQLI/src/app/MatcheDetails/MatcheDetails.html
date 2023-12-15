@@ -1,3 +1,4 @@
+
 <div class="app-matche-details">
     <div class="app-matche-details-title">
         <app-icon [width]="100" [imageUrl]="matchInfos.imageUrl"></app-icon>
@@ -15,7 +16,7 @@
             </app-cercle-plan>
             <div *ngIf="playersNumber <= playersInfo.length" class="app-matche-details-buttons">
                 <app-button-item imageUrl="/assets/ChoixManuel.svg" buttonText="Choix manuel"/>
-                <app-button-item (click)="aletoireChice()" imageUrl="/assets/ChoixAleatoire.svg" buttonText="Choix aléatoire"/>
+                <app-button-item (click)="aletoireChoice()" imageUrl="/assets/ChoixAleatoire.svg" buttonText="Choix aléatoire"/>
                 <app-button-item imageUrl="/assets/ChoixAutomatique.svg" buttonText="Choix automatique"/>
             </div>
         </div>

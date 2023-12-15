@@ -1,5 +1,6 @@
 import { Component, HostBinding, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { SharedService } from '../~Component/SharedService/SharedService';
 
 @Component({
   selector: 'app-match',
@@ -8,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class MatchComponent {
 
+  @Input() idMatch: number = 0;
   @Input() name: string = '';
   @Input() imageUrl: string = '';
   @Input() date: string = '';
@@ -15,7 +17,7 @@ export class MatchComponent {
   @Input() size: number = 0;
   @Input() nbPlayer: number = 0;
 
-  constructor(private router:Router) { }
+  constructor(private router:Router, private sharedservice:SharedService) { }
 
   ngOnInit(): void {
   }
@@ -25,6 +27,7 @@ export class MatchComponent {
   }
 
   toMatcheDetails() {
+    this.sharedservice.toggleMatchClicked(this.idMatch); //TMP
     this.router.navigate(['/matche-details']);
   }
 
