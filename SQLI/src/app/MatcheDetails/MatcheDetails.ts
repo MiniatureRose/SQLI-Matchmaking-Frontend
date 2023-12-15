@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
 import { SharedService } from '../~Component/SharedService/SharedService';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-matche-details',
@@ -41,6 +42,8 @@ export class MatcheDetails {
 
   constructor(private sharedservice:SharedService, private http: HttpClient) { }
   ngOnInit(){
+
+    
     this.sharedservice.idMatch$.subscribe(value=>{
       this.idMatch=value;
       console.log(value);
@@ -59,20 +62,6 @@ export class MatcheDetails {
           console.error('Erreur lors de la requête POST :', error);
         }
       );
-      ///////
-
-
-
-      // this.playersInfo = [{profileImage : "/assets/Player1.svg"}, 
-      // {profileImage : "/assets/Player7.svg"}, 
-      // {profileImage : "/assets/Player7.svg"}, 
-      // {profileImage : "/assets/Player7.svg"}, 
-      // {profileImage : "/assets/Player7.svg"}, 
-      // {profileImage : "/assets/Player7.svg"}, 
-      // {profileImage : "/assets/Player7.svg"}, 
-      // {profileImage : "/assets/Player7.svg"}, 
-      // {profileImage : "/assets/Player7.svg"}, 
-      // {profileImage : "/assets/Player2.svg"}]
     })
 
     // if(this.playersInfo.length>1) {
@@ -104,25 +93,41 @@ export class MatcheDetails {
 
   registerMatch() {
     const apiUrl = 'http://localhost:8081/create/matchuser';
-      const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  
+    const userId = localStorage.getItem('userId'); // Retrieve user ID from storage
+  
+    const data = {
+      "user_id": userId,
+      "match_id": this.idMatch
+    };
+  
+    this.http.post(apiUrl, data, { headers }).pipe(
+      switchMap((response) => {
+        console.log('Réponse du serveur POST :', response);
+        const apiUrl2 = `http://localhost:8081/data/match/${this.idMatch}/users`;
+        return this.http.get<any>(apiUrl2, { headers });
+      })
+    ).subscribe(
+      (response) => {
+        this.playersInfo = response;
+        console.log('Réponse du serveur GET :', response);
+      },
+      (error) => {
+        console.error('Erreur lors de la requête POST :', error);
+      }
+    );
+    
+  }
+  Leave() {
+    
+  }
 
-      const userId = localStorage.getItem('userId'); // Retrieve user ID from storage
+  checkIfIdExists(): boolean {
+    const userId = localStorage.getItem('userId'); // Retrieve user ID from storage
 
-      const data = {
-        "user_id": userId,
-        "match_id": this.idMatch
-      };
-      this.http.post(apiUrl, data, { headers }).subscribe(
-        (response) => {
-          console.log('Réponse du serveur :', response);
-        },
-        (error) => {
-          console.error('Erreur lors de la requête POST :', error);
-        }
-      );
-
-
-      // update users list 
+    // Vérifier si l'idToCheck existe dans au moins un élément de playersInfo
+    return this.playersInfo.some(player => player.id === Number(userId));
   }
 
 }
