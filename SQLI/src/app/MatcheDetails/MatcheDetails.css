@@ -3,7 +3,12 @@
     align-items: center;
     gap: 50px;
     margin-top: 30px;
+}
 
+.app-matche-details-description{
+    display: flex;
+    margin-top: 15px;
+    gap : 50px;
 }
 
 .app-matche-details-title-type{
