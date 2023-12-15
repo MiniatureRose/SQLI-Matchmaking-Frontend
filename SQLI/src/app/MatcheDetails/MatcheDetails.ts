@@ -13,21 +13,30 @@ export class MatcheDetails {
   matchInfos : {type : string; imageUrl:string} = {type : "foot", imageUrl: "/assets/Matches.svg"}
   complete : boolean = false;
 
-  firstTeam : { color: string; imageUrl: string; }[] = [ ] ;
-  secondTeam : { color: string; imageUrl: string; }[] = [ ] ;
+  firstTeam : { profileImage: string; }[] = [ ] ;
+  secondTeam : { profileImage: string; }[] = [ ] ;
   playersInfo : {
-    color: string;
-    imageUrl: string;
+    // color: string;
+    id: number;
+
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string,
+    phone: string,
+    profileImage: string;
+    role: string
+
   }[] = [ 
-    {color : "#3062C8", imageUrl : "/assets/Player1.svg"}, 
-    {color : "#3062C8", imageUrl : "/assets/Player2.svg"}, 
-    {color : "#3062C8", imageUrl : "/assets/Player3.svg"}, 
-    {color : "#3062C8", imageUrl : "/assets/Player4.svg"}, 
-    {color : "#3062C8", imageUrl : "/assets/Player5.svg"}, 
-    {color : "#3062C8", imageUrl : "/assets/Player6.svg"}, 
-    {color : "#3062C8", imageUrl : "/assets/Player7.svg"}, 
-    {color : "#3062C8", imageUrl : "/assets/Player8.svg"}, 
-    {color : "#3062C8", imageUrl : "/assets/Player9.svg"}, 
+    // {profileImage : "/assets/Player1.svg"}, 
+    // {color : "#3062C8", profileImage : "/assets/Player2.svg"}, 
+    // {color : "#3062C8", profileImage : "/assets/Player3.svg"}, 
+    // {color : "#3062C8", profileImage : "/assets/Player4.svg"}, 
+    // {color : "#3062C8", profileImage : "/assets/Player5.svg"}, 
+    // {color : "#3062C8", profileImage : "/assets/Player6.svg"}, 
+    // {color : "#3062C8", profileImage : "/assets/Player7.svg"}, 
+    // {color : "#3062C8", profileImage : "/assets/Player8.svg"}, 
+    // {color : "#3062C8", profileImage : "/assets/Player9.svg"}, 
   ];
 
   constructor(private sharedservice:SharedService, private http: HttpClient) { }
@@ -35,12 +44,15 @@ export class MatcheDetails {
     this.sharedservice.idMatch$.subscribe(value=>{
       this.idMatch=value;
       console.log(value);
-
+      
       ///////
-      const apiUrl = 'http://localhost:8081/create/user';
+      const apiUrl = `http://localhost:8081/data/match/${this.idMatch}/users`;
       const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-      this.http.get(apiUrl, { headers }).subscribe(
+      
+
+      this.http.get<any>(apiUrl, { headers }).subscribe(
         (response) => {
+          this.playersInfo = response;
           console.log('Réponse du serveur :', response);
         },
         (error) => {
@@ -51,16 +63,16 @@ export class MatcheDetails {
 
 
 
-      this.playersInfo = [{color : "#3062C8", imageUrl : "/assets/Player1.svg"}, 
-      {color : "#3062C8", imageUrl : "/assets/Player7.svg"}, 
-      {color : "#3062C8", imageUrl : "/assets/Player7.svg"}, 
-      {color : "#3062C8", imageUrl : "/assets/Player7.svg"}, 
-      {color : "#3062C8", imageUrl : "/assets/Player7.svg"}, 
-      {color : "#3062C8", imageUrl : "/assets/Player7.svg"}, 
-      {color : "#3062C8", imageUrl : "/assets/Player7.svg"}, 
-      // {color : "#3062C8", imageUrl : "/assets/Player7.svg"}, 
-      {color : "#3062C8", imageUrl : "/assets/Player7.svg"}, 
-      {color : "#3062C8", imageUrl : "/assets/Player2.svg"}]
+      // this.playersInfo = [{profileImage : "/assets/Player1.svg"}, 
+      // {profileImage : "/assets/Player7.svg"}, 
+      // {profileImage : "/assets/Player7.svg"}, 
+      // {profileImage : "/assets/Player7.svg"}, 
+      // {profileImage : "/assets/Player7.svg"}, 
+      // {profileImage : "/assets/Player7.svg"}, 
+      // {profileImage : "/assets/Player7.svg"}, 
+      // {profileImage : "/assets/Player7.svg"}, 
+      // {profileImage : "/assets/Player7.svg"}, 
+      // {profileImage : "/assets/Player2.svg"}]
     })
 
     // if(this.playersInfo.length>1) {
@@ -94,10 +106,10 @@ export class MatcheDetails {
     const apiUrl = 'http://localhost:8081/create/matchuser';
       const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-      // const userId = localStorage.getItem('userId'); // Retrieve user ID from storage
+      const userId = localStorage.getItem('userId'); // Retrieve user ID from storage
 
       const data = {
-        "user_id": 3,
+        "user_id": userId,
         "match_id": this.idMatch
       };
       this.http.post(apiUrl, data, { headers }).subscribe(

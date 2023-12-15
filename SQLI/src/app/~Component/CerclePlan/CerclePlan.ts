@@ -8,8 +8,8 @@ import { Component, Input } from '@angular/core';
 export class CerclePlanComponent {
   @Input() playersNumber : number = 10;
   @Input() playersInfo : {
-    color: string;
-    imageUrl: string;
+    // color: string;
+    profileImage: string;
   }[] = [ 
   ];
 }
