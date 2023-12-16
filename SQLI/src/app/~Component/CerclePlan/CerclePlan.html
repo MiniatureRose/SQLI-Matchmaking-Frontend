@@ -1,8 +1,9 @@
 <div class="app-cercle-plan">
     <ul class="flex-container">
         <li *ngFor="let player of playersInfo"> 
-            <app-icon *ngIf="player.profileImage != null" [width]="93" color="#3062C8" [imageUrl]="player.profileImage"></app-icon> 
-            <div *ngIf="player.profileImage == null" >{{player.name}}</div> 
+            <app-icon [width]="93" color="#3062C8" [imageUrl]="player.profileImage" [text]="obtenirInitiales(player)"></app-icon> 
+            <!-- <app-icon *ngIf="player.profileImage == null" [width]="93" color="#3062C8" [imageUrl]="player.profileImage"></app-icon>  -->
+            <!-- <div *ngIf="player.profileImage == null && player.firstName" >{{player.firstName}}</div>  -->
             <!-- <app-icon *ngIf="player.profileImage == null" [width]="93" color="#3062C8" [imageUrl]="player.profileImage"></app-icon>  -->
             
         </li>

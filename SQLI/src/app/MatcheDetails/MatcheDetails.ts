@@ -14,12 +14,25 @@ export class MatcheDetails {
   matchInfos : {type : string; imageUrl:string} = {type : "foot", imageUrl: "/assets/Matches.svg"}
   complete : boolean = false;
 
-  firstTeam : { profileImage: string; }[] = [ ] ;
-  secondTeam : { profileImage: string; }[] = [ ] ;
+  firstTeam : {     id: number;
+                    firstName: string,
+                    lastName: string,
+                    email: string,
+                    password: string,
+                    phone: string,
+                    profileImage: string;
+                    role: string }[] = [ ] ;
+  secondTeam : {    id: number;
+                    firstName: string,
+                    lastName: string,
+                    email: string,
+                    password: string,
+                    phone: string,
+                    profileImage: string;
+                    role: string }[] = [ ] ;
   playersInfo : {
     // color: string;
     id: number;
-
     firstName: string,
     lastName: string,
     email: string,
