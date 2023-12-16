@@ -21,8 +21,9 @@
                     <app-icon imageUrl="/assets/Valider.svg" [width]="70"></app-icon>
                 </div>
                 <div *ngIf="playersNumber > playersInfo.length">
+                    <!-- <app-button  (click)="registerMatch()" buttonText="participer"/> -->
                     <app-button *ngIf="!checkIfIdExists()" (click)="registerMatch()" buttonText="participer"/>
-                    <app-button *ngIf="checkIfIdExists()" (click)="registerMatch()" buttonText="Abondonner"/>
+                    <app-button *ngIf="checkIfIdExists()" (click)="Leave()" buttonText="Abondonner"/>
                 </div>
             </app-cercle-plan>
             <div *ngIf="playersNumber <= playersInfo.length" class="app-matche-details-buttons">

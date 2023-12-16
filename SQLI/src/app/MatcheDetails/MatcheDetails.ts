@@ -42,8 +42,6 @@ export class MatcheDetails {
 
   constructor(private sharedservice:SharedService, private http: HttpClient) { }
   ngOnInit(){
-
-    
     this.sharedservice.idMatch$.subscribe(value=>{
       this.idMatch=value;
       console.log(value);
@@ -62,6 +60,20 @@ export class MatcheDetails {
           console.error('Erreur lors de la requête POST :', error);
         }
       );
+      ///////
+
+
+
+      // this.playersInfo = [{profileImage : "/assets/Player1.svg"}, 
+      // {profileImage : "/assets/Player7.svg"}, 
+      // {profileImage : "/assets/Player7.svg"}, 
+      // {profileImage : "/assets/Player7.svg"}, 
+      // {profileImage : "/assets/Player7.svg"}, 
+      // {profileImage : "/assets/Player7.svg"}, 
+      // {profileImage : "/assets/Player7.svg"}, 
+      // {profileImage : "/assets/Player7.svg"}, 
+      // {profileImage : "/assets/Player7.svg"}, 
+      // {profileImage : "/assets/Player2.svg"}]
     })
 
     // if(this.playersInfo.length>1) {
@@ -91,43 +103,63 @@ export class MatcheDetails {
 
   }
 
-  registerMatch() {
-    const apiUrl = 'http://localhost:8081/create/matchuser';
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  
-    const userId = localStorage.getItem('userId'); // Retrieve user ID from storage
-  
-    const data = {
-      "user_id": userId,
-      "match_id": this.idMatch
-    };
-  
-    this.http.post(apiUrl, data, { headers }).pipe(
-      switchMap((response) => {
-        console.log('Réponse du serveur POST :', response);
-        const apiUrl2 = `http://localhost:8081/data/match/${this.idMatch}/users`;
-        return this.http.get<any>(apiUrl2, { headers });
-      })
-    ).subscribe(
-      (response) => {
-        this.playersInfo = response;
-        console.log('Réponse du serveur GET :', response);
-      },
-      (error) => {
-        console.error('Erreur lors de la requête POST :', error);
-      }
-    );
-    
-  }
-  Leave() {
-    
-  }
+registerMatch() {
+  const apiUrl = 'http://localhost:8081/create/matchuser';
+  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  checkIfIdExists(): boolean {
-    const userId = localStorage.getItem('userId'); // Retrieve user ID from storage
+  const userId = localStorage.getItem('userId'); // Retrieve user ID from storage
 
-    // Vérifier si l'idToCheck existe dans au moins un élément de playersInfo
-    return this.playersInfo.some(player => player.id === Number(userId));
-  }
+  const data = {
+    "user_id": userId,
+    "match_id": this.idMatch
+  };
+
+  this.http.post(apiUrl, data, { headers }).pipe(
+    switchMap((response) => {
+      console.log('Réponse du serveur POST :', response);
+      const apiUrl2 = `http://localhost:8081/data/match/${this.idMatch}/users`;
+      return this.http.get<any>(apiUrl2, { headers });
+    })
+  ).subscribe(
+    (response) => {
+      this.playersInfo = response;
+      console.log('Réponse du serveur GET :', response);
+    },
+    (error) => {
+      console.error('Erreur lors de la requête POST :', error);
+    }
+  );
+}
+
+checkIfIdExists(): boolean {
+  // Vérifier si l'idToCheck existe dans au moins un élément de playersInfo
+  const userId = localStorage.getItem('userId'); // Retrieve user ID from storage
+  console.log(this.playersInfo.some(player => player.id === Number(userId)));
+  return this.playersInfo.some(player => player.id === Number(userId));
+}
+
+Leave() {
+  const userId = localStorage.getItem('userId'); // Retrieve user ID from storage
+
+  const apiUrl = `http://localhost:8081/data/matchuser?match=${this.idMatch}&user=${userId}`;
+  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+
+  this.http.delete(apiUrl, { headers }).pipe(
+    switchMap((response) => {
+      console.log('Réponse du serveur POST :', response);
+      const apiUrl2 = `http://localhost:8081/data/match/${this.idMatch}/users`;
+      return this.http.get<any>(apiUrl2, { headers });
+    })
+  ).subscribe(
+    (response) => {
+      this.playersInfo = response;
+      console.log('Réponse du serveur GET :', response);
+    },
+    (error) => {
+      console.error('Erreur lors de la requête POST :', error);
+    }
+  );
+}
 
 }
