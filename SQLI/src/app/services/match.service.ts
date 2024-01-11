@@ -9,13 +9,13 @@ export class MatchService {
   constructor(private http: HttpClient) {}
 
   getMyMatches(userId: string): Observable<any[]> {
-    const matches = this.http.get<any[]>(`${this.apiUrl}/data/matchuser?type=coming&user=${userId}`);
+    const matches = this.http.get<any[]>(`${this.apiUrl}/match/mymatches?type=coming&user=${userId}`);
     console.log(matches)
     return matches
   }
 
   getSuggestedMatches(userId: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/data/match?type=coming`);
+    return this.http.get<any[]>(`${this.apiUrl}/match?type=coming`);
   }
 
   getMatchDetails(matchId: string): Observable<any> {

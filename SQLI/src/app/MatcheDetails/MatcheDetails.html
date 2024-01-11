@@ -21,7 +21,10 @@
                     <app-icon imageUrl="/assets/Valider.svg" [width]="70"></app-icon>
                 </div>
                 <div *ngIf="playersNumber > playersInfo.length">
-                    <app-button (click)="registerMatch()" buttonText="participer"/>
+                    <app-button (click)="joinMatch()" buttonText="Participer"/>
+                </div>
+                <div *ngIf="playersNumber > playersInfo.length">
+                    <app-button (click)="unjoinMatch()" buttonText="Quitter"/>
                 </div>
             </app-cercle-plan>
             <div *ngIf="playersNumber <= playersInfo.length" class="app-matche-details-buttons">
@@ -41,6 +44,30 @@
                 <app-cercle-plan [playersNumber]="playersNumber/2" [playersInfo]="secondTeam"></app-cercle-plan>
             </div>
         </div>
+<!--  -->
+        <!-- <div *ngIf="complete" [style.gap.px]="30"> -->
+            <!-- <div class=""> -->
+                <!-- <app-cercle-plan [playersNumber]="playersNumber" [playersInfo]="playersInfo"> -->
+                    <!-- <div *ngIf="playersNumber <= playersInfo.length"> -->
+                    <!-- <app-icon imageUrl="/assets/Valider.svg" [width]="70"></app-icon> -->
+                <!-- </div> -->
+                <!-- <div *ngIf="playersNumber > playersInfo.length"> -->
+                    <!-- <app-button (click)="joinMatch()" buttonText="participer"/> -->
+                <!-- </div> -->
+            <!-- </app-cercle-plan> -->
+            <!-- </div> -->
+            <!--  -->
+            <!-- <div [style.display]="'flex'" [style.gap.px]="30"> -->
+                <!-- <div class="app-matche-details-content-team-1"> -->
+                    <!-- <div class="app-matche-details-team-title">Équipe 1</div> -->
+                    <!-- <app-cercle-plan [playersNumber]="playersNumber/2" [playersInfo]="firstTeam"></app-cercle-plan> -->
+                <!-- </div> -->
+                <!-- <div class="app-matche-details-content-team-2"> -->
+                    <!-- <div class="app-matche-details-team-title">Équipe 2</div> -->
+                    <!-- <app-cercle-plan [playersNumber]="playersNumber/2" [playersInfo]="secondTeam"></app-cercle-plan> -->
+                <!-- </div> -->
+            <!-- </div> -->
+        <!-- </div> -->
 
     </div>
 </div>

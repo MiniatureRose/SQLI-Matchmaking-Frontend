@@ -27,7 +27,8 @@ export class MatchComponent {
   }
 
   toMatcheDetails() {
-    this.sharedservice.toggleMatchClicked(this.idMatch); //TMP
+    // this.sharedservice.toggleMatchClicked(this.idMatch); //TMP
+    localStorage.setItem('idMatch', this.idMatch.toString()); // Stocker dans le localStorage
     this.router.navigate(['/matche-details']);
   }
 
