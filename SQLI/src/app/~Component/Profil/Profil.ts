@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, Input} from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedService } from '../SharedService/SharedService';
 
@@ -10,6 +10,12 @@ import { SharedService } from '../SharedService/SharedService';
   styleUrls: ['./Profil.css']
 })
 export class Profil {
+  @Input() firstName: string = "";
+  @Input() lastName: string = "";
+  @Input() profileImage: string = "";
+  @Input() role: string = "";
+  @Input() email:string="";
+
 
   isEditMode = false;
 

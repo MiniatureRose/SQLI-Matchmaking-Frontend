@@ -7,12 +7,12 @@
       <li class="aa" (click)="togglePlus()"> <app-icon imageUrl="/assets/Plus.svg"></app-icon> </li>
       <li class="aa" (click)="navigateToEvent()"><app-icon imageUrl="/assets/Evennement.svg"></app-icon> </li>
       <li class="aa"> <app-icon imageUrl="/assets/Notification.svg"></app-icon> </li>
-      <li class="aa" (click)="toggleProfile()"> <img src="/assets/Profil.svg" style="width: 60px; height: 60px;"> </li>
+      <li class="aa" (click)="toggleProfile()"> <img [src]="profileImage" style="width: 60px; height: 60px;"> </li>
       <!-- <li class="aa"> <app-icon imageUrl="/assets/Profil.svg"></app-icon> </li> -->
     </ul>
 </nav>
 <div *ngIf="isProfileClicked">
-  <app-profil ></app-profil>
+  <app-profil [firstName]="firstName" [lastName]="lastName" [profileImage]="profileImage" [role]="role" [email]="email"></app-profil>
 </div>
 
 <div *ngIf="isPlusClicked">

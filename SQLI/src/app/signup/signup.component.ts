@@ -45,7 +45,7 @@ export class SignupComponent {
 
   onSubmit() {
     if (this.signupForm.valid) {
-      const apiUrl = 'http://localhost:8080/create/user';
+      const apiUrl = 'http://localhost:8081/create/user';
       const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
       const data = this.signupForm.value;
 

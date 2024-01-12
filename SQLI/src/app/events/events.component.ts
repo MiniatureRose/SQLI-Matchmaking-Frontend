@@ -1,5 +1,6 @@
 import { Component} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-events',
@@ -16,15 +17,21 @@ export class EventsComponent {
   showIncompleteOnly: boolean = false;
   
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router:Router) {}
 
   ngOnInit() {
-    this.GetAllMatches();
-    this.GetFilterOptions();
+    const userId = localStorage.getItem('userId'); // Retrieve user ID from storage
+    if (userId) {
+      this.GetAllMatches();
+      this.GetFilterOptions();
+    }
+    else{
+      this.router.navigate(['/Authentification']);
+    }
   }
 
   GetAllMatches() {
-    this.http.get<any[]>('http://localhost:8080/match?type=all').subscribe(
+    this.http.get<any[]>('http://localhost:8081/match?type=all').subscribe(
       result => {
         result.forEach(match => {
           this.matches.push([match.name , new Date(match.date), match.sport.name, "10", match.noPlayers]);
@@ -36,7 +43,7 @@ export class EventsComponent {
   }
 
   GetFilterOptions(){
-    this.http.get<any[]>('http://localhost:8080/data/sport/all').subscribe(
+    this.http.get<any[]>('http://localhost:8081/data/sport/all').subscribe(
       result => {
         result.forEach(sport => {
           this.FilterOptions.push(sport.name);

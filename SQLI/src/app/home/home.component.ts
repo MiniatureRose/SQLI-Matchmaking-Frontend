@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatchService } from '../services/match.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-home',
@@ -10,12 +12,15 @@ export class HomeComponent implements OnInit {
   myMatches: any[] = [];
   suggestedMatches: any[] = [];
 
-  constructor(private matchService: MatchService) {}
+  constructor(private matchService: MatchService, private router:Router) {}
 
   ngOnInit(): void {
     const userId = localStorage.getItem('userId'); // Retrieve user ID from storage
     if (userId) {
       this.loadMatches(userId);
+    }
+    else{
+      this.router.navigate(['/Authentification']);
     }
   }
 

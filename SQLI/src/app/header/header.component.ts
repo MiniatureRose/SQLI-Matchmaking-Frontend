@@ -10,14 +10,21 @@ import { SharedService } from '../~Component/SharedService/SharedService';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+  profileImage: string ="";
+  firstName:string ="";
+  lastName:string="";
+  role:string="";
+  email:string="";
+  user: any[] = []; 
+
   
-  
-  isProfileClicked: boolean = false; // Variable pour suivre l'état du clic sur l'image du profil
+  isProfileClicked: boolean = false; 
   isPlusClicked: boolean = false;
 
   constructor(private cdr: ChangeDetectorRef,private http: HttpClient, private router:Router, private sharedService: SharedService) {  }
 
   ngOnInit() {
+    this.getUserInfos();
     this.sharedService.isProfileClicked$.subscribe(value => {
       this.isProfileClicked = value;
     });
@@ -49,5 +56,22 @@ export class HeaderComponent {
 
   toNewMatch() {
     this.router.navigate(['/NewMatch']);
+  }
+
+  getUserInfos(){
+    if(this.firstName === "" && this.lastName === "" && this.profileImage=== ""){
+      const userId = localStorage.getItem('userId'); 
+      const apiUrl = 'http://localhost:8081';
+      const current_user = this.http.get<any>(`${apiUrl}/data/user?id=${userId}`); 
+      current_user.subscribe(result=>{
+        console.log(result);
+        this.firstName = result.firstName;
+        this.lastName = result.lastName;
+        this.profileImage= result.profileImage;
+        this.role = result.role;
+        this.email = result.email;
+        console.log(result.email);
+      })
+    }
   }
 }

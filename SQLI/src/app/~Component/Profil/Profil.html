@@ -7,9 +7,9 @@
             </div>
             <div class="profil-buttons-middle" >
                 <app-button-icon (click)="navigateToMatches()" imageUrl="/assets/Matches.svg" buttonText="Mes matches" [width]="120"></app-button-icon>
-                <img class="icon-image" src="/assets/Profil.svg" >
-                <div class="profil-name">PIERRE ROLAND</div>
-                <div class="profil-post">Administrateur</div>
+                <img class="icon-image" [src]="profileImage" >
+                <div class="profil-name">{{ lastName.toUpperCase() }} {{ firstName.toUpperCase() }}</div>
+                <div class="profil-post">{{ role }}</div>
             </div>
             <div class="profil-buttons-right">
                 <app-button-icon (click)="navigateToStatistics()" imageUrl="/assets/Statistique.svg" buttonText="Statistique"></app-button-icon>
@@ -18,7 +18,7 @@
 
         <div class="profil-infos">
             <app-info-field [isEditMode]="isEditMode" title="Poste" content="Chef de projet urbanisme et environnement"></app-info-field>
-            <app-info-field [isEditMode]="isEditMode" title="Contact" content="pierre.roland@sqli.fr"></app-info-field>
+            <app-info-field [isEditMode]="isEditMode" title="Contact" [content]="email"></app-info-field>
             <app-info-field [isEditMode]="isEditMode" title="Entreprise" content="SQLI"></app-info-field>
 
             <app-button (toggleEdit)="toggleEditMode()" [buttonText]="isEditMode? 'Valider les modifications' : 'Modifier mon profil'" (onclick)="navigateToMatches()"></app-button>

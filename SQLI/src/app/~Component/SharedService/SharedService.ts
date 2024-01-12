@@ -19,4 +19,5 @@ export class SharedService {
   toggleMatchClicked(value: number) {
     this.idMatchClickedSource.next(value);
   }
+  
 }
