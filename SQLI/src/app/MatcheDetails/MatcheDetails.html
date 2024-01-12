@@ -3,33 +3,39 @@
     <div class="app-matche-details-title">
         <app-icon [width]="100" [imageUrl]="matchInfos.imageUrl"></app-icon>
         <div class="app-matche-details-title-type">
-            Match de {{matchInfos.type}}
+            Match de {{matchData.sportName}}
         </div>
     </div>
     <div class="app-matche-details-description">
         <div>Date de début : 15/12/2023</div>
-        <div>Nombre de Joueurs : 10</div>
+        <div>Nombre de Joueurs : {{matchData.noPlayers}}</div>
         <div>Nombre de Remplaçants : 2</div>
-        <div>Adresse : Bordeaux ..</div>
+        <div>Adresse : {{matchData.location}}</div>
         <div>Description : Prix 7€</div>
     </div>
 
     <div class="app-matche-details-content">
         <div class="app-matche-details-content-1" *ngIf="!complete">
-            <app-cercle-plan [playersNumber]="playersNumber" [playersInfo]="playersInfo">
-                <div *ngIf="playersNumber <= playersInfo.length">
+            <app-cercle-plan [playersNumber]="matchData.noPlayers" [playersInfo]="playersInfo">
+                <div *ngIf="matchData.noPlayers <= playersInfo.length">
                     <app-icon imageUrl="/assets/Valider.svg" [width]="70"></app-icon>
                 </div>
-                <div *ngIf="playersNumber > playersInfo.length">
+                <!-- isIn ? -->
+                <div *ngIf="matchData.noPlayers > playersInfo.length && !isIn()">
                     <app-button (click)="joinMatch()" buttonText="Participer"/>
                 </div>
-                <div *ngIf="playersNumber > playersInfo.length">
+                <div *ngIf="matchData.noPlayers > playersInfo.length && isIn()">
                     <app-button (click)="unjoinMatch()" buttonText="Quitter"/>
                 </div>
             </app-cercle-plan>
-            <div *ngIf="playersNumber <= playersInfo.length" class="app-matche-details-buttons">
+            
+            <div *ngIf="isOrganiser()">
+                <app-button (click)="deleteMatch()" buttonText="Annuler le match"/>
+            </div>
+            
+            <div *ngIf="matchData.noPlayers <= playersInfo.length" class="app-matche-details-buttons">
                 <app-button-item imageUrl="/assets/ChoixManuel.svg" buttonText="Choix manuel"/>
-                <app-button-item (click)="aletoireChoice()" imageUrl="/assets/ChoixAleatoire.svg" buttonText="Choix aléatoire"/>
+                <app-button-item (click)="aleatoireChoice()" imageUrl="/assets/ChoixAleatoire.svg" buttonText="Choix aléatoire"/>
                 <app-button-item imageUrl="/assets/ChoixAutomatique.svg" buttonText="Choix automatique"/>
             </div>
         </div>
@@ -37,21 +43,21 @@
         <div *ngIf="complete" [style.display]="'flex'" [style.gap.px]="30">
             <div class="app-matche-details-content-team-1">
                 <div class="app-matche-details-team-title">Équipe 1</div>
-                <app-cercle-plan [playersNumber]="playersNumber/2" [playersInfo]="firstTeam"></app-cercle-plan>
+                <app-cercle-plan [playersNumber]="matchData.noPlayers/2" [playersInfo]="firstTeam"></app-cercle-plan>
             </div>
             <div class="app-matche-details-content-team-2">
                 <div class="app-matche-details-team-title">Équipe 2</div>
-                <app-cercle-plan [playersNumber]="playersNumber/2" [playersInfo]="secondTeam"></app-cercle-plan>
+                <app-cercle-plan [playersNumber]="matchData.noPlayers/2" [playersInfo]="secondTeam"></app-cercle-plan>
             </div>
         </div>
 <!--  -->
         <!-- <div *ngIf="complete" [style.gap.px]="30"> -->
             <!-- <div class=""> -->
-                <!-- <app-cercle-plan [playersNumber]="playersNumber" [playersInfo]="playersInfo"> -->
-                    <!-- <div *ngIf="playersNumber <= playersInfo.length"> -->
+                <!-- <app-cercle-plan [playersNumber]="matchData.noPlayers" [playersInfo]="playersInfo"> -->
+                    <!-- <div *ngIf="matchData.noPlayers <= playersInfo.length"> -->
                     <!-- <app-icon imageUrl="/assets/Valider.svg" [width]="70"></app-icon> -->
                 <!-- </div> -->
-                <!-- <div *ngIf="playersNumber > playersInfo.length"> -->
+                <!-- <div *ngIf="matchData.noPlayers > playersInfo.length"> -->
                     <!-- <app-button (click)="joinMatch()" buttonText="participer"/> -->
                 <!-- </div> -->
             <!-- </app-cercle-plan> -->
@@ -60,14 +66,14 @@
             <!-- <div [style.display]="'flex'" [style.gap.px]="30"> -->
                 <!-- <div class="app-matche-details-content-team-1"> -->
                     <!-- <div class="app-matche-details-team-title">Équipe 1</div> -->
-                    <!-- <app-cercle-plan [playersNumber]="playersNumber/2" [playersInfo]="firstTeam"></app-cercle-plan> -->
+                    <!-- <app-cercle-plan [playersNumber]="matchData.noPlayers/2" [playersInfo]="firstTeam"></app-cercle-plan> -->
                 <!-- </div> -->
                 <!-- <div class="app-matche-details-content-team-2"> -->
                     <!-- <div class="app-matche-details-team-title">Équipe 2</div> -->
-                    <!-- <app-cercle-plan [playersNumber]="playersNumber/2" [playersInfo]="secondTeam"></app-cercle-plan> -->
+                    <!-- <app-cercle-plan [playersNumber]="matchData.noPlayers/2" [playersInfo]="secondTeam"></app-cercle-plan> -->
                 <!-- </div> -->
             <!-- </div> -->
         <!-- </div> -->
 
     </div>
-</div>
+</div>football

@@ -10,6 +10,7 @@ import { SharedService } from '../~Component/SharedService/SharedService';
 export class MatchComponent {
 
   @Input() idMatch: number = 0;
+  @Input() idOrganiser: number = 0;
   @Input() name: string = '';
   @Input() imageUrl: string = '';
   @Input() date: string = '';
@@ -29,6 +30,7 @@ export class MatchComponent {
   toMatcheDetails() {
     // this.sharedservice.toggleMatchClicked(this.idMatch); //TMP
     localStorage.setItem('idMatch', this.idMatch.toString()); // Stocker dans le localStorage
+    localStorage.setItem('idOrganiser', this.idOrganiser.toString()); // Stocker dans le localStorage
     this.router.navigate(['/matche-details']);
   }
 

@@ -9,7 +9,7 @@ export class MatchService {
   constructor(private http: HttpClient) {}
 
   getMyMatches(userId: string): Observable<any[]> {
-    const matches = this.http.get<any[]>(`${this.apiUrl}/match/mymatches?type=coming&user=${userId}`);
+    const matches = this.http.get<any[]>(`${this.apiUrl}/match?type=coming&userId=${userId}&myMatches=true`);
     console.log(matches)
     return matches
   }
