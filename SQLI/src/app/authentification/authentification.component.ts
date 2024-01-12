@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 //TMP
 interface ApiResponse {
   message: string;
+  userId: string;
   // autres propriétés correspondantes dans la réponse
 }
 
@@ -32,7 +33,7 @@ export class AuthentificationComponent{
   }
 
   onSubmit() {
-    const apiUrl = 'http://localhost:8080/auth/signin';
+    const apiUrl = 'http://localhost:8081/auth/signin';
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const data={'email': this.email, 'password': this.password};
     console.log(data);
@@ -41,7 +42,8 @@ export class AuthentificationComponent{
       (response) => {
         // console.log('Réponse du serveur :', response);
         if (response && response.message === 'User signed in successfully!') {
-          this.router.navigate(['/']); // Redirection vers la page home
+          localStorage.setItem('userId', response.userId);  // or sessionStorage.setItem(...)
+          this.router.navigate(['/Home']); // Redirection vers la page home
         }
       },
       

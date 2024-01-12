@@ -6,4 +6,5 @@ button{
     background: var(--Secondary, #3062C8);
     font-size: 20px;
     color: white;
+    cursor: pointer;
 }

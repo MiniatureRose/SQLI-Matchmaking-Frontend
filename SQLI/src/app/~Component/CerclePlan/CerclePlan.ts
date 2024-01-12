@@ -6,10 +6,10 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./CerclePlan.css']
 })
 export class CerclePlanComponent {
-  @Input() playersNumber : number = 10;
+  @Input() playersNumber : number = 7;
   @Input() playersInfo : {
-    color: string;
-    imageUrl: string;
+    //color: string;
+    profileImage: string;
   }[] = [ 
   ];
 }
