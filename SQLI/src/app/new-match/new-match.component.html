@@ -1,41 +1,98 @@
 <div class="match-form-container">
     <form [formGroup]="matchForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-        <label for="sport">Sport</label>
-        <select id="sport" formControlName="sport">
-            <option value="">Sélectionnez un sport</option>
-            <option *ngFor="let sport of sports" [value]="sport">{{ sport }}</option>
-        </select>
-    </div>
 
         <div class="form-group">
-            <label for="dateDebut">Date de début</label>
-            <input type="datetime-local" id="dateDebut" formControlName="dateDebut">
+            <label for="name">Nom du Match</label>
+            <input type="text" id="name" formControlName="name" placeholder="Entrez le nom du match">
+            <div *ngIf="matchForm.get('name')?.touched && matchForm.get('name')?.invalid" class="error-message">
+                Le nom du match est requis.
+            </div>
         </div>
 
         <div class="form-group">
-            <label for="nbplayers">Nombre de Joueurs</label>
-            <input type="number" id="nbplayers" formControlName="nbplayers">
+            <label for="sportId">Sport</label>
+            <select id="sportId" formControlName="sportId">
+                <option value="">Sélectionnez un sport</option>
+                <option *ngFor="let sport of sports" [value]="sport.id">{{ sport.name }}</option>
+            </select>
+            <div *ngIf="matchForm.get('sportId')?.touched && matchForm.get('sportId')?.invalid" class="error-message">
+                Veuillez sélectionner un sport.
+            </div>
         </div>
 
         <div class="form-group">
-            <label for="nbsubstituts">Nombre de Remplaçants</label>
-            <input type="number" id="nbsubstituts" formControlName="nbsubstituts">
+            <label for="date">Date de début</label>
+            <input type="datetime-local" id="date" formControlName="date">
+            <div *ngIf="matchForm.controls['date'].touched && matchForm.controls['date'].errors?.['futureDate']"
+                class="error-message">
+                La date doit être dans le futur.
+            </div>
+            <div *ngIf="matchForm.get('date')?.touched && matchForm.get('date')?.invalid" class="error-message">
+                Veuillez sélectionner une date.
+            </div>
         </div>
 
         <div class="form-group">
-            <label for="address">Adresse</label>
-            <input type="text" id="address" formControlName="address" placeholder="Entrez une adresse">
+            <label for="duration">Durée (en minutes)</label>
+            <input type="number" id="duration" formControlName="duration" min="1">
+            <div *ngIf="matchForm.get('duration')?.touched && matchForm.get('duration')?.invalid" class="error-message">
+                La durée du match est requise.
+            </div>
         </div>
 
+        <div class="form-group">
+            <label for="noPlayers">Nombre de Joueurs</label>
+            <input type="number" id="noPlayers" formControlName="noPlayers" min="0">
+            <div *ngIf="matchForm.get('noPlayers')?.touched && matchForm.get('noPlayers')?.invalid" class="error-message">
+                Le nombre de joueurs est requis.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="nbSubs">Nombre de Remplaçants</label>
+            <input type="number" id="nbSubs" formControlName="nbSubs" min="0">
+            <div *ngIf="matchForm.get('nbSubs')?.touched && matchForm.get('nbSubs')?.invalid" class="error-message">
+                Le nombre de remplaçants est requis.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="fieldId">Terrain</label>
+            <select id="fieldId" formControlName="fieldId" *ngIf="!isNewField">
+                <option value="">Sélectionnez un terrain</option>
+                <option *ngFor="let field of fields" [value]="field.id">{{ field.name }}</option>
+            </select>
+            <div *ngIf="isNewField">
+                <input type="text" placeholder="Nom du terrain" formControlName="newFieldName">
+                <input type="text" placeholder="Localisation" formControlName="newFieldLocation">
+            </div>
+            <div *ngIf="matchForm.get('fieldId')?.touched && matchForm.get('fieldId')?.invalid" class="error-message">
+                Veuillez sélectionner un terrain.
+            </div>
+            <button type="button" (click)="toggleNewField()" class="add-field-button">
+                {{ isNewField ? 'Choisir un terrain existant' : 'Ajouter un nouveau terrain' }}
+            </button>
+        </div>
 
         <div class="form-group">
             <label for="description">Description</label>
             <textarea id="description" formControlName="description" rows="4"></textarea>
+            <div *ngIf="matchForm.get('description')?.touched && matchForm.get('description')?.invalid" class="error-message">
+                La description du match est requise.
+            </div>
         </div>
 
         <div class="form-navigation">
             <button type="submit">Valider</button>
+            <button *ngIf="successMessage" (click)="goToHomePage()" class="home-button">
+                Retour à l'accueil
+            </button>
         </div>
+        
     </form>
+
+    <div *ngIf="successMessage" class="success-message">
+        {{ successMessage }}
+    </div>
+    
 </div>
