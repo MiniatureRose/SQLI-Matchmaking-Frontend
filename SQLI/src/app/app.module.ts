@@ -61,7 +61,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NgbModule,
     FormsModule,
     HttpClientModule,
-    
+    MatDialogModule,
     DragDropModule,
     BrowserAnimationsModule
   ],
