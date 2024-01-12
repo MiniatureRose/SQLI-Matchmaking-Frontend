@@ -3,13 +3,22 @@
         Tous les matchs
     </div>
     <div class="app-events-filtre">
-        <app-multi-choice-list title="Trier" imageUrl="/assets/Trier.svg"></app-multi-choice-list>
-        <app-multi-choice-list title="Filtrer" imageUrl="/assets/Filtrer.svg"></app-multi-choice-list>
+        <app-multi-choice-list title="Trier" imageUrl="/assets/Trier.svg" [options]="['date (ascending)', 'date (descending)','incomplete']" (optionSelected)="onSortOptionSelected($event)" [selectedOptions]="sortOptions"></app-multi-choice-list>
+        
+        <app-multi-choice-list title="Filtrer" imageUrl="/assets/Filtrer.svg" [options]="FilterOptions"  (optionSelected)="onOptionSelected($event)" [selectedOptions]="selectedOptions"></app-multi-choice-list>
     </div>
-    <div class="upcoming-matches-container">
-        <app-match name = "Salim bekkari" imageUrl="/assets/Salim.svg" date="16/11/2023" sport="Foot" [size]="10" [nbPlayer]="6"></app-match>
-        <app-match name = "Salim bekkari" imageUrl="/assets/Salim.svg" date="16/11/2023" sport="Foot" [size]="10" [nbPlayer]="10"></app-match>
-        <app-match name = "Salim bekkari" imageUrl="/assets/Salim.svg" date="16/11/2023" sport="Foot" [size]="10" [nbPlayer]="6"></app-match>
+    <div class="upcoming-matches-container" >
+        <div *ngFor="let matchDetails of matches">
+            <div *ngIf="ShowMatch(matchDetails[2],matchDetails)">
+                <app-match [name]="matchDetails[0]"
+                    imageUrl="/assets/Salim.svg"
+                    [date]="matchDetails[1]"
+                    [sport]="matchDetails[2]"
+                    [size]="matchDetails[3]"
+                    [nbPlayer]="matchDetails[4]">
+                </app-match>
+            </div>
+        </div>
     </div>
 
 </div>

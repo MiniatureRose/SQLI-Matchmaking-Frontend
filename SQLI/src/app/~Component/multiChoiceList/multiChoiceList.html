@@ -1,6 +1,13 @@
-<div class="app-multi-choice-list">
-    <!-- <ng-content></ng-content> -->
-    <img [src]="imageUrl">
+<div class="app-multi-choice-list" (click)="toggleDropdown()">
+
+    <img [src]="imageUrl" alt="Dropdown Icon">
     <div class="app-multi-choice-list-title">{{title}}</div>
     <img src="/assets/V_vert.svg">
+</div>
+
+<!-- Liste déroulante personnalisée -->
+<div class="custom-dropdown" *ngIf="showDropdown">
+    <div class="dropdown-option" *ngFor="let option of options" (click)="onOptionSelect(option)" [class.active-filter]="isSelected(option)">
+        {{ option }}
+    </div>
 </div>

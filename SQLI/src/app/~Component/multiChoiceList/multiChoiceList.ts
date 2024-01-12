@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-multi-choice-list',
@@ -9,4 +9,24 @@ import { Component, Input } from '@angular/core';
 export class multiChoiceList {
   @Input() imageUrl : string = ""
   @Input() title : string = ""
+  @Input() options : string[] =[];
+  @Input() selectedOptions: string[] = [];
+  @Output() optionSelected = new EventEmitter<string>();
+
+  showDropdown = false;
+
+  toggleDropdown() {
+    this.showDropdown = !this.showDropdown;
+  }
+
+  onOptionSelect(option: string) {
+    this.showDropdown = false; 
+    this.optionSelected.emit(option); 
+  }
+
+  // Méthode pour vérifier si une option est sélectionnée
+  isSelected(option: string): boolean {
+    return this.selectedOptions.includes(option);
+  }
+
 }

@@ -19,11 +19,13 @@ export class SignupComponent {
 
   constructor(private http: HttpClient, private fb: FormBuilder,private router: Router, private cdRef: ChangeDetectorRef,private popupService: PopupService) {
     this.signupForm = this.fb.group({
-      firstname: ['', Validators.required],
-      lastname: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       phone: ['', [Validators.required, Validators.pattern(this.phonePattern)]],
       email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      profile_image : ['', ],
+      role : ['user', ]
     });
   }
 
@@ -43,7 +45,7 @@ export class SignupComponent {
 
   onSubmit() {
     if (this.signupForm.valid) {
-      const apiUrl = 'http://localhost:8080/auth/signup';
+      const apiUrl = 'http://localhost:8080/create/user';
       const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
       const data = this.signupForm.value;
 

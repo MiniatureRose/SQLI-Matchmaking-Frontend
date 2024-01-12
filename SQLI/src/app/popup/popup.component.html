@@ -1,8 +1,10 @@
-    <div class="container" (click)="handleClick($event)">
-    <div class="Title">
-        <p class="titre">Inscription réussie</p>
+<div class="overlay" (click)="handleClick($event)">
+    <div class="popup-container">
+        <div class="popup-title">
+            <p class="popup-title-text">Inscription réussie</p>
+        </div>
+        <button class="popup-button" mat-button (click)="Redirect_authentification()">
+            <p class="popup-button-text">Page de connexion</p>
+        </button>
     </div>
-    <button class="button" mat-button (click)="Redirect_authentification()">
-        <p class="button_texte">Page de connection</p>
-    </button>
-    </div>
+</div>
