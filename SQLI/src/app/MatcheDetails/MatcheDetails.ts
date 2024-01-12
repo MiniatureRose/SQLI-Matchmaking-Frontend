@@ -1,8 +1,20 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
 import { SharedService } from '../~Component/SharedService/SharedService';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
-
+interface Player {
+  // id: number;
+  // firstName: string;
+  // lastName: string;
+  // email: string;
+  // password: string;
+  // phone: string;
+  profileImage: string;
+  // role: string;
+  // admin: boolean;
+  // user: boolean;
+}
 
 @Component({
   selector: 'app-matche-details',
@@ -19,15 +31,19 @@ export class MatcheDetails {
     return this._idMatch;
   }
   
-  @Input() playersNumber : number = 4;
+  // @Input() playersNumber : number = 4;
   matchInfos : {imageUrl:string} = { imageUrl: "/assets/Matches.svg"} //TMP
   complete : boolean = false;
+  type : string = "";
 
   firstTeam : { profileImage: string; }[] = [ ] ;
   secondTeam : { profileImage: string; }[] = [ ] ;
+
+  firstTeamTmp : { id: number; firstName: string; lastName: string; profileImage: string; }[] = [ ] ;
+  secondTeamTmp : { id: number; firstName: string; lastName: string; profileImage: string; }[] = [ ] ;
   // playersInfo: { id: number; firstName: string; lastName: string; profileImage: string; }[] = [];
 
-  matchData: {id:number, noPlayers:number, sportName:string, location:string} = {id : 1, noPlayers:10, sportName:"", location:""};
+  matchData: {id:number, noPlayers:number, sportName:string, location:string, confirmed: boolean, canceled: boolean} = {id : 1, noPlayers:10, sportName:"", location:"", confirmed: false, canceled: false};
   
 
   playersInfo : {
@@ -87,7 +103,9 @@ export class MatcheDetails {
           id: response.id,
           noPlayers: response.noPlayers,
           sportName: response.sport.name,
-          location: response.field.location
+          location: response.field.location,
+          confirmed: response.status=="CONFIRMED", 
+          canceled: response.status=="CANCELED"
           
         };
         console.log('Réponse du serveur :', this.matchData);
@@ -101,11 +119,55 @@ export class MatcheDetails {
 
 
   manualChoice() {
-
+    this.confirmMatch();
+    this.type = "man";
   }
 
   aleatoireChoice() {
-      let players = this.playersInfo.slice(0, this.playersNumber);
+    const matchId = localStorage.getItem('idMatch'); // Retrieve match ID from storage
+    const userId = localStorage.getItem('userId'); // Retrieve user ID from storage
+    this.confirmMatch();
+    this.type = "random";
+
+
+    // const apiUrlMake = `http://localhost:8081/match/make?userId=${userId}&matchId=${matchId}&how=random`;
+    // this.http.post(apiUrlMake, {}).subscribe(
+    //     (response) => {
+    //         console.log('Match make avec succès :', response);
+    //         this.getMatchData(Number(matchId));
+
+    //         const apiUrlTeams = `http://localhost:8081/match/teams?matchId=${matchId}`;
+    //         this.http.get(apiUrlTeams, {}).subscribe(
+    //             (response: any) => {
+    //                 if (Array.isArray(response) && response[0].length > 0) {
+    //                   this.firstTeam = response[0].map((player : Player) => ({
+    //                     profileImage: player.profileImage,
+    //                     }));
+    //                     this.secondTeam = response[0].map((player : Player) => ({
+    //                       profileImage: player.profileImage,
+    //                       }));
+    //                     console.log('Réponse du serveur :', response);
+
+                          
+    //                 } else {
+    //                     console.error('La réponse n’est pas un tableau ou est vide');
+    //                 }
+    //             },
+    //             (error) => {
+    //                 console.error('Erreur lors de la récupération des équipes :', error);
+    //             }
+    //         );
+    //     },
+    //     (error) => {
+    //         console.error('Erreur lors du make du match :', error);
+    //     }
+    // );
+
+
+    ///////////////////////////////////////
+    
+      
+    let players = this.playersInfo.slice(0, this.matchData.noPlayers);
   
       // Mélange aléatoire des joueurs
       for (let i = players.length - 1; i > 0; i--) {
@@ -118,14 +180,36 @@ export class MatcheDetails {
       this.firstTeam = players.slice(0, half);
       this.secondTeam = players.slice(half);
     
-      this.complete = (this.playersNumber <= this.playersInfo.length);
+      this.complete = (this.matchData.noPlayers <= this.playersInfo.length);
     
       console.log("firstTeam : ", this.firstTeam);
+
   }
   
   automaticChoice() {
-
+    this.confirmMatch();
+    this.type = "auto";
   }
+
+  confirmMatch() {
+    const userId = localStorage.getItem('userId'); // Retrieve user ID from storage
+    const matchId = localStorage.getItem('idMatch'); // Retrieve user ID from storage
+
+    const apiUrl = `http://localhost:8081/match/confirm?userId=${userId}&matchId=${matchId}`;
+    return this.http.post(apiUrl, {}).subscribe(
+      (response) => {
+            // TMP
+        this.getMatchData(Number(matchId));
+        console.log('Match confirmé avec succès :', response);
+        // Vous pouvez ici mettre à jour l'état de l'UI si nécessaire
+      },
+      (error) => {
+        console.error('Erreur lors de la confirmation du match :', error);
+        // Gestion de l'erreur
+      }
+    );
+  }
+  
 
   joinMatch() {
     const apiUrl = 'http://localhost:8081/match/join';
@@ -187,5 +271,18 @@ export class MatcheDetails {
 
   deleteMatch(){
     //Todo
+  }
+
+  drop(event: CdkDragDrop<any[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    }
   }
 }

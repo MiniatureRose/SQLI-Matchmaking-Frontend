@@ -15,7 +15,8 @@
     </div>
 
     <div class="app-matche-details-content">
-        <div class="app-matche-details-content-1" *ngIf="!complete">
+        <!-- TMP : complete?  -->
+        <div class="app-matche-details-content-1" *ngIf="!matchData.confirmed ">
             <app-cercle-plan [playersNumber]="matchData.noPlayers" [playersInfo]="playersInfo">
                 <div *ngIf="matchData.noPlayers <= playersInfo.length">
                     <app-icon imageUrl="/assets/Valider.svg" [width]="70"></app-icon>
@@ -34,13 +35,13 @@
             </div>
             
             <div *ngIf="matchData.noPlayers <= playersInfo.length" class="app-matche-details-buttons">
-                <app-button-item imageUrl="/assets/ChoixManuel.svg" buttonText="Choix manuel"/>
+                <app-button-item (click)="manualChoice()" imageUrl="/assets/ChoixManuel.svg" buttonText="Choix manuel"/>
                 <app-button-item (click)="aleatoireChoice()" imageUrl="/assets/ChoixAleatoire.svg" buttonText="Choix aléatoire"/>
                 <app-button-item imageUrl="/assets/ChoixAutomatique.svg" buttonText="Choix automatique"/>
             </div>
         </div>
         
-        <div *ngIf="complete" [style.display]="'flex'" [style.gap.px]="30">
+        <div *ngIf="matchData.confirmed && type=='random'" [style.display]="'flex'" [style.gap.px]="30">
             <div class="app-matche-details-content-team-1">
                 <div class="app-matche-details-team-title">Équipe 1</div>
                 <app-cercle-plan [playersNumber]="matchData.noPlayers/2" [playersInfo]="firstTeam"></app-cercle-plan>
@@ -50,6 +51,39 @@
                 <app-cercle-plan [playersNumber]="matchData.noPlayers/2" [playersInfo]="secondTeam"></app-cercle-plan>
             </div>
         </div>
+
+        <div *ngIf="type=='man'" class="teams-container">
+            <div cdkDropList id="playersInfoList" [cdkDropListData]="playersInfo" [cdkDropListConnectedTo]="['firstTeamList', 'secondTeamList']"  class="team" (cdkDropListDropped)="drop($event)">
+              <div class="app-matche-details-team-title">Tous les joueurs</div>
+                <div class="app-matche-details-team-drag">
+                  <div  *ngFor="let player of playersInfo" cdkDrag>
+                      <app-icon [width]="93" color="#3062C8" [imageUrl]="player.profileImage"></app-icon> 
+                      <!-- votre contenu pour un joueur -->
+                    </div>
+                </div>
+            </div>
+          
+            <div cdkDropList id="firstTeamList" [cdkDropListData]="firstTeamTmp" class="team" (cdkDropListDropped)="drop($event)">
+              <div class="app-matche-details-team-title">Équipe 1</div>
+                <div class="app-matche-details-team-drag">
+                  <div *ngFor="let player of firstTeamTmp" cdkDrag>
+                      <app-icon [width]="93" color="#3062C8" [imageUrl]="player.profileImage"></app-icon> 
+                      <!-- votre contenu pour un joueur -->
+                    </div>
+                </div>
+            </div>
+          
+            <div cdkDropList id="secondTeamList" [cdkDropListData]="secondTeamTmp"  class="team" (cdkDropListDropped)="drop($event)">
+              <div class="app-matche-details-team-title">Équipe 2</div>
+                <div class="app-matche-details-team-drag">
+                  <div *ngFor="let player of secondTeamTmp" cdkDrag>
+                      <app-icon [width]="93" color="#3062C8" [imageUrl]="player.profileImage"></app-icon> 
+                      
+                      <!-- votre contenu pour un joueur -->
+                    </div>
+                </div>
+            </div>
+          </div>
 <!--  -->
         <!-- <div *ngIf="complete" [style.gap.px]="30"> -->
             <!-- <div class=""> -->

@@ -28,6 +28,7 @@ import { CerclePlanComponent } from './~Component/CerclePlan/CerclePlan';
 import { NewMatchComponent } from './new-match/new-match.component';
 
 import { multiChoiceList } from './~Component/multiChoiceList/multiChoiceList';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
@@ -60,7 +61,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NgbModule,
     FormsModule,
     HttpClientModule,
-    MatDialogModule,
+    
+    DragDropModule,
     BrowserAnimationsModule
   ],
   providers: [],
