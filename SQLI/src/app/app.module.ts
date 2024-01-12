@@ -28,6 +28,7 @@ import { CerclePlanComponent } from './~Component/CerclePlan/CerclePlan';
 import { NewMatchComponent } from './new-match/new-match.component';
 
 import { multiChoiceList } from './~Component/multiChoiceList/multiChoiceList';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { multiChoiceList } from './~Component/multiChoiceList/multiChoiceList';
     NgbModule,
     FormsModule,
     HttpClientModule,
-    MatDialogModule
+    MatDialogModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
