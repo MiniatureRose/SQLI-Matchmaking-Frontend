@@ -15,40 +15,48 @@
     </div>
 
     <div class="app-matche-details-content">
+        <div *ngIf="this.matchData.canceled">
+            Match Annuler
+        </div>
+
+
         <!-- TMP : complete?  -->
-        <div class="app-matche-details-content-1" *ngIf="!matchData.confirmed ">
+        <div class="app-matche-details-content-1" *ngIf="!complete "> <!-- && !this.matchData.confirmed -->
             <app-cercle-plan [playersNumber]="matchData.noPlayers" [playersInfo]="playersInfo">
-                <div *ngIf="matchData.noPlayers <= playersInfo.length">
+                <div *ngIf="this.matchData.canceled ">
+                    <app-icon imageUrl="/assets/Annuler.svg" [width]="70"></app-icon>
+                </div>
+                <div *ngIf="!this.matchData.canceled && matchData.noPlayers <= playersInfo.length">
                     <app-icon imageUrl="/assets/Valider.svg" [width]="70"></app-icon>
                 </div>
                 <!-- isIn ? -->
-                <div *ngIf="matchData.noPlayers > playersInfo.length && !isIn()">
+                <div *ngIf="!this.matchData.canceled && matchData.noPlayers > playersInfo.length && !isIn()">
                     <app-button (click)="joinMatch()" buttonText="Participer"/>
                 </div>
-                <div *ngIf="matchData.noPlayers > playersInfo.length && isIn()">
+                <div *ngIf="!this.matchData.canceled && matchData.noPlayers > playersInfo.length && isIn()">
                     <app-button (click)="unjoinMatch()" buttonText="Quitter"/>
                 </div>
             </app-cercle-plan>
             
-            <div *ngIf="isOrganiser()">
+            <div *ngIf="!this.matchData.canceled && isOrganiser()">
                 <app-button (click)="deleteMatch()" buttonText="Annuler le match"/>
             </div>
             
-            <div *ngIf="matchData.noPlayers <= playersInfo.length" class="app-matche-details-buttons">
+            <div *ngIf="!this.matchData.canceled && matchData.noPlayers <= playersInfo.length" class="app-matche-details-buttons">
                 <app-button-item (click)="manualChoice()" imageUrl="/assets/ChoixManuel.svg" buttonText="Choix manuel"/>
                 <app-button-item (click)="aleatoireChoice()" imageUrl="/assets/ChoixAleatoire.svg" buttonText="Choix aléatoire"/>
                 <app-button-item imageUrl="/assets/ChoixAutomatique.svg" buttonText="Choix automatique"/>
             </div>
         </div>
         
-        <div *ngIf="matchData.confirmed && type=='random'" [style.display]="'flex'" [style.gap.px]="30">
+        <div *ngIf="complete && type=='random'" [style.display]="'flex'" [style.gap.px]="30">
             <div class="app-matche-details-content-team-1">
                 <div class="app-matche-details-team-title">Équipe 1</div>
-                <app-cercle-plan [playersNumber]="matchData.noPlayers/2" [playersInfo]="firstTeam"></app-cercle-plan>
+                <app-cercle-plan [playersNumber]="matchData.noPlayers/2" [playersInfo]="firstTeamTmp"></app-cercle-plan>
             </div>
             <div class="app-matche-details-content-team-2">
                 <div class="app-matche-details-team-title">Équipe 2</div>
-                <app-cercle-plan [playersNumber]="matchData.noPlayers/2" [playersInfo]="secondTeam"></app-cercle-plan>
+                <app-cercle-plan [playersNumber]="matchData.noPlayers/2" [playersInfo]="secondTeamTmp"></app-cercle-plan>
             </div>
         </div>
 
@@ -83,7 +91,12 @@
                     </div>
                 </div>
             </div>
-          </div>
+        </div>
+
+        <div *ngIf="type!=''">
+            <app-button (click)="confirmMatch()" buttonText="Confirmer le match"/>
+        </div>
+        
 <!--  -->
         <!-- <div *ngIf="complete" [style.gap.px]="30"> -->
             <!-- <div class=""> -->
