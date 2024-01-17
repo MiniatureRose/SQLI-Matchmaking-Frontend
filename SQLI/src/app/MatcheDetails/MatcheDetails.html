@@ -104,16 +104,6 @@
         </div>
 
         
-<<<<<<< HEAD
-        <div *ngIf="complete && type=='random'" [style.display]="'flex'" [style.gap.px]="30">
-            <div class="app-matche-details-content-team-1">
-                <div class="app-matche-details-team-title">Équipe 1</div>
-                <app-cercle-plan [playersNumber]="matchData.noPlayers/2" [playersInfo]="firstTeam"></app-cercle-plan>
-            </div>
-            <div class="app-matche-details-content-team-2">
-                <div class="app-matche-details-team-title">Équipe 2</div>
-                <app-cercle-plan [playersNumber]="matchData.noPlayers/2" [playersInfo]="secondTeam"></app-cercle-plan>
-=======
         <!-- Status : CONFIRMED  -->
         <div *ngIf="this.matchData.confirmed" class="app-matche-details-content">
             <div [style.display]="'flex'" [style.gap.px]="30">
@@ -140,7 +130,6 @@
                         </div>
                     </app-cercle-plan>
                 </div>
->>>>>>> mouad
             </div>
             <app-button *ngIf="!this.score" (click)="changeTeams()" buttonText="changer les équipes"/>
             <app-button *ngIf="!this.score" (click)="this.score=true" buttonText="Entrer les scores"/>
