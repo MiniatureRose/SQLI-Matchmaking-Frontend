@@ -34,7 +34,7 @@ export class EventsComponent {
     this.http.get<any[]>('http://localhost:8081/match?type=all').subscribe(
       result => {
         result.forEach(match => {
-          this.matches.push([match.name , new Date(match.date), match.sport.name, "10", match.noPlayers]);
+          this.matches.push([match.name , new Date(match.date), match.sport.name, match.curPlayers.toString(), match.noPlayers]);
         });
       },
       error => {

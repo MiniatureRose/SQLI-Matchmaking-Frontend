@@ -6,6 +6,8 @@
         <app-multi-choice-list title="Trier" imageUrl="/assets/Trier.svg" [options]="['date (ascending)', 'date (descending)','incomplete']" (optionSelected)="onSortOptionSelected($event)" [selectedOptions]="sortOptions"></app-multi-choice-list>
         
         <app-multi-choice-list title="Filtrer" imageUrl="/assets/Filtrer.svg" [options]="FilterOptions"  (optionSelected)="onOptionSelected($event)" [selectedOptions]="selectedOptions"></app-multi-choice-list>
+
+        
     </div>
     <div class="upcoming-matches-container" >
         <div *ngFor="let matchDetails of matches">

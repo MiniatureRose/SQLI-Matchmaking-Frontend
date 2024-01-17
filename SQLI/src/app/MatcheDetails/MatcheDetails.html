@@ -16,7 +16,7 @@
 
     <div class="app-matche-details-content">
         <!-- TMP : complete?  -->
-        <div class="app-matche-details-content-1" *ngIf="!matchData.confirmed ">
+        <div class="app-matche-details-content-1" *ngIf="!complete ">
             <app-cercle-plan [playersNumber]="matchData.noPlayers" [playersInfo]="playersInfo">
                 <div *ngIf="matchData.noPlayers <= playersInfo.length">
                     <app-icon imageUrl="/assets/Valider.svg" [width]="70"></app-icon>
@@ -41,7 +41,7 @@
             </div>
         </div>
         
-        <div *ngIf="matchData.confirmed && type=='random'" [style.display]="'flex'" [style.gap.px]="30">
+        <div *ngIf="complete && type=='random'" [style.display]="'flex'" [style.gap.px]="30">
             <div class="app-matche-details-content-team-1">
                 <div class="app-matche-details-team-title">Équipe 1</div>
                 <app-cercle-plan [playersNumber]="matchData.noPlayers/2" [playersInfo]="firstTeam"></app-cercle-plan>
