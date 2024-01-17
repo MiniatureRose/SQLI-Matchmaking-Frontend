@@ -78,3 +78,12 @@
     display: flex;
     /* border: 2px red solid; */
 }
+
+#integerInput {
+    width: 70px;
+    height: 70px;
+    font-size: 26px;
+    text-align: center;
+    border: 5px solid #FFBB24;
+    border-radius: 20px;
+}

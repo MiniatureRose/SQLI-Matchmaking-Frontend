@@ -10,8 +10,12 @@
     <div class="title">Suggestions</div>
     <div class="upcoming-matches-container">
         <app-match *ngFor="let match of suggestedMatches" [idMatch]="match.id" [idOrganiser]="match.organizer.id" [name]="match.organizer.firstName + ' ' + match.organizer.lastName"
+<<<<<<< HEAD
             [imageUrl]="match.organizer.profileImage" [date]="match.date" [sport]="match.sport.name" [size]="match.noPlayers"
             [nbPlayer]="match.curPlayers">
+=======
+            [imageUrl]="match.organizer.profileImage" [date]="match.date" [sport]="match.sport.name" [size]="match.noPlayers" [nbPlayer]="match.curPlayers">
+>>>>>>> mouad
         </app-match> 
     </div>
 </div>
