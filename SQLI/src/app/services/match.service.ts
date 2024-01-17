@@ -15,10 +15,12 @@ export class MatchService {
   }
 
   getSuggestedMatches(userId: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/match?type=coming`);
+    return this.http.get<any[]>(`${this.apiUrl}/match?type=coming&userId=${userId}&myMatches=false`);
   }
 
-  getMatchDetails(matchId: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/data/match/${matchId}`);
+  getMatchDetails(matchId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/match/id?matchId=${matchId}`);
   }
+
+  
 }
