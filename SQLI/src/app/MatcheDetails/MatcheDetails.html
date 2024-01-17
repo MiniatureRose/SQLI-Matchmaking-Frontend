@@ -14,14 +14,6 @@
         <div>Description : Prix 7€</div>
     </div>
 
-<<<<<<< HEAD
-    <div class="app-matche-details-content">
-        <!-- TMP : complete?  -->
-        <div class="app-matche-details-content-1" *ngIf="!complete ">
-            <app-cercle-plan [playersNumber]="matchData.noPlayers" [playersInfo]="playersInfo">
-                <div *ngIf="matchData.noPlayers <= playersInfo.length">
-                    <app-icon imageUrl="/assets/Valider.svg" [width]="70"></app-icon>
-=======
         <!-- Status : CANCELED  -->
         <div class="app-matche-details-content" *ngIf="this.matchData.canceled">
             Match Annuler
@@ -47,7 +39,6 @@
                 
                 <div *ngIf="isOrganiser()"> <!-- isAdmin() -->
                     <app-button (click)="deleteMatch()" buttonText="Annuler le match"/>
->>>>>>> mouad
                 </div>
                 
                 <div *ngIf="isOrganiser() && matchData.noPlayers <= playersInfo.length" class="app-matche-details-buttons">
