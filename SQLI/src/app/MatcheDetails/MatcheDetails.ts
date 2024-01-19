@@ -23,6 +23,7 @@ export class MatcheDetails {
   
   score : boolean = false;
   type : string = "";
+  rank : number = 2;
   // matchData: {id:number, noPlayers:number, sportName:string, location:string, pending:boolean, confirmed: boolean, canceled: boolean} = {id : 1, noPlayers:10, sportName:"", location:"", pending:false , confirmed: false, canceled: false};
   // firstTeamTmp : { id: number; firstName: string; lastName: string; profileImage: string; }[] = [ ] ;
   // secondTeamTmp : { id: number; firstName: string; lastName: string; profileImage: string; }[] = [ ] ;
@@ -39,12 +40,17 @@ export class MatcheDetails {
   //   { id:19, firstName: "string", lastName: "string", profileImage : "/assets/Player8.svg"}, 
   //   { id:20, firstName: "string", lastName: "string", profileImage : "/assets/Player9.svg"}, 
   // ];
+
   matchData: any = {};
   playersInfo : any[] = [ ] ;
+  scoreFirstTeamTmp : number = 0 ;
+  scoreSecondTeamTmp : number = 0 ;
+  idFirstTeamTmp : number = 0 ;
+  idSecondTeamTmp : number = 0 ;
   firstTeamTmp : any[] = [ ] ;
   secondTeamTmp :any[] = [ ] ;
   
-  
+
   constructor(private sharedservice:SharedService,private matchService: MatchService, private http: HttpClient) { }
   
   ngOnInit() {
@@ -68,6 +74,7 @@ export class MatcheDetails {
       (response: any) => {
         this.playersInfo = response.map((player: any) => ({
           id: player.id,
+          rank: player.rank,
           firstName: player.firstName,
           lastName: player.lastName,
           profileImage: player.profileImage
@@ -87,10 +94,11 @@ export class MatcheDetails {
         noPlayers: response.noPlayers,
         sportName: response.sport.name,
         location: response.field.location,
+        status: response.status,
         pending: response.status=="PENDING", 
         confirmed: response.status=="CONFIRMED", 
-        canceled: response.status=="CANCELED"
-        
+        canceled: response.status=="CANCELED",
+        formed: response.status=="FORMED",        
       };
       console.log('Réponse du serveur :', this.matchData);
     },
@@ -106,14 +114,20 @@ export class MatcheDetails {
       (response: any) => {
         if (response.length==2){
           console.log(response);
+          this.idFirstTeamTmp = response[0].id ;
+          this.idSecondTeamTmp = response[1].id ;
           this.firstTeamTmp = response[0].players.map((player: any) => ({
+            // idTeam : response[0].id,
             id : player.id,
+            rank: player.rank,
             firstName: player.firstName, 
             lastName: player.lastName, 
             profileImage : player.profileImage
           }));
           this.secondTeamTmp = response[1].players.map((player: any) => ({
+            // idTeam : response[1].id,
             id : player.id,
+            rank: player.rank,
             firstName: player.firstName, 
             lastName: player.lastName, 
             profileImage : player.profileImage
@@ -164,6 +178,25 @@ export class MatcheDetails {
   automaticChoice() {
     //this.confirmMatch();
     this.type = "auto";
+
+    const userId = localStorage.getItem('userId'); // Retrieve user ID from storage
+    const matchId = localStorage.getItem('idMatch'); // Retrieve user ID from storage
+
+    const apiUrl = `http://localhost:8081/match/make/auto?userId=${userId}&matchId=${matchId}&model=even`;
+    this.http.post(apiUrl, {}).subscribe(
+      (response) => {
+            // TMP
+        // this.getMatchData(Number(matchId));
+        this.getTeamsData(Number(matchId));
+
+        console.log('Match confirmé avec succès :', response);
+      },
+      (error) => {
+        console.error('Erreur lors de la confirmation du match :', error);
+        // Gestion de l'erreur
+      }
+    );
+
   }
 
   
@@ -172,6 +205,7 @@ export class MatcheDetails {
     const matchId = localStorage.getItem('idMatch'); // Retrieve user ID from storage
 
     this.makeTeams();
+     
     const apiUrl = `http://localhost:8081/match/confirm?userId=${userId}&matchId=${matchId}`;
     return this.http.put(apiUrl, {}).subscribe(
       (response) => {
@@ -199,6 +233,23 @@ export class MatcheDetails {
     const apiUrlMake = `http://localhost:8081/match/make/manual?userId=${userId}&matchId=${matchId}`;
     this.http.post(apiUrlMake, data).subscribe(
         (response) => {
+          ////////////////////   TMP  ////////////////////////   
+          const apiUrl = `http://localhost:8081/match/confirm?userId=${userId}&matchId=${matchId}`;
+          return this.http.put(apiUrl, {}).subscribe(
+            (response) => {
+                  // TMP
+              this.getMatchData(Number(matchId));
+              // this.getTeamsData(Number(matchId));
+      
+              console.log('Match confirmé avec succès :', response);
+            },
+            (error) => {
+              console.error('Erreur lors de la confirmation du match :', error);
+              // Gestion de l'erreur
+            }
+          );
+
+          ///////////////////////////////
             console.log('Match make avec succès :', response);
             this.getMatchData(Number(matchId));
         },
@@ -261,6 +312,11 @@ export class MatcheDetails {
     return(userId===organiserId)
   }
 
+  // Todo
+  isAdmin() {
+    return(true);
+  }
+
   deleteMatch(){
     const userId = localStorage.getItem('userId');
 
@@ -278,12 +334,23 @@ export class MatcheDetails {
   
   }
 
-  changeTeams(){
-    // status --> PENDING
-  }
 
   recordScores(){
+    const userId = localStorage.getItem('userId'); // Retrieve user ID from storage
 
+    const data = [
+      {"teamId": this.idFirstTeamTmp, "score": this.scoreFirstTeamTmp },
+      {"teamId": this.idSecondTeamTmp, "score": this.scoreSecondTeamTmp },
+  ];
+    const apiUrl = `http://localhost:8081/match/record?recorderId=${userId}&model=default`;
+    this.http.post(apiUrl, data).subscribe(
+        (response) => {
+            // this.getMatchData(Number(matchId));
+        },
+        (error) => {
+            console.error('Erreur lors du make du match :', error);
+        }
+    );
   }
 
   drop(event: CdkDragDrop<any[]>) {
@@ -298,4 +365,60 @@ export class MatcheDetails {
       );
     }
   }
+
+  averageEloEquipe(equipe: any[]): number {
+    if (equipe.length === 0) {
+      return 0; // Retourne 0 si l'équipe est vide
+    }
+  
+    const sommeDesRanks = equipe.reduce((somme, joueur) => somme + joueur.rank, 0);
+    const moyenne = sommeDesRanks / equipe.length;
+  
+    return moyenne;
+  }
+
+  closeMatch(){
+    const userId = localStorage.getItem('userId'); // Retrieve user ID from storage
+    const matchId = localStorage.getItem('idMatch'); // Retrieve user ID from storage
+
+    const apiUrl = `http://localhost:8081/match/close?userId=${userId}&matchId=${matchId}`;
+    return this.http.put(apiUrl, {}).subscribe(
+      (response) => {
+            // TMP
+        this.getMatchData(Number(matchId));
+        // this.getTeamsData(Number(matchId));
+
+        console.log('Match confirmé avec succès :', response);
+      },
+      (error) => {
+        console.error('Erreur lors de la confirmation du match :', error);
+        // Gestion de l'erreur
+      }
+    );
+  }
+
+  openMatch(){
+    const userId = localStorage.getItem('userId'); // Retrieve user ID from storage
+    const matchId = localStorage.getItem('idMatch'); // Retrieve user ID from storage
+
+    const apiUrl = `http://localhost:8081/match/pend?userId=${userId}&matchId=${matchId}`;
+    return this.http.put(apiUrl, {}).subscribe(
+      (response) => {
+            // TMP
+        this.getMatchData(Number(matchId));
+        // this.getTeamsData(Number(matchId));
+
+        console.log('Match confirmé avec succès :', response);
+      },
+      (error) => {
+        console.error('Erreur lors de la confirmation du match :', error);
+        // Gestion de l'erreur
+      }
+    );
+  }
+  changeTeams(){
+    this.openMatch();
+    this.closeMatch();
+  }
+
 }

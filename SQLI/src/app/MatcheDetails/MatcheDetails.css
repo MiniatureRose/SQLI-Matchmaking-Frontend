@@ -74,6 +74,19 @@
     line-height: normal;
 }
 
+.app-matche-details-team-elo-content{
+    width: 70px;
+    height: 70px;
+    font-size: 26px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    background-color: #FAFAFA;
+    border: 5px solid #FFBB24;
+    border-radius: 20px;
+}
+
 .app-matche-details-team-drag{
     display: flex;
     /* border: 2px red solid; */
@@ -86,4 +99,15 @@
     text-align: center;
     border: 5px solid #FFBB24;
     border-radius: 20px;
+}
+
+.app-matche-details-team-elo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffd375;
+    padding: 10px;
+    border-radius: 20px;
+    border: 5px solid 3062C8red;
 }

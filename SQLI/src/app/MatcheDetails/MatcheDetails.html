@@ -15,16 +15,17 @@
     </div>
 
         <!-- Status : CANCELED  -->
-        <div class="app-matche-details-content" *ngIf="this.matchData.canceled">
-            Match Annuler
+        <div *ngIf="this.matchData.status=='CANCELED'" class="app-matche-details-content">
+            Match Annulé
             <app-icon imageUrl="/assets/Annuler.svg" [width]="70"></app-icon>
         </div>
 
 
-        <!-- Status : PENDING  -->
-        <div *ngIf=" this.matchData.pending" class="app-matche-details-content">
+        <!-- Status : PENDING  or CLOSED  -->
+        <div *ngIf="this.matchData.status=='PENDING' || this.matchData.status=='CLOSED'" class="app-matche-details-content">
             <div class="app-matche-details-content-1" >
                 <app-cercle-plan [playersNumber]="matchData.noPlayers" [playersInfo]="playersInfo">
+                    
                     <div *ngIf="!this.matchData.canceled && matchData.noPlayers <= playersInfo.length">
                         <app-icon imageUrl="/assets/Valider.svg" [width]="70"></app-icon>
                     </div>
@@ -32,31 +33,43 @@
                     <div *ngIf="!this.matchData.canceled && matchData.noPlayers > playersInfo.length && !isIn()">
                         <app-button (click)="joinMatch()" buttonText="Participer"/>
                     </div>
-                    <div *ngIf="!this.matchData.canceled && matchData.noPlayers > playersInfo.length && isIn()">
+                    <div *ngIf="!this.matchData.canceled && matchData.noPlayers > playersInfo.length && isIn()" >
                         <app-button (click)="unjoinMatch()" buttonText="Quitter"/>
                     </div>
                 </app-cercle-plan>
                 
-                <div *ngIf="isOrganiser()"> <!-- isAdmin() -->
+                <div *ngIf=" (isOrganiser() || isAdmin())"> <!-- isAdmin() -->
                     <app-button (click)="deleteMatch()" buttonText="Annuler le match"/>
+                    <app-button *ngIf="this.matchData.status=='PENDING' && matchData.noPlayers <= playersInfo.length" (click)="closeMatch()" buttonText="Fermer la participation"/>
+                    <app-button *ngIf="this.matchData.status=='CLOSED'" (click)="openMatch()" buttonText="Ouvrir la participation"/>
                 </div>
                 
-                <div *ngIf="isOrganiser() && matchData.noPlayers <= playersInfo.length" class="app-matche-details-buttons">
+                <div *ngIf=" this.matchData.status=='CLOSED' && (isOrganiser() || isAdmin()) && matchData.noPlayers <= playersInfo.length" class="app-matche-details-buttons">
                     <app-button-item (click)="manualChoice()" imageUrl="/assets/ChoixManuel.svg" buttonText="Choix manuel"/>
                     <app-button-item (click)="randomChoice()" imageUrl="/assets/ChoixAleatoire.svg" buttonText="Choix aléatoire"/>
-                    <app-button-item imageUrl="/assets/ChoixAutomatique.svg" buttonText="Choix automatique"/>
+                    <app-button-item (click)="automaticChoice()" imageUrl="/assets/ChoixAutomatique.svg" buttonText="Choix automatique"/>
                 </div>
             </div>
             
             <!-- Random -->
-            <div *ngIf="type=='random'" [style.display]="'flex'" [style.gap.px]="30">
+            <div *ngIf="type=='random' || type=='auto'" [style.display]="'flex'" [style.gap.px]="30">
                 <div class="app-matche-details-content-team-1">
                     <div class="app-matche-details-team-title">Équipe 1</div>
-                    <app-cercle-plan [playersNumber]="matchData.noPlayers/2" [playersInfo]="firstTeamTmp"></app-cercle-plan>
+                    <app-cercle-plan [playersNumber]="matchData.noPlayers/2" [playersInfo]="firstTeamTmp">
+                        <div class="app-matche-details-team-elo">
+                            <div class="app-matche-details-team-title">Elo de l'équipe</div>
+                            <div class="app-matche-details-team-elo-content">{{averageEloEquipe(firstTeamTmp)}}</div>
+                        </div>
+                    </app-cercle-plan>
                 </div>
                 <div class="app-matche-details-content-team-2">
                     <div class="app-matche-details-team-title">Équipe 2</div>
-                    <app-cercle-plan [playersNumber]="matchData.noPlayers/2" [playersInfo]="secondTeamTmp"></app-cercle-plan>
+                    <app-cercle-plan [playersNumber]="matchData.noPlayers/2" [playersInfo]="secondTeamTmp">
+                        <div class="app-matche-details-team-elo">
+                            <div class="app-matche-details-team-title">Elo de l'équipe</div>
+                            <div class="app-matche-details-team-elo-content">{{averageEloEquipe(secondTeamTmp)}}</div>
+                        </div>
+                    </app-cercle-plan>
                 </div>
             </div>
     
@@ -96,16 +109,20 @@
 
         
         <!-- Status : CONFIRMED  -->
-        <div *ngIf="this.matchData.confirmed" class="app-matche-details-content">
+        <div *ngIf="this.matchData.status=='CONFIRMED' || this.matchData.status=='RECORDED' || this.matchData.status=='FORMED'" class="app-matche-details-content">
             <div [style.display]="'flex'" [style.gap.px]="30">
                 <div class="app-matche-details-content-team-1">
                     <div class="app-matche-details-team-title">Équipe 1</div>
                     <app-cercle-plan [playersNumber]="matchData.noPlayers/2" [playersInfo]="firstTeamTmp">
+                        <div class="app-matche-details-team-elo">
+                            <div class="app-matche-details-team-title">Elo de l'équipe</div>
+                            <div class="app-matche-details-team-elo-content">{{averageEloEquipe(firstTeamTmp)}}</div>
+                        </div>
                         <div *ngIf="this.score" >
                             <label for="integerInput">
                                 <div class="app-matche-details-team-title">Score :</div>
                             </label>
-                            <input type="number" id="integerInput" name="integerInput" step="1">
+                            <input [(ngModel)]="scoreFirstTeamTmp" type="number" id="integerInput" name="integerInput" step="1">
                         </div>    
                     </app-cercle-plan>
                     
@@ -113,17 +130,21 @@
                 <div class="app-matche-details-content-team-2">
                     <div class="app-matche-details-team-title">Équipe 2</div>
                     <app-cercle-plan [playersNumber]="matchData.noPlayers/2" [playersInfo]="secondTeamTmp">
+                        <div class="app-matche-details-team-elo">
+                            <div class="app-matche-details-team-title">Elo de l'équipe</div>
+                            <div class="app-matche-details-team-elo-content">{{averageEloEquipe(secondTeamTmp)}}</div>
+                        </div>
                         <div *ngIf="this.score">
                             <label for="integerInput">
                                 <div class="app-matche-details-team-title">Score :</div>
                             </label>
-                            <input type="number" id="integerInput" name="integerInput" step="1">
+                            <input [(ngModel)]="scoreSecondTeamTmp" type="number" id="integerInput" name="integerInput" step="1">
                         </div>
                     </app-cercle-plan>
                 </div>
             </div>
             <app-button *ngIf="!this.score" (click)="changeTeams()" buttonText="changer les équipes"/>
-            <app-button *ngIf="!this.score" (click)="this.score=true" buttonText="Entrer les scores"/>
-            <app-button *ngIf="this.score" (click)="recordScores()" buttonText="Enregistrer les scores"/>
+            <app-button *ngIf="!this.score && !(this.matchData.status=='RECORDED')" (click)="this.score=true" buttonText="Entrer les scores"/>
+            <app-button *ngIf="this.score && !(this.matchData.status=='RECORDED')" (click)="recordScores()" buttonText="Enregistrer les scores"/>
         </div>
 </div>

@@ -69,7 +69,7 @@ export class NewMatchComponent implements OnInit {
   }
 
   loadSports() {
-    const sportsUrl = 'http://localhost:8081/data/sport/all';
+    const sportsUrl = 'http://localhost:8081/sport/all';
     this.http.get<Sport[]>(sportsUrl).subscribe(
       (sports) => {
         this.sports = sports;
@@ -83,7 +83,7 @@ export class NewMatchComponent implements OnInit {
 
 
   loadFields() {
-    const fieldsUrl = 'http://localhost:8081/data/field/all';
+    const fieldsUrl = 'http://localhost:8081/field/all';
     this.http.get<Field[]>(fieldsUrl).subscribe(
       (fields) => {
         this.fields = fields;

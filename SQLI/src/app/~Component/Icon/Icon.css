@@ -2,7 +2,7 @@
     width: 52px;
     height: 52px;
     flex-shrink: 0;
-    
+    position: relative;
     /* fill: #B4D6F6; */
     /* stroke-width: 3px; */
     /* stroke: var(--Yellow, #FFBB24); */
@@ -19,4 +19,18 @@
 .icon-image {
     max-height: 70%;
     width: 70%; /* Pour que l'image occupe 100% de la largeur de son parent (.icon) */
+}
+
+.popup{
+    position: absolute;
+
+    width:max-content;
+    height: 40px;
+    padding: 5px;
+    font-size: 16px;
+    border: 2px #3062C8 solid;
+    border-radius: 10px;
+    margin-top: -100px;
+    background: #ffd375;
+
 }

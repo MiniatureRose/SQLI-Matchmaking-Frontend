@@ -1,3 +1,8 @@
-<div class="icon" [style.width.px]="width" [style.height.px]="width" [style.border-color]="color">
+<div class="icon" [style.width.px]="width" [style.height.px]="width" [style.border-color]="color" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
     <img class="icon-image" [src]="imageUrl" >
+    
+    <div *ngIf="hover && isHovered" class="popup">
+        <div> {{firstName}} {{lastName}}</div>
+        <div> Lot : {{rank}}</div>
+    </div>
 </div>

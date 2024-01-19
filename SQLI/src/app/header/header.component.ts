@@ -62,7 +62,7 @@ export class HeaderComponent {
     if(this.firstName === "" && this.lastName === "" && this.profileImage=== ""){
       const userId = localStorage.getItem('userId'); 
       const apiUrl = 'http://localhost:8081';
-      const current_user = this.http.get<any>(`${apiUrl}/data/user?id=${userId}`); 
+      const current_user = this.http.get<any>(`${apiUrl}/user/id?id=${userId}`); 
       current_user.subscribe(result=>{
         console.log(result);
         this.firstName = result.firstName;
@@ -73,5 +73,12 @@ export class HeaderComponent {
         console.log(result.email);
       })
     }
+  }
+
+  logOutUser() {
+    localStorage.clear();
+    // window.location.reload();
+    window.location.href = 'http://localhost:4200/Authentification';
+
   }
 }
