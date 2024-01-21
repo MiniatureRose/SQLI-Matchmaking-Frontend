@@ -38,13 +38,13 @@
                     </div>
                 </app-cercle-plan>
                 
-                <div *ngIf=" (isOrganiser() || isAdmin())"> <!-- isAdmin() -->
+                <div *ngIf=" (isOrganiser() || isAdmin )"> <!-- isAdmin() -->
                     <app-button (click)="deleteMatch()" buttonText="Annuler le match"/>
                     <app-button *ngIf="this.matchData.status=='PENDING' && matchData.noPlayers <= playersInfo.length" (click)="closeMatch()" buttonText="Fermer la participation"/>
                     <app-button *ngIf="this.matchData.status=='CLOSED'" (click)="openMatch()" buttonText="Ouvrir la participation"/>
                 </div>
                 
-                <div *ngIf=" this.matchData.status=='CLOSED' && (isOrganiser() || isAdmin()) && matchData.noPlayers <= playersInfo.length" class="app-matche-details-buttons">
+                <div *ngIf=" this.matchData.status=='CLOSED' && (isOrganiser() || isAdmin ) && matchData.noPlayers <= playersInfo.length" class="app-matche-details-buttons">
                     <app-button-item (click)="manualChoice()" imageUrl="/assets/ChoixManuel.svg" buttonText="Choix manuel"/>
                     <app-button-item (click)="randomChoice()" imageUrl="/assets/ChoixAleatoire.svg" buttonText="Choix aléatoire"/>
                     <app-button-item (click)="automaticChoice()" imageUrl="/assets/ChoixAutomatique.svg" buttonText="Choix automatique"/>
@@ -52,22 +52,22 @@
             </div>
             
             <!-- Random -->
-            <div *ngIf="type=='random' || type=='auto'" [style.display]="'flex'" [style.gap.px]="30">
+            <div *ngIf=" this.matchData.status=='CLOSED' && (type=='random' || type=='auto')" [style.display]="'flex'" [style.gap.px]="30">
                 <div class="app-matche-details-content-team-1">
                     <div class="app-matche-details-team-title">Équipe 1</div>
-                    <app-cercle-plan [playersNumber]="matchData.noPlayers/2" [playersInfo]="firstTeamTmp">
+                    <app-cercle-plan [playersNumber]="matchData.noPlayers/2" [playersInfo]="teams[0].players">
                         <div class="app-matche-details-team-elo">
                             <div class="app-matche-details-team-title">Elo de l'équipe</div>
-                            <div class="app-matche-details-team-elo-content">{{averageEloEquipe(firstTeamTmp)}}</div>
+                            <div class="app-matche-details-team-elo-content">{{averageEloEquipe(teams[0].players)}}</div>
                         </div>
                     </app-cercle-plan>
                 </div>
                 <div class="app-matche-details-content-team-2">
                     <div class="app-matche-details-team-title">Équipe 2</div>
-                    <app-cercle-plan [playersNumber]="matchData.noPlayers/2" [playersInfo]="secondTeamTmp">
+                    <app-cercle-plan [playersNumber]="matchData.noPlayers/2" [playersInfo]="teams[1].players">
                         <div class="app-matche-details-team-elo">
                             <div class="app-matche-details-team-title">Elo de l'équipe</div>
-                            <div class="app-matche-details-team-elo-content">{{averageEloEquipe(secondTeamTmp)}}</div>
+                            <div class="app-matche-details-team-elo-content">{{averageEloEquipe(teams[1].players)}}</div>
                         </div>
                     </app-cercle-plan>
                 </div>
@@ -83,18 +83,18 @@
                         </div>
                     </div>
                 </div>
-                <div cdkDropList id="firstTeamList" [cdkDropListData]="firstTeamTmp" class="team" (cdkDropListDropped)="drop($event)">
+                <div cdkDropList id="firstTeamList" [cdkDropListData]="teams[0].players" class="team" (cdkDropListDropped)="drop($event)">
                   <div class="app-matche-details-team-title">Équipe 1</div>
                     <div class="app-matche-details-team-drag">
-                      <div *ngFor="let player of firstTeamTmp" cdkDrag>
+                      <div *ngFor="let player of teams[0].players" cdkDrag>
                           <app-icon [width]="93" color="#3062C8" [imageUrl]="player.profileImage"></app-icon> 
                         </div>
                     </div>
                 </div>
-                <div cdkDropList id="secondTeamList" [cdkDropListData]="secondTeamTmp"  class="team" (cdkDropListDropped)="drop($event)">
+                <div cdkDropList id="secondTeamList" [cdkDropListData]="teams[1].players"  class="team" (cdkDropListDropped)="drop($event)">
                   <div class="app-matche-details-team-title">Équipe 2</div>
                     <div class="app-matche-details-team-drag">
-                      <div *ngFor="let player of secondTeamTmp" cdkDrag>
+                      <div *ngFor="let player of teams[1].players" cdkDrag>
                           <app-icon [width]="93" color="#3062C8" [imageUrl]="player.profileImage"></app-icon> 
                         </div>
                     </div>
@@ -113,32 +113,32 @@
             <div [style.display]="'flex'" [style.gap.px]="30">
                 <div class="app-matche-details-content-team-1">
                     <div class="app-matche-details-team-title">Équipe 1</div>
-                    <app-cercle-plan [playersNumber]="matchData.noPlayers/2" [playersInfo]="firstTeamTmp">
+                    <app-cercle-plan [playersNumber]="matchData.noPlayers/2" [playersInfo]="teams[0].players">
                         <div class="app-matche-details-team-elo">
                             <div class="app-matche-details-team-title">Elo de l'équipe</div>
-                            <div class="app-matche-details-team-elo-content">{{averageEloEquipe(firstTeamTmp)}}</div>
+                            <div class="app-matche-details-team-elo-content">{{averageEloEquipe(teams[0].players)}}</div>
                         </div>
                         <div *ngIf="this.score" >
                             <label for="integerInput">
                                 <div class="app-matche-details-team-title">Score :</div>
                             </label>
-                            <input [(ngModel)]="scoreFirstTeamTmp" type="number" id="integerInput" name="integerInput" step="1">
+                            <input [(ngModel)]="this.teams[0].score" type="number" id="integerInput" name="integerInput" step="1">
                         </div>    
                     </app-cercle-plan>
                     
                 </div>
                 <div class="app-matche-details-content-team-2">
                     <div class="app-matche-details-team-title">Équipe 2</div>
-                    <app-cercle-plan [playersNumber]="matchData.noPlayers/2" [playersInfo]="secondTeamTmp">
+                    <app-cercle-plan [playersNumber]="matchData.noPlayers/2" [playersInfo]="teams[1].players">
                         <div class="app-matche-details-team-elo">
                             <div class="app-matche-details-team-title">Elo de l'équipe</div>
-                            <div class="app-matche-details-team-elo-content">{{averageEloEquipe(secondTeamTmp)}}</div>
+                            <div class="app-matche-details-team-elo-content">{{averageEloEquipe(teams[1].players)}}</div>
                         </div>
                         <div *ngIf="this.score">
                             <label for="integerInput">
                                 <div class="app-matche-details-team-title">Score :</div>
                             </label>
-                            <input [(ngModel)]="scoreSecondTeamTmp" type="number" id="integerInput" name="integerInput" step="1">
+                            <input [(ngModel)]="this.teams[1].score" type="number" id="integerInput" name="integerInput" step="1" >
                         </div>
                     </app-cercle-plan>
                 </div>

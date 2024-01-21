@@ -29,8 +29,24 @@
     background: var(--Yellow-light, #FBE9C1);
 }
 
+.score{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.8125rem;
+    padding: 0 10px 0 10px;
+    gap: 10px;
+    flex-shrink: 0;
+    border-radius: 0.625rem;
+    border: 4px solid #FFBB24;
+}
+
 .full {
     background: var(--Green-light, #D5F0E5);
+}
+
+.cancel {
+    background: var(--Green-light, #ff8e8e);
 }
 
 .match-size {

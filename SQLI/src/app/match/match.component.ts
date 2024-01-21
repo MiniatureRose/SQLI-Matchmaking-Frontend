@@ -17,6 +17,13 @@ export class MatchComponent {
   @Input() sport: string = '';
   @Input() size: number = 0;
   @Input() nbPlayer: number = 0;
+  
+  @Input() status: string = "PENDING";
+  @Input() score : any[] = [1, 2];
+
+
+  // @Input() status: string = "CONFIRMED";
+  // @Input() status: string = "CANCELED";
 
   constructor(private router:Router, private sharedservice:SharedService) { }
 
@@ -27,10 +34,15 @@ export class MatchComponent {
     return this.size === this.nbPlayer;
   }
 
+  
+  isCanceled(): boolean {
+    return this.status === "CANCELED";
+  }
+
   toMatcheDetails() {
     // this.sharedservice.toggleMatchClicked(this.idMatch); //TMP
-    localStorage.setItem('idMatch', this.idMatch.toString()); // Stocker dans le localStorage
-    localStorage.setItem('idOrganiser', this.idOrganiser.toString()); // Stocker dans le localStorage
+    localStorage.setItem('matchId', this.idMatch.toString()); // Stocker dans le localStorage
+    localStorage.setItem('organiserId', this.idOrganiser.toString()); // Stocker dans le localStorage
     this.router.navigate(['/matche-details']);
   }
 

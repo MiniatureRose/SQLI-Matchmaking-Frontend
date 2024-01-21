@@ -12,37 +12,24 @@ import { MatchService } from '../services/match.service';
   styleUrls: ['./MatcheDetails.css']
 })
 export class MatcheDetails {
-  private _idMatch: number = 2;
-  @Input() set idMatch(value: number) {
-    this._idMatch = value;
-    localStorage.setItem('idMatch', value.toString()); // Stocker dans le localStorage
+  private _matchId: number = 2;
+  @Input() set matchId(value: number) {
+    this._matchId = value;
+    localStorage.setItem('matchId', value.toString());
   }
-  get idMatch(): number {
-    return this._idMatch;
+  get matchId(): number {
+    return this._matchId;
   }
   
+  userId: number = 0;
   score : boolean = false;
   type : string = "";
-  rank : number = 2;
-  // matchData: {id:number, noPlayers:number, sportName:string, location:string, pending:boolean, confirmed: boolean, canceled: boolean} = {id : 1, noPlayers:10, sportName:"", location:"", pending:false , confirmed: false, canceled: false};
-  // firstTeamTmp : { id: number; firstName: string; lastName: string; profileImage: string; }[] = [ ] ;
-  // secondTeamTmp : { id: number; firstName: string; lastName: string; profileImage: string; }[] = [ ] ;
-  // playersInfo : { id: number; firstName: string; lastName: string; profileImage: string;
-  // }[] = [ 
-  //   { id:11, firstName: "string", lastName: "string", profileImage : "/assets/Player1.svg"}, 
-  //   { id:12, firstName: "string", lastName: "string", profileImage : "/assets/Player1.svg"}, 
-  //   { id:13, firstName: "string", lastName: "string", profileImage : "/assets/Player2.svg"}, 
-  //   { id:14, firstName: "string", lastName: "string", profileImage : "/assets/Player3.svg"}, 
-  //   { id:15, firstName: "string", lastName: "string", profileImage : "/assets/Player4.svg"}, 
-  //   { id:16, firstName: "string", lastName: "string", profileImage : "/assets/Player5.svg"}, 
-  //   { id:17, firstName: "string", lastName: "string", profileImage : "/assets/Player6.svg"}, 
-  //   { id:18, firstName: "string", lastName: "string", profileImage : "/assets/Player7.svg"}, 
-  //   { id:19, firstName: "string", lastName: "string", profileImage : "/assets/Player8.svg"}, 
-  //   { id:20, firstName: "string", lastName: "string", profileImage : "/assets/Player9.svg"}, 
-  // ];
 
   matchData: any = {};
   playersInfo : any[] = [ ] ;
+
+  teams : any[] = [];
+
   scoreFirstTeamTmp : number = 0 ;
   scoreSecondTeamTmp : number = 0 ;
   idFirstTeamTmp : number = 0 ;
@@ -50,35 +37,33 @@ export class MatcheDetails {
   firstTeamTmp : any[] = [ ] ;
   secondTeamTmp :any[] = [ ] ;
   
+  isAdmin: boolean = false; 
+
 
   constructor(private sharedservice:SharedService,private matchService: MatchService, private http: HttpClient) { }
   
   ngOnInit() {
-    // Récupération de idMatch du localStorage
-    const storedIdMatch = localStorage.getItem('idMatch');
-    if (storedIdMatch) {
-      this.idMatch = Number(storedIdMatch);
+    const storedMatchId = localStorage.getItem('matchId');
+    const storedUserId = localStorage.getItem('userId');
+    if (storedMatchId && storedUserId ) {
+      this.matchId = Number(storedMatchId);
+      this.userId = Number(storedUserId);
+      this.checkAdmin();
       this.getPlayersData(); // Appeler pour initialiser les données avec la nouvelle idMatch
-      this.getMatchData(this.idMatch);
-      this.getTeamsData(this.idMatch);
+      this.getMatchData(this.matchId);
+      this.getTeamsData(this.matchId);
     } else {
       console.error("Aucun idMatch trouvé dans le localStorage");
       // Gérer le cas où idMatch n'est pas disponible
     }
   }
 
+
+  /*****************  Get data *****************/
   getPlayersData() {
-    const apiUrl = `http://localhost:8081/match/players?matchId=${this.idMatch}`;
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    this.http.get(apiUrl, { headers }).subscribe(
+    this.matchService.getPlayersData(this.matchId).subscribe(
       (response: any) => {
-        this.playersInfo = response.map((player: any) => ({
-          id: player.id,
-          rank: player.rank,
-          firstName: player.firstName,
-          lastName: player.lastName,
-          profileImage: player.profileImage
-        }));
+        this.playersInfo = response;
         console.log('Réponse du serveur :', response);
       },
       (error) => {
@@ -88,69 +73,41 @@ export class MatcheDetails {
   }
 
   getMatchData(id: number) {
-    this.matchService.getMatchDetails(id).subscribe((response: any) => {
-      this.matchData = {
-        id: response.id,
-        noPlayers: response.noPlayers,
-        sportName: response.sport.name,
-        location: response.field.location,
-        status: response.status,
-        pending: response.status=="PENDING", 
-        confirmed: response.status=="CONFIRMED", 
-        canceled: response.status=="CANCELED",
-        formed: response.status=="FORMED",        
-      };
-      console.log('Réponse du serveur :', this.matchData);
-    },
-    (error) => {
-      console.error('Erreur lors de la requête GET :', error);
-    });
+    this.matchService.getMatchDetails(id).subscribe(
+      (response: any) => {
+        // this.matchData = response;
+        this.matchData = {
+          id: response.id,
+          noPlayers: response.noPlayers,
+          sportName: response.sport.name,
+          location: response.field.location,
+          status: response.status,
+        };
+        console.log('Réponse du serveur :', this.matchData);
+      },
+      (error) => {
+        console.error('Erreur lors de la requête GET :', error);
+      });
 
   }
 
   getTeamsData(id: number) {
-    const apiUrl = `http://localhost:8081/match/teams?matchId=${id}`;
-    this.http.get(apiUrl).subscribe(
+    this.matchService.getTeamsData(this.matchId).subscribe(
       (response: any) => {
-        if (response.length==2){
-          console.log(response);
-          this.idFirstTeamTmp = response[0].id ;
-          this.idSecondTeamTmp = response[1].id ;
-          this.firstTeamTmp = response[0].players.map((player: any) => ({
-            // idTeam : response[0].id,
-            id : player.id,
-            rank: player.rank,
-            firstName: player.firstName, 
-            lastName: player.lastName, 
-            profileImage : player.profileImage
-          }));
-          this.secondTeamTmp = response[1].players.map((player: any) => ({
-            // idTeam : response[1].id,
-            id : player.id,
-            rank: player.rank,
-            firstName: player.firstName, 
-            lastName: player.lastName, 
-            profileImage : player.profileImage
-          }));
-        }
-      
-        console.log('Réponse du serveur :', this.matchData);
+        this.teams=response;      
+        console.log('Réponse du serveur :', this.teams);
       },
       (error) => {
         console.error('Erreur lors de la requête GET :', error);
       }
     );
   }
-
-
   
 
-
+  /*****************  Type of Team Choice *****************/
   manualChoice() {
     //TMP
-    this.firstTeamTmp=[];
-    this.secondTeamTmp=[];
-    
+    this.teams=[];
     this.type = "manual";
   }
 
@@ -166,126 +123,49 @@ export class MatcheDetails {
       }
     
       const half = Math.ceil(players.length / 2);
-    
-      this.firstTeamTmp = players.slice(0, half);
-      this.secondTeamTmp = players.slice(half);
-    
-    
-      console.log("firstTeam : ", this.firstTeamTmp);
-
+      this.teams=[{players:players.slice(0, half)},{players:players.slice(half)} ]
   }
   
   automaticChoice() {
     //this.confirmMatch();
     this.type = "auto";
 
-    const userId = localStorage.getItem('userId'); // Retrieve user ID from storage
-    const matchId = localStorage.getItem('idMatch'); // Retrieve user ID from storage
-
-    const apiUrl = `http://localhost:8081/match/make/auto?userId=${userId}&matchId=${matchId}&model=even`;
-    this.http.post(apiUrl, {}).subscribe(
-      (response) => {
+    this.matchService.postAutomaticChoice(this.matchId, this.userId).subscribe(
+      (response: any) => {
             // TMP
-        // this.getMatchData(Number(matchId));
-        this.getTeamsData(Number(matchId));
+        // this.getMatchData(this.matchId);
+        this.getTeamsData(this.matchId);
 
         console.log('Match confirmé avec succès :', response);
       },
       (error) => {
         console.error('Erreur lors de la confirmation du match :', error);
-        // Gestion de l'erreur
       }
     );
 
   }
-
   
-  confirmMatch() {
-    const userId = localStorage.getItem('userId'); // Retrieve user ID from storage
-    const matchId = localStorage.getItem('idMatch'); // Retrieve user ID from storage
 
-    this.makeTeams();
-     
-    const apiUrl = `http://localhost:8081/match/confirm?userId=${userId}&matchId=${matchId}`;
-    return this.http.put(apiUrl, {}).subscribe(
-      (response) => {
-            // TMP
-        this.getMatchData(Number(matchId));
-        // this.getTeamsData(Number(matchId));
-
-        console.log('Match confirmé avec succès :', response);
-      },
-      (error) => {
-        console.error('Erreur lors de la confirmation du match :', error);
-        // Gestion de l'erreur
-      }
-    );
-  }
-  
-  makeTeams() {
-    const userId = localStorage.getItem('userId'); // Retrieve user ID from storage
-    const matchId = localStorage.getItem('idMatch'); // Retrieve user ID from storage
-
-    const data = [
-      {"teamName": "Team1", "playersIds": this.firstTeamTmp.map(player=>player.id) },
-      {"teamName": "Team2", "playersIds": this.secondTeamTmp.map(player=>player.id) },
-  ];
-    const apiUrlMake = `http://localhost:8081/match/make/manual?userId=${userId}&matchId=${matchId}`;
-    this.http.post(apiUrlMake, data).subscribe(
-        (response) => {
-          ////////////////////   TMP  ////////////////////////   
-          const apiUrl = `http://localhost:8081/match/confirm?userId=${userId}&matchId=${matchId}`;
-          return this.http.put(apiUrl, {}).subscribe(
-            (response) => {
-                  // TMP
-              this.getMatchData(Number(matchId));
-              // this.getTeamsData(Number(matchId));
-      
-              console.log('Match confirmé avec succès :', response);
-            },
-            (error) => {
-              console.error('Erreur lors de la confirmation du match :', error);
-              // Gestion de l'erreur
-            }
-          );
-
-          ///////////////////////////////
-            console.log('Match make avec succès :', response);
-            this.getMatchData(Number(matchId));
-        },
-        (error) => {
-            console.error('Erreur lors du make du match :', error);
-        }
-    );
-  }
-
+  /*****************  Join and unjoin Match *****************/
   joinMatch() {
-    const apiUrl = 'http://localhost:8081/match/join';
-      const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-      const userId = localStorage.getItem('userId'); // Retrieve user ID from storage
-
-      const data = {
-        "userId": userId,
-        "matchId": this.idMatch
-      };
-      this.http.post(apiUrl, data, { headers }).subscribe(
-        (response) => {
-          console.log('Réponse du serveur :', response);
-          this.getPlayersData(); // Mise à jour des données après l'adhésion
-
-        },
-        (error) => {
-          console.error('Erreur lors de la requête POST :', error);
-        }
-      );
+    const data = {
+      "userId": this.userId,
+      "matchId": this.matchId
+    };
+    this.matchService.postJoinMatch(data).subscribe(
+      (response) => {
+        console.log('Réponse du serveur :', response);
+        this.getPlayersData();
+      },
+      (error) => {
+        console.error('Erreur lors de la requête POST :', error);
+      }
+    );
   }
 
   unjoinMatch() {
-    const userId = localStorage.getItem('userId');
-    const apiUrl = `http://localhost:8081/match/unjoin?userId=${userId}&matchId=${this.idMatch}`;
-    this.http.delete(apiUrl).subscribe(
-        (response) => {
+    this.matchService.deleteJoinMatch(this.matchId, this.userId).subscribe(
+      (response) => {
             console.log('Réponse du serveur :', response);
             this.getPlayersData();
         },
@@ -297,34 +177,60 @@ export class MatcheDetails {
 
 
   isIn() {
-    const userId = localStorage.getItem('userId');
-    const numericUserId = userId !== null ? Number(userId) : null;
+    const numericUserId = this.userId !== null ? this.userId : null;
 
     return this.playersInfo.some(player => player.id === numericUserId);
 }
 
 
-
-  // TMP idOrganiser in localstorage
+  /*****************  User role *****************/
+  // TMP organiserId in localstorage
   isOrganiser() {
-    const userId = localStorage.getItem('userId');
-    const organiserId = localStorage.getItem('idOrganiser');
-    return(userId===organiserId)
+    const organiserId = localStorage.getItem('organiserId');
+    return(this.userId===Number(organiserId))
   }
 
-  // Todo
-  isAdmin() {
-    return(true);
+  checkAdmin() { 
+    this.matchService.getUserData(this.userId).subscribe(
+      (response: any) => {
+        this.isAdmin = response.role === "ADMIN";
+      },
+      (error) => {
+        console.error('Erreur lors de la requête get :', error);
+      }  
+    );
+  }
+
+  /*****************  change the match status *****************/
+  openMatch(){
+    this.matchService.putOpenMatch(this.matchId, this.userId).subscribe(
+      (response) => {
+        this.getMatchData(this.matchId);
+        console.log('Match ouvet avec succès :', response);
+      },
+      (error) => {
+        console.error("Erreur lors de l'ouverture du match :", error);
+      }
+    );
+  }
+  
+  closeMatch(){
+    this.matchService.putCloseMatch(this.matchId, this.userId).subscribe(
+      (response) => {
+        this.getMatchData(this.matchId);
+        console.log('Match fermé avec succès :', response);
+      },
+      (error) => {
+        console.error('Erreur lors de la fermeture du match :', error);
+      }
+    );
   }
 
   deleteMatch(){
-    const userId = localStorage.getItem('userId');
-
-    const apiUrl = `http://localhost:8081/match/cancel?userId=${userId}&matchId=${this.idMatch}`;
-    this.http.put(apiUrl, {}).subscribe(
+    this.matchService.putdeleteMatch(this.matchId, this.userId).subscribe(
         (response) => {
             console.log('Réponse du serveur :', response);
-            this.getMatchData(this.idMatch);
+            this.getMatchData(this.matchId);
             // this.getPlayersData(); // Mise à jour des données après désinscription
         },
         (error) => {
@@ -333,25 +239,80 @@ export class MatcheDetails {
     );
   
   }
-
-
-  recordScores(){
-    const userId = localStorage.getItem('userId'); // Retrieve user ID from storage
-
+  
+  // TMP
+  makeTeams() {
     const data = [
-      {"teamId": this.idFirstTeamTmp, "score": this.scoreFirstTeamTmp },
-      {"teamId": this.idSecondTeamTmp, "score": this.scoreSecondTeamTmp },
-  ];
-    const apiUrl = `http://localhost:8081/match/record?recorderId=${userId}&model=default`;
-    this.http.post(apiUrl, data).subscribe(
-        (response) => {
-            // this.getMatchData(Number(matchId));
+      {"teamName": "Team1", "playersIds": this.teams[0].players.map((player:any)=>player.id) },
+      {"teamName": "Team2", "playersIds": this.teams[1].players.map((player:any)=>player.id) },
+    ];
+
+    this.matchService.postMakeTeams(this.matchId, this.userId, data).subscribe(
+      (response: any) => {
+    
+          console.log('Match make avec succès :', response);
+  
+          // const apiUrl = `http://localhost:8081/match/confirm?userId=${this.userId}&matchId=${this.matchId}`;
+          // return this.http.put(apiUrl, {}).subscribe(
+          this.matchService.putConfirmMatch(this.matchId, this.userId).subscribe(
+            (response) => {
+              this.getMatchData(this.matchId);
+              this.getTeamsData(this.matchId);
+              console.log('Match confirmé avec succès :', response);
+            },
+            (error) => {
+              console.error('Erreur lors de la confirmation du match :', error);
+            }
+          );
         },
         (error) => {
             console.error('Erreur lors du make du match :', error);
+            // const apiUrl = `http://localhost:8081/match/confirm?userId=${this.userId}&matchId=${this.matchId}`;
+            // return this.http.put(apiUrl, {}).subscribe(
+            this.matchService.putConfirmMatch(this.matchId, this.userId).subscribe(
+              (response) => {
+                this.getMatchData(this.matchId);
+                this.getTeamsData(this.matchId);
+                console.log('Match confirmé avec succès :', response);
+              },
+              (error) => {
+                console.error('Erreur lors de la confirmation du match :', error);
+              }
+            );
         }
     );
   }
+
+  confirmMatch() {
+    this.makeTeams();
+    //TMP
+    this.getMatchData(this.matchId);
+
+  }
+
+  recordScores(){
+    const data = [
+      {"teamId": this.teams[0].id, "score": this.teams[0].score },
+      {"teamId": this.teams[1].id, "score": this.teams[1].score },
+    ];
+    this.matchService.postRecordScores(this.matchId, data).subscribe(
+      (response) => {
+          this.getMatchData(this.matchId);
+          window.location.reload();
+      },
+      (error) => {
+          console.error('Erreur lors de la saisie du score du match :', error);
+      }
+    );
+  }
+
+
+  changeTeams(){
+    this.openMatch();
+    this.closeMatch();
+  }
+
+  /*****************  ... *****************/
 
   drop(event: CdkDragDrop<any[]>) {
     if (event.previousContainer === event.container) {
@@ -375,50 +336,6 @@ export class MatcheDetails {
     const moyenne = sommeDesRanks / equipe.length;
   
     return moyenne;
-  }
-
-  closeMatch(){
-    const userId = localStorage.getItem('userId'); // Retrieve user ID from storage
-    const matchId = localStorage.getItem('idMatch'); // Retrieve user ID from storage
-
-    const apiUrl = `http://localhost:8081/match/close?userId=${userId}&matchId=${matchId}`;
-    return this.http.put(apiUrl, {}).subscribe(
-      (response) => {
-            // TMP
-        this.getMatchData(Number(matchId));
-        // this.getTeamsData(Number(matchId));
-
-        console.log('Match confirmé avec succès :', response);
-      },
-      (error) => {
-        console.error('Erreur lors de la confirmation du match :', error);
-        // Gestion de l'erreur
-      }
-    );
-  }
-
-  openMatch(){
-    const userId = localStorage.getItem('userId'); // Retrieve user ID from storage
-    const matchId = localStorage.getItem('idMatch'); // Retrieve user ID from storage
-
-    const apiUrl = `http://localhost:8081/match/pend?userId=${userId}&matchId=${matchId}`;
-    return this.http.put(apiUrl, {}).subscribe(
-      (response) => {
-            // TMP
-        this.getMatchData(Number(matchId));
-        // this.getTeamsData(Number(matchId));
-
-        console.log('Match confirmé avec succès :', response);
-      },
-      (error) => {
-        console.error('Erreur lors de la confirmation du match :', error);
-        // Gestion de l'erreur
-      }
-    );
-  }
-  changeTeams(){
-    this.openMatch();
-    this.closeMatch();
   }
 
 }

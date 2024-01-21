@@ -16,7 +16,22 @@
     </div>
 
     <div class="match-component">
-        <div [class.full]="isFull()" class="rectangle">
+        <!-- <img *ngIf="status === 'RECORDED'" src="/assets/End.svg"/> -->
+        <img *ngIf="status === 'FORMED' || status === 'CONFIRMED'" src="/assets/Team.svg"/>
+        <img *ngIf="status === 'PENDING'" src="/assets/Unlocked.svg"/>
+        <img *ngIf="status === 'CLOSED'" src="/assets/Locked.svg"/>
+        <img *ngIf="status === 'CANCELED'" src="/assets/Delete.svg"/>
+        
+        <div *ngIf="status === 'RECORDED'" class="score">
+            <img src="/assets/Score.svg"/>
+            <div class="match-size">
+                19-20
+            </div>
+        </div>
+    </div>
+
+    <div class="match-component">
+        <div [class.full]="isFull()" [class.cancel]="isCanceled()" class="rectangle">
             <div class="match-size">
                 {{nbPlayer}}/{{size}}
             </div>
