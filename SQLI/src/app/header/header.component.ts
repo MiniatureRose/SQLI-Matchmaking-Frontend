@@ -100,6 +100,10 @@ export class HeaderComponent implements OnInit {
     localStorage.clear();
     // window.location.reload();
     window.location.href = 'http://localhost:4200/Authentification';
-
+  }
+  
+  getUnreadMessages(){
+    const unread = this.notifications.filter(notification => !notification.read).length;
+    return unread;
   }
 }

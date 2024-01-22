@@ -5,19 +5,32 @@
     <div class="app-events-filtre">
         <app-multi-choice-list title="Trier" imageUrl="/assets/Trier.svg" [options]="['date (ascending)', 'date (descending)','incomplete']" (optionSelected)="onSortOptionSelected($event)" [selectedOptions]="sortOptions"></app-multi-choice-list>
         
-        <app-multi-choice-list title="Filtrer" imageUrl="/assets/Filtrer.svg" [options]="FilterOptions"  (optionSelected)="onOptionSelected($event)" [selectedOptions]="selectedOptions"></app-multi-choice-list>
+        <app-multi-choice-list title="Sports" imageUrl="/assets/Filtrer.svg" [options]="FilterOptions"  (optionSelected)="onOptionSelected($event)" [selectedOptions]="selectedOptions"></app-multi-choice-list>
 
-        
+        <div class="input-container">
+            <input class="datedebut" type="datetime-local" id="datedebut" [(ngModel)]="startDate">
+            <label for="datedebut">Date début</label>
+        </div>
+          
+        <div class="input-container">
+            <input class="datefin" type="datetime-local" id="datefin" [(ngModel)]="endDate">
+            <label for="datefin">Date fin</label>
+        </div>
+        <button (click)="setDebutFinDates()">Mettre à jour les dates</button>
+          
+
     </div>
     <div class="upcoming-matches-container" >
         <div *ngFor="let matchDetails of matches">
-            <div *ngIf="ShowMatch(matchDetails[2],matchDetails)">
-                <app-match [name]="matchDetails[0]"
-                    imageUrl="/assets/Salim.svg"
-                    [date]="matchDetails[1]"
-                    [sport]="matchDetails[2]"
-                    [size]="matchDetails[3]"
-                    [nbPlayer]="matchDetails[4]">
+            <div *ngIf="ShowMatch(matchDetails[4],matchDetails)">
+                <app-match [idMatch]="matchDetails[0]"
+                    [idOrganiser]="matchDetails[1]"
+                    [name]="matchDetails[1].firstName + ' ' + matchDetails[1].lastName"
+                    [imageUrl]="matchDetails[1].profileImage"
+                    [date]="matchDetails[3]"
+                    [sport]="matchDetails[4]"
+                    [size]="matchDetails[5]"
+                    [nbPlayer]="matchDetails[6]">
                 </app-match>
             </div>
         </div>

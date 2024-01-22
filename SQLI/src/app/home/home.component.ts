@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   constructor(private matchService: MatchService, private router:Router) {}
 
   ngOnInit(): void {
-    const userId = localStorage.getItem('userId');
+    const userId = localStorage.getItem('userId'); 
     if (userId) {
       this.loadMatches(userId);
     }
@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
 
   private loadMatches(userId: string) {
     this.matchService.getMyMatches(userId).subscribe(matches => {
-      this.myMatches = matches;
+      this.myMatches = matches.filter(match=>match.status !== 'CANCELED');
     });
     
 

@@ -1,0 +1,12 @@
+
+<div *ngIf="!isdeleted">
+  <div class="notification">
+    <div [ngClass]="{'notif_unread': !isread, 'notif_read': isread}" (click)="onNotificationClick()">
+      <div class="message">{{ notification?.message }}</div>
+      <div class="date">{{ notification?.dateCreated }}</div>
+      <button class="close-button" type="button" (click)="Ondeleteclick()">
+          <mat-icon class="close">close</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

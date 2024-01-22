@@ -84,3 +84,20 @@ nav ul li a:hover {
   font-weight: 1000;
   line-height: normal;
 }
+
+.icon-container {
+  position: relative;
+  display: inline-block; /* ou 'block' selon votre mise en page */
+}
+
+.notification-indicator {
+  position: absolute;
+  bottom: 40px;
+  right: 0;
+  background-color: red;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 50%;
+  font-weight: bold;
+  z-index: 100;
+}
