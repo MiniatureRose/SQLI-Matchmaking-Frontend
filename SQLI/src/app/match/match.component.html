@@ -1,5 +1,3 @@
-<!-- src/app/match/match.component.html -->
-
 <div class="match" (click)="toMatcheDetails()">
     <div class="match-component">
         <img [src]="imageUrl"/>
@@ -16,7 +14,6 @@
     </div>
 
     <div class="match-component">
-        <!-- <img *ngIf="status === 'RECORDED'" src="/assets/End.svg"/> -->
         <img *ngIf="status === 'FORMED' || status === 'CONFIRMED'" src="/assets/Team.svg"/>
         <img *ngIf="status === 'PENDING'" src="/assets/Unlocked.svg"/>
         <img *ngIf="status === 'CLOSED'" src="/assets/Locked.svg"/>
@@ -25,7 +22,7 @@
         <div *ngIf="status === 'RECORDED'" class="score">
             <img src="/assets/Score.svg"/>
             <div class="match-size">
-                19-20
+                {{score1}}-{{score2}}
             </div>
         </div>
     </div>

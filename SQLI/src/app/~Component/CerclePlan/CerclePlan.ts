@@ -9,7 +9,6 @@ export class CerclePlanComponent {
   @Input() playersNumber : number = 7;
   @Input() rank : number = 1000;
   @Input() playersInfo : {
-    //color: string;
     firstName : string;
     lastName : string;
     rank : number;

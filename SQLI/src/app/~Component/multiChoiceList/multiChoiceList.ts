@@ -24,7 +24,6 @@ export class multiChoiceList {
     this.optionSelected.emit(option); 
   }
 
-  // Méthode pour vérifier si une option est sélectionnée
   isSelected(option: string): boolean {
     return this.selectedOptions.includes(option);
   }

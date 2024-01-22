@@ -24,7 +24,6 @@ export class Profil {
 
   toggleEditMode() {
     this.isEditMode = !this.isEditMode;
-    // this.cdr.detectChanges(); // Détecte les changements dans le composant parent
   }
 
   navigateToMatches() {

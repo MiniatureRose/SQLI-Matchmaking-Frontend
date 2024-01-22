@@ -4,7 +4,6 @@
             <app-icon [isHovered]="true" [firstName]="player.firstName" [lastName]="player.lastName" [rank]="player.rank" [width]="93" color="#3062C8" [imageUrl]="player.profileImage"></app-icon> 
         </li>
 
-        <!-- TMP -->
         <li *ngFor="let _ of [].constructor(playersNumber - playersInfo.length)"> 
             <app-icon [width]="93" color="#FFBB24" imageUrl="/assets/PlayerAnonym.svg"></app-icon>
         </li>

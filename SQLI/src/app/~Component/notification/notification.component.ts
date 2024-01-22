@@ -7,28 +7,16 @@ import { Component, OnInit, Input, HostListener, ElementRef } from '@angular/cor
 })
 export class NotificationComponent implements OnInit {
 	cssPrefix = 'toolbar-notification';
-  	isOpen: boolean = true;
-  	@Input() notifications: any[] =[];
-
-    // @HostListener('document:click', ['$event', '$event.target'])
-    // onClick(event: MouseEvent, targetElement: HTMLElement) {
-    //     if (!targetElement) {
-    //           return;
-    //     }
-    //     const clickedInside = this.elementRef.nativeElement.contains(targetElement);
-    //     if (!clickedInside) {
-    //          this.isOpen = false;
-    //     }
-    // }
-  	
-  	constructor(private elementRef: ElementRef) { }
-
-  	ngOnInit() {
-      console.log(this.notifications);
-  	}
-
-  	select() {
+  isOpen: boolean = true;
+  @Input() notifications: any[] =[];
     	
+  constructor(private elementRef: ElementRef) { }
+  
+  ngOnInit() {
+    console.log(this.notifications);
+  }
+  select() {
+  	
   	}
     
 }

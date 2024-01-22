@@ -24,7 +24,7 @@
     position: relative;
     margin: 1%;
     width: 60%;
-    padding: 0.5%; /* Use percentage-based padding for adaptability */
+    padding: 0.5%;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -35,7 +35,6 @@
 }
 
 
-/* Media Query for screens smaller than 768px */
 @media only screen and (max-width: 768px) {
     .home {
         margin: 1.5rem;

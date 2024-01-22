@@ -2,7 +2,6 @@
     position: absolute;
     right: 0px;
     z-index: 10;
-    /* border: 2px solid red; */
 }
 
 .profil-buttons{
@@ -11,7 +10,6 @@
     align-items: center;
     justify-content: center;
     gap : 60px;
-    /* border: 2px solid red; */
 }
 
 .profil-buttons-left{
@@ -42,7 +40,6 @@
     margin-top: 20px;
     gap: 24px;
 
-    /* border: 2px solid red; */
 
 }
 

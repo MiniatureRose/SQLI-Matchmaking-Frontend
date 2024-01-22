@@ -7,8 +7,8 @@
     flex-shrink: 0;
     background: #FFF;
     cursor: pointer;
-    border: 2px solid #000; /* Add a black border */
-    border-radius: 10px; /* Add rounded corners */
+    border: 2px solid #000;
+    border-radius: 10px;
 }
 
 .match-component {
@@ -59,20 +59,19 @@
     line-height: normal;
 }
 
-/* Media Query for screens smaller than 768px */
 @media only screen and (max-width: 768px) {
     .match {
-        flex-direction: row; /* Display components horizontally */
-        flex-wrap: wrap; /* Allow components to wrap onto the next line */
-        justify-content: center; /* Center components if there's only one in a line */
-        align-items: center; /* Align components to the center */
-        gap: 20px; /* Adjust the gap between components */
-        height: auto; /* Allow the height to adjust based on content */
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center; 
+        gap: 20px;
+        height: auto;
     }
 
     .match-component {
-        flex-direction: column; /* Stack text and image vertically */
-        align-items: flex-start; /* Align components to the start */
+        flex-direction: column;
+        align-items: flex-start;
     }
 }
 

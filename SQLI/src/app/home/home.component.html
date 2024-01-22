@@ -1,16 +1,15 @@
-<!-- home.component.html -->
 <div class="home">
     <div class="title">Mes prochains matchs</div>
     <div class="upcoming-matches-container">
-        <app-match *ngFor="let match of myMatches" [status]="match.status" [idMatch]="match.id" [idOrganiser]="match.organizer.id" [name]="match.organizer.firstName + ' ' + match.organizer.lastName" [imageUrl]="match.organizer.profileImage"
-            [date]="match.date" [sport]="match.sport.name" [size]="match.noPlayers" [nbPlayer]="match.curPlayers">
+        <app-match *ngFor="let match of myMatches" [score1]="match.teams[0]?.score" [score2]="match.teams[1]?.score" [status]="match.match.status" [idMatch]="match.match.id" [idOrganiser]="match.match.organizer.id" [name]="match.match.organizer.firstName + ' ' + match.match.organizer.lastName" [imageUrl]="match.match.organizer.profileImage"
+            [date]="match.match.date" [sport]="match.match.sport.name" [size]="match.match.noPlayers" [nbPlayer]="match.curPlayers">
         </app-match>
     </div>
 
     <div class="title">Suggestions</div>
     <div class="upcoming-matches-container">
-        <app-match *ngFor="let match of suggestedMatches" [status]="match.status" [idMatch]="match.id" [idOrganiser]="match.organizer.id" [name]="match.organizer.firstName + ' ' + match.organizer.lastName"
-            [imageUrl]="match.organizer.profileImage" [date]="match.date" [sport]="match.sport.name" [size]="match.noPlayers" [nbPlayer]="match.curPlayers">
+        <app-match *ngFor="let match of suggestedMatches" [score1]="match.teams[0]?.score" [score2]="match.teams[1]?.score" [status]="match.match.status" [idMatch]="match.match.id" [idOrganiser]="match.match.organizer.id" [name]="match.match.organizer.firstName + ' ' + match.match.organizer.lastName"
+            [imageUrl]="match.match.organizer.profileImage" [date]="match.match.date" [sport]="match.match.sport.name" [size]="match.match.noPlayers" [nbPlayer]="match.curPlayers">
         </app-match> 
     </div>
 </div>

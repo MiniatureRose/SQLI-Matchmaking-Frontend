@@ -2,11 +2,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-//TMP
 interface ApiResponse {
   message: string;
   userId: string;
-  // autres propriétés correspondantes dans la réponse
 }
 
 @Component({
@@ -14,7 +12,6 @@ interface ApiResponse {
   templateUrl: './authentification.component.html',
   styleUrls: ['./authentification.component.css']
 })
-// Appelez la méthode pour masquer le Header
   
 export class AuthentificationComponent{
   email: string = '';
@@ -40,10 +37,9 @@ export class AuthentificationComponent{
     
     this.http.post<ApiResponse>(apiUrl, data, { headers }).subscribe(
       (response) => {
-        // console.log('Réponse du serveur :', response);
         if (response && response.message === 'User signed in successfully!') {
-          localStorage.setItem('userId', response.userId);  // or sessionStorage.setItem(...)
-          this.router.navigate(['/Home']); // Redirection vers la page home
+          localStorage.setItem('userId', response.userId);
+          this.router.navigate(['/Home']);
         }
       },
       

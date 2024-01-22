@@ -6,13 +6,11 @@
     <ul>
       <li class="aa" (click)="togglePlus()"> <app-icon imageUrl="/assets/Plus.svg"></app-icon> </li>
       <li class="aa" (click)="navigateToEvent()"><app-icon imageUrl="/assets/Evennement.svg"></app-icon> </li>
-      <!-- <li class="aa"> <app-icon imageUrl="/assets/Notification.svg"></app-icon> </li> -->
-      <li class="aa" (click)="logOutUser()"> <app-icon imageUrl="/assets/Deconnexion.svg"></app-icon> </li>
       <li class="aa" (click)="toggleNotif()"> <app-icon imageUrl="/assets/Notification.svg">
         <span class="badge" *ngIf="notifications && notifications?.length !== 0">{{ notifications.length }}</span>
       </app-icon> </li>
+      <li class="aa" (click)="logOutUser()"> <app-icon imageUrl="/assets/Deconnexion.svg"></app-icon> </li>
       <li class="aa" (click)="toggleProfile()"> <img [src]="profileImage" style="width: 60px; height: 60px;"> </li>
-      <!-- <li class="aa"> <app-icon imageUrl="/assets/Profil.svg"></app-icon> </li> -->
     </ul>
 </nav>
 <div *ngIf="isProfileClicked">

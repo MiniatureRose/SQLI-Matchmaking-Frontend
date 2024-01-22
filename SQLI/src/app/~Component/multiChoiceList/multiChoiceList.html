@@ -5,7 +5,6 @@
     <img src="/assets/V_vert.svg">
 </div>
 
-<!-- Liste déroulante personnalisée -->
 <div class="custom-dropdown" *ngIf="showDropdown">
     <div class="dropdown-option" *ngFor="let option of options" (click)="onOptionSelect(option)" [class.active-filter]="isSelected(option)">
         {{ option }}

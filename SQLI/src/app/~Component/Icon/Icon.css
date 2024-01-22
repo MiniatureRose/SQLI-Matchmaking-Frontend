@@ -3,9 +3,6 @@
     height: 52px;
     flex-shrink: 0;
     position: relative;
-    /* fill: #B4D6F6; */
-    /* stroke-width: 3px; */
-    /* stroke: var(--Yellow, #FFBB24); */
 
     display: flex;
     justify-content: center;

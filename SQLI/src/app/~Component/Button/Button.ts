@@ -7,18 +7,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class ButtonComponent {
   @Input() buttonText: string = '';
-//   @Input() width: number=92;
-  
-  // @Input() func: (() => void) | undefined;
-// 
-  // triggerFunction() {
-    // if (this.func) {
-      // this.func(); 
-    // }
-  // }
-
-
-  ///
   @Output() toggleEdit: EventEmitter<void> = new EventEmitter<void>();
 
   func() {

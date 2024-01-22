@@ -9,8 +9,8 @@
 
 .imgBackround{
     display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
+    justify-content: center;
+    align-items: center;
     
     
     width: 664px;
@@ -60,9 +60,8 @@ label{
 }
 
 .left-aligned-label {
-    text-align: left; /* This will left-align the label text */
-    font-weight: bold; /* You can add other styles as needed */
-    /* Add any additional styles you want for the label here */
+    text-align: left;
+    font-weight: bold;
 }
 
 button{

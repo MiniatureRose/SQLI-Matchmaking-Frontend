@@ -32,7 +32,6 @@
 .app-matche-details-content{
 
     width: 1088px;
-    /* height: 617px; */
     flex-shrink: 0;
     margin-top: 30px;
 
@@ -89,7 +88,6 @@
 
 .app-matche-details-team-drag{
     display: flex;
-    /* border: 2px red solid; */
 }
 
 #integerInput {
@@ -109,5 +107,4 @@
     background-color: #ffd375;
     padding: 10px;
     border-radius: 20px;
-    border: 5px solid 3062C8red;
 }

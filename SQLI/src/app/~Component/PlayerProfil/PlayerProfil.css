@@ -2,10 +2,6 @@
     width: 52px;
     height: 52px;
     flex-shrink: 0;
-    
-    /* fill: #B4D6F6; */
-    /* stroke-width: 3px; */
-    /* stroke: var(--Yellow, #FFBB24); */
 
     display: flex;
     justify-content: center;
@@ -18,5 +14,5 @@
 
 .app-player-profil-image {
     max-height: 70%;
-    width: 70%; /* Pour que l'image occupe 100% de la largeur de son parent (.icon) */
+    width: 70%;
 }

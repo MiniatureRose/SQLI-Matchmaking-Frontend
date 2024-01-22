@@ -24,19 +24,9 @@ export class MatcheDetails {
   userId: number = 0;
   score : boolean = false;
   type : string = "";
-
   matchData: any = {};
   playersInfo : any[] = [ ] ;
-
   teams : any[] = [];
-
-  scoreFirstTeamTmp : number = 0 ;
-  scoreSecondTeamTmp : number = 0 ;
-  idFirstTeamTmp : number = 0 ;
-  idSecondTeamTmp : number = 0 ;
-  firstTeamTmp : any[] = [ ] ;
-  secondTeamTmp :any[] = [ ] ;
-  
   isAdmin: boolean = false; 
 
 
@@ -49,12 +39,11 @@ export class MatcheDetails {
       this.matchId = Number(storedMatchId);
       this.userId = Number(storedUserId);
       this.checkAdmin();
-      this.getPlayersData(); // Appeler pour initialiser les données avec la nouvelle idMatch
+      this.getPlayersData();
       this.getMatchData(this.matchId);
       this.getTeamsData(this.matchId);
     } else {
       console.error("Aucun idMatch trouvé dans le localStorage");
-      // Gérer le cas où idMatch n'est pas disponible
     }
   }
 
@@ -75,13 +64,12 @@ export class MatcheDetails {
   getMatchData(id: number) {
     this.matchService.getMatchDetails(id).subscribe(
       (response: any) => {
-        // this.matchData = response;
         this.matchData = {
-          id: response.id,
-          noPlayers: response.noPlayers,
-          sportName: response.sport.name,
-          location: response.field.location,
-          status: response.status,
+          id: response.match.id,
+          noPlayers: response.match.noPlayers,
+          sportName: response.match.sport.name,
+          location: response.match.field.location,
+          status: response.match.status,
         };
         console.log('Réponse du serveur :', this.matchData);
       },
@@ -127,13 +115,10 @@ export class MatcheDetails {
   }
   
   automaticChoice() {
-    //this.confirmMatch();
     this.type = "auto";
 
     this.matchService.postAutomaticChoice(this.matchId, this.userId).subscribe(
       (response: any) => {
-            // TMP
-        // this.getMatchData(this.matchId);
         this.getTeamsData(this.matchId);
 
         console.log('Match confirmé avec succès :', response);
@@ -231,7 +216,6 @@ export class MatcheDetails {
         (response) => {
             console.log('Réponse du serveur :', response);
             this.getMatchData(this.matchId);
-            // this.getPlayersData(); // Mise à jour des données après désinscription
         },
         (error) => {
             console.error('Erreur lors de la requête post :', error);
@@ -252,8 +236,6 @@ export class MatcheDetails {
     
           console.log('Match make avec succès :', response);
   
-          // const apiUrl = `http://localhost:8081/match/confirm?userId=${this.userId}&matchId=${this.matchId}`;
-          // return this.http.put(apiUrl, {}).subscribe(
           this.matchService.putConfirmMatch(this.matchId, this.userId).subscribe(
             (response) => {
               this.getMatchData(this.matchId);
@@ -267,8 +249,6 @@ export class MatcheDetails {
         },
         (error) => {
             console.error('Erreur lors du make du match :', error);
-            // const apiUrl = `http://localhost:8081/match/confirm?userId=${this.userId}&matchId=${this.matchId}`;
-            // return this.http.put(apiUrl, {}).subscribe(
             this.matchService.putConfirmMatch(this.matchId, this.userId).subscribe(
               (response) => {
                 this.getMatchData(this.matchId);
@@ -295,7 +275,7 @@ export class MatcheDetails {
       {"teamId": this.teams[0].id, "score": this.teams[0].score },
       {"teamId": this.teams[1].id, "score": this.teams[1].score },
     ];
-    this.matchService.postRecordScores(this.matchId, data).subscribe(
+    this.matchService.postRecordScores(this.userId, data).subscribe(
       (response) => {
           this.getMatchData(this.matchId);
           window.location.reload();
@@ -329,7 +309,7 @@ export class MatcheDetails {
 
   averageEloEquipe(equipe: any[]): number {
     if (equipe.length === 0) {
-      return 0; // Retourne 0 si l'équipe est vide
+      return 0;
     }
   
     const sommeDesRanks = equipe.reduce((somme, joueur) => somme + joueur.rank, 0);

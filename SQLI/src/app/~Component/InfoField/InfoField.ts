@@ -14,7 +14,6 @@ export class InfoField {
     toggleEditMode() {
       this.isEditMode = !this.isEditMode;
       if (!this.isEditMode) {
-        // Enregistrez ici le contenu mis à jour dans votre backend ou effectuez des opérations nécessaires
         console.log('Nouveau contenu : ', this.content);
       }
     }

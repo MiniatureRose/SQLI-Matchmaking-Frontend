@@ -1,5 +1,4 @@
 <div class="profil">
-    <!-- <ng-content></ng-content> -->
     <app-table title="Mon Profil" >
         <div class="profil-buttons">
             <div class="profil-buttons-left">
@@ -22,12 +21,8 @@
             <app-info-field [isEditMode]="isEditMode" title="Entreprise" content="SQLI"></app-info-field>
 
             <app-button (toggleEdit)="toggleEditMode()" [buttonText]="isEditMode? 'Valider les modifications' : 'Modifier mon profil'" (onclick)="navigateToMatches()"></app-button>
-            
         </div>
 
-        <!-- <button class="button" type="submit">se connecter</button> -->
-        
-        <!-- <app-button-icon imageUrl="/assets/Historique.svg" buttonText="Mon Bouton"></app-button-icon> -->
     </app-table>
 
 </div>

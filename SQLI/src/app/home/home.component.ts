@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   constructor(private matchService: MatchService, private router:Router) {}
 
   ngOnInit(): void {
-    const userId = localStorage.getItem('userId'); // Retrieve user ID from storage
+    const userId = localStorage.getItem('userId');
     if (userId) {
       this.loadMatches(userId);
     }
