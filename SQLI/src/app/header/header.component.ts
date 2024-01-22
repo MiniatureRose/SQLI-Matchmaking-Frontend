@@ -50,6 +50,7 @@ export class HeaderComponent implements OnInit {
     this.isProfileClicked = false;
     this.isNotifClicked = false;
     this.isPlusClicked = !this.isPlusClicked;
+    this.toNewMatch();
   }
 
   toggleNotif() {

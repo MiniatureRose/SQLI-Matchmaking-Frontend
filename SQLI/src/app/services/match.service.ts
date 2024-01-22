@@ -22,6 +22,10 @@ export class MatchService {
     return this.http.get<any[]>(`${this.apiUrl}/match?type=coming&userId=${userId}&myMatches=false`);
   }
 
+  getCanceledMatches(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/match?type=all&status=CANCELED&statusBool=true`);
+  }
+
   getMatchDetails(matchId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/match/id?matchId=${matchId}`);
   }
@@ -42,6 +46,10 @@ export class MatchService {
     return this.http.post<any[]>(`${this.apiUrl}/match/make/manual?userId=${userId}&matchId=${matchId}`, data);
   }
 
+  deleteUnmakeTeams(matchId: number, userId:number): Observable<any[]> {
+    return this.http.delete<any[]>(`${this.apiUrl}/match/unmake?userId=${userId}&matchId=${matchId}`);
+  }
+
   postJoinMatch(data : any): Observable<any[]> {
     return this.http.post<any[]>(`${this.apiUrl}/match/join`, data);
   }
@@ -51,7 +59,7 @@ export class MatchService {
   }
 
   putOpenMatch(matchId: number, userId:number): Observable<any[]> {
-    return this.http.put<any[]>(`${this.apiUrl}/match/pend?userId=${userId}&matchId=${matchId}`, {});
+    return this.http.put<any[]>(`${this.apiUrl}/match/unclose?userId=${userId}&matchId=${matchId}`, {});
   }
 
   putCloseMatch(matchId: number, userId:number): Observable<any[]> {
@@ -68,6 +76,10 @@ export class MatchService {
 
   putConfirmMatch(matchId: number, userId:number): Observable<any[]> {
     return this.http.put<any[]>(`${this.apiUrl}/match/confirm?userId=${userId}&matchId=${matchId}`, {});
+  }
+
+  putUnconfirmMatch(matchId: number, userId:number): Observable<any[]> {
+    return this.http.put<any[]>(`${this.apiUrl}/match/unconfirm?userId=${userId}&matchId=${matchId}`, {});
   }
 
 

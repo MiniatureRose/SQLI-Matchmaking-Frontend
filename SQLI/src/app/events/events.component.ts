@@ -35,7 +35,7 @@ export class EventsComponent {
     this.http.get<any[]>('http://localhost:8081/match?type=all').subscribe(
       result => {
         result.forEach(match => {
-          this.matches.push([match.id, match.organizer, match.name , match.date, match.sport.name, match.curPlayers.toString(), match.noPlayers]);
+          this.matches.push([match.match.id, match.match.organizer.id, match.match.name , match.match.date, match.match.sport.name, match.curPlayers.toString(), match.match.noPlayers, match.match.organizer.profileImage, match.match.organizer.firstName, match.match.organizer.lastName, match.match.status, match.teams[0]?.score, match.teams[1]?.score]);
         });
       },
       error => {
@@ -44,7 +44,7 @@ export class EventsComponent {
   }
 
   GetFilterOptions(){
-    this.http.get<any[]>('http://localhost:8081/data/sport/all').subscribe(
+    this.http.get<any[]>('http://localhost:8081/sport/all').subscribe(
       result => {
         result.forEach(sport => {
           this.FilterOptions.push(sport.name);
@@ -80,9 +80,9 @@ export class EventsComponent {
 
   sortMatches() {
     if (this.sortOptions.includes('date (ascending)')) {
-      this.matches.sort((a, b) => a[1].getTime() - b[1].getTime());
+      this.matches.sort((a, b) => new Date(a[3]).getTime() - new Date(b[3]).getTime());
     } else if(this.sortOptions.includes('date (descending)')){
-      this.matches.sort((a, b) => b[1].getTime() - a[1].getTime());
+      this.matches.sort((a, b) => new Date(b[3]).getTime() - new Date(a[3]).getTime());
     }
   }
 

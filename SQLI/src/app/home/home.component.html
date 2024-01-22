@@ -12,4 +12,13 @@
             [imageUrl]="match.match.organizer.profileImage" [date]="match.match.date" [sport]="match.match.sport.name" [size]="match.match.noPlayers" [nbPlayer]="match.curPlayers">
         </app-match> 
     </div>
+
+    <!-- TO DO  -->
+    <div class="title">Matchs annulés</div>
+    <div class="upcoming-matches-container">
+        <app-match *ngFor="let match of canceledMatches" [score1]="match.teams[0]?.score" [score2]="match.teams[1]?.score" [status]="match.match.status" [idMatch]="match.match.id" [idOrganiser]="match.match.organizer.id" [name]="match.match.organizer.firstName + ' ' + match.match.organizer.lastName"
+            [imageUrl]="match.match.organizer.profileImage" [date]="match.match.date" [sport]="match.match.sport.name" [size]="match.match.noPlayers" [nbPlayer]="match.curPlayers">
+        </app-match> 
+    </div>
+
 </div>

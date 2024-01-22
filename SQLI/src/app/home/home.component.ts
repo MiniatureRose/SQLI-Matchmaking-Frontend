@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   myMatches: any[] = [];
   suggestedMatches: any[] = [];
+  canceledMatches: any[] = [];
 
   constructor(private matchService: MatchService, private router:Router) {}
 
@@ -32,6 +33,10 @@ export class HomeComponent implements OnInit {
 
     this.matchService.getSuggestedMatches(userId).subscribe(matches => {
       this.suggestedMatches = matches;
+    });
+
+    this.matchService.getCanceledMatches().subscribe(matches => {
+      this.canceledMatches = matches;
     });
 
     console.log(this.myMatches);

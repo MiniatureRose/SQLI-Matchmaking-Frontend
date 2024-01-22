@@ -25,12 +25,15 @@
             <div *ngIf="ShowMatch(matchDetails[4],matchDetails)">
                 <app-match [idMatch]="matchDetails[0]"
                     [idOrganiser]="matchDetails[1]"
-                    [name]="matchDetails[1].firstName + ' ' + matchDetails[1].lastName"
-                    [imageUrl]="matchDetails[1].profileImage"
                     [date]="matchDetails[3]"
                     [sport]="matchDetails[4]"
-                    [size]="matchDetails[5]"
-                    [nbPlayer]="matchDetails[6]">
+                    [nbPlayer]="matchDetails[5]"
+                    [size]="matchDetails[6]"
+                    [imageUrl]="matchDetails[7]"
+                    [name]="matchDetails[8] + ' ' + matchDetails[9]"
+                    [status]="matchDetails[10]"
+                    [score1]="matchDetails[11]" 
+                    [score2]="matchDetails[12]">
                 </app-match>
             </div>
         </div>

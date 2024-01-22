@@ -61,7 +61,7 @@
 
 .app-matche-details-buttons{
     display: flex;
-    gap: 50px;
+    gap: 30px;
 }
 
 .app-matche-details-team-title{
@@ -107,4 +107,22 @@
     background-color: #ffd375;
     padding: 10px;
     border-radius: 20px;
+}
+
+.app-cercle-plan{
+    width: 500px;
+    flex-shrink: 0;
+    border: 5px solid var(--Secondary, #3062C8);
+    background: var(--secondary-light, rgba(48, 98, 200, 0.30));
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center; 
+    justify-content: center; 
+    list-style-type: none;
+
+    margin: 10px;
+    gap: 10px;
+    padding: 0;
 }

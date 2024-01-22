@@ -25,8 +25,13 @@ export class MatcheDetails {
   score : boolean = false;
   type : string = "";
   matchData: any = {};
-  playersInfo : any[] = [ ] ;
+  playersInfo : any[] = [] ;
   teams : any[] = [];
+  
+  playersInfoCopy : any[] = [] ;
+  teams1 : any[] = [];
+  teams2 : any[] = [];
+  
   isAdmin: boolean = false; 
 
 
@@ -95,7 +100,10 @@ export class MatcheDetails {
   /*****************  Type of Team Choice *****************/
   manualChoice() {
     //TMP
-    this.teams=[];
+    // this.teams[0].players=[];
+    // this.teams[1].players=[];
+    // this.playersInfoCopy = this.playersInfo;
+    this.playersInfoCopy = JSON.parse(JSON.stringify(this.playersInfo));
     this.type = "manual";
   }
 
@@ -226,10 +234,14 @@ export class MatcheDetails {
   
   // TMP
   makeTeams() {
-    const data = [
-      {"teamName": "Team1", "playersIds": this.teams[0].players.map((player:any)=>player.id) },
-      {"teamName": "Team2", "playersIds": this.teams[1].players.map((player:any)=>player.id) },
-    ];
+    const data = this.type=="manual"? [
+    {"teamName": "Team1", "playersIds": this.teams1.map((player:any)=>player.id) },
+    {"teamName": "Team2", "playersIds": this.teams2.map((player:any)=>player.id) },
+  ]:
+  [
+    {"teamName": "Team1", "playersIds": this.teams[0].players.map((player:any)=>player.id) },
+    {"teamName": "Team2", "playersIds": this.teams[1].players.map((player:any)=>player.id) },
+  ];
 
     this.matchService.postMakeTeams(this.matchId, this.userId, data).subscribe(
       (response: any) => {
@@ -288,13 +300,40 @@ export class MatcheDetails {
 
 
   changeTeams(){
-    this.openMatch();
-    this.closeMatch();
+    this.matchService.putUnconfirmMatch(this.matchId, this.userId).subscribe(
+      (response) => {
+          this.matchService.deleteUnmakeTeams(this.matchId, this.userId).subscribe(
+            (response) => {
+                this.getMatchData(this.matchId);
+                console.log('Équipes détruites avec succès :', response);
+            },
+            (error) => {
+                console.error('Erreur lors de la destruction des équipes :', error);
+            }
+          );
+          // this.getMatchData(this.matchId);
+          console.log('Match non confirmé avec succès :', response);
+      },
+      (error) => {
+          console.error('Erreur lors du non confirmation du match :', error);
+      }
+    );
+
+
+    // this.openMatch();
+    // this.closeMatch();
   }
 
   /*****************  ... *****************/
 
   drop(event: CdkDragDrop<any[]>) {
+    const maxSize = Math.floor(this.playersInfo.length / 2);
+    if (event.container.id === 'firstTeamList' || event.container.id === 'secondTeamList') {
+      if (event.container.data.length >= maxSize) {
+        return;
+      }
+    }
+
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
