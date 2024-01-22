@@ -4,11 +4,17 @@
     <div class="logo-title" >MatchMingle</div>
   </div> 
     <ul>
-      <li class="aa" (click)="togglePlus()"> <app-icon imageUrl="/assets/Plus.svg"></app-icon> </li>
+      <li class="aa" (click)="togglePlus()"> <app-icon imageUrl="/assets/Plus.svg"></app-icon>  
+      </li>
       <li class="aa" (click)="navigateToEvent()"><app-icon imageUrl="/assets/Evennement.svg"></app-icon> </li>
-      <li class="aa" (click)="toggleNotif()"> <app-icon imageUrl="/assets/Notification.svg">
-        <span class="badge" *ngIf="notifications && notifications?.length !== 0">{{ notifications.length }}</span>
-      </app-icon> </li>
+      <li class="aa" (click)="toggleNotif()">
+        <div class="icon-container">
+            <app-icon imageUrl="/assets/Notification.svg"></app-icon>
+            <span class="notification-indicator" *ngIf="notifications?.length !== 0 && getUnreadMessages() !== 0">
+                {{getUnreadMessages()}}
+            </span>
+        </div>
+    </li>    
       <li class="aa" (click)="toggleProfile()"> <img [src]="profileImage" style="width: 60px; height: 60px;"> </li>
       <!-- <li class="aa"> <app-icon imageUrl="/assets/Profil.svg"></app-icon> </li> -->
     </ul>

@@ -7,7 +7,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-// import { NgScrollbarModule } from 'ngx-scrollbar';
 
 import { AppComponent } from './app.component';
 import { AuthentificationComponent } from './authentification/authentification.component';
@@ -32,7 +31,8 @@ import { NewMatchComponent } from './new-match/new-match.component';
 import { multiChoiceList } from './~Component/multiChoiceList/multiChoiceList';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NotificationComponent } from './~Component/notification/notification.component';
+import { NotificationComponent } from './notification/notification.component';
+import { NotificationItemComponent } from './~Component/notification-item/notification-item-component';
 
 @NgModule({
   declarations: [
@@ -57,11 +57,11 @@ import { NotificationComponent } from './~Component/notification/notification.co
     NewMatchComponent,
     multiChoiceList,
     NotificationComponent,
+    NotificationItemComponent
   ],
   imports: [
     ReactiveFormsModule,
     MatIconModule,
-    // NgScrollbarModule,
     BrowserModule,
     AppRoutingModule,
     NgbModule,
@@ -70,7 +70,7 @@ import { NotificationComponent } from './~Component/notification/notification.co
     MatDialogModule,
     DragDropModule,
     BrowserAnimationsModule
-  ],
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

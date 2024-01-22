@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,12 +15,13 @@ export class EventsComponent {
   TrieOptions: string[] = [];
   sortOptions: string[] = [];
   showIncompleteOnly: boolean = false;
-  
+  startDate: string = "";
+  endDate: string = "";
 
   constructor(private http: HttpClient, private router:Router) {}
 
   ngOnInit() {
-    const userId = localStorage.getItem('userId'); // Retrieve user ID from storage
+    const userId = localStorage.getItem('userId'); 
     if (userId) {
       this.GetAllMatches();
       this.GetFilterOptions();
@@ -34,7 +35,7 @@ export class EventsComponent {
     this.http.get<any[]>('http://localhost:8081/match?type=all').subscribe(
       result => {
         result.forEach(match => {
-          this.matches.push([match.name , new Date(match.date), match.sport.name, match.curPlayers.toString(), match.noPlayers]);
+          this.matches.push([match.id, match.organizer, match.name , match.date, match.sport.name, match.curPlayers.toString(), match.noPlayers]);
         });
       },
       error => {
@@ -124,4 +125,8 @@ export class EventsComponent {
     return sportCondition && incompleteCondition;
   }
 
+  setDebutFinDates(){
+    console.log("Date de début:", this.startDate);
+    console.log("Date de fin:", this.endDate);
+  }
 }

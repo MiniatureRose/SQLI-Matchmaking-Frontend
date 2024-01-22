@@ -95,4 +95,9 @@ export class HeaderComponent implements OnInit {
       })
     }
   }
+
+  getUnreadMessages(){
+    const unread = this.notifications.filter(notification => !notification.read).length;
+    return unread;
+  }
 }

@@ -18,7 +18,7 @@ export class NotificationService {
 
   private startPolling(): void {
     if (this.userId) {
-      timer(0, 5000)
+      timer(0, 1000) // toute les secondes
         .pipe(switchMap(() => this.fetchNotifications()))
         .subscribe(
           (notifications) => this.notificationsSubject.next(notifications),

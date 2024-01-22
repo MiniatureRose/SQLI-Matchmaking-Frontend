@@ -45,7 +45,7 @@ export class SignupComponent {
 
   onSubmit() {
     if (this.signupForm.valid) {
-      const apiUrl = 'http://localhost:8081/create/user';
+      const apiUrl = 'http://localhost:8081/auth/signup';
       const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
       const data = this.signupForm.value;
 
@@ -54,7 +54,7 @@ export class SignupComponent {
       this.http.post(apiUrl, data, { headers }).subscribe(
         (response: ServerResponse) => {
           console.log('Réponse du serveur :', response.message);
-          if(response.message === "Email is already taken!"){
+          if(response.message === "Email deja pris!"){
             console.log('allo');
             this.emailexists = true;
             console.log('emailexists mis à jour :', this.emailexists);

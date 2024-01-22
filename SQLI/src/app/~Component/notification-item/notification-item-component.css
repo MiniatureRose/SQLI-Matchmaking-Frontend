@@ -1,0 +1,62 @@
+
+.notification {
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative; 
+  cursor: pointer;
+}
+
+.notification-content {
+  display: flex;
+  flex-direction: column;
+  word-wrap: break-word; 
+}
+
+.message {
+  font-size: 16px;
+  font-style: normal;
+  color: #333;
+  word-break: break-word; 
+}
+
+.date {
+  font-size: 12px;
+  color: #666;
+  margin-top: 5px;
+}
+
+.close-button {
+  background-color: white;
+  color: black;
+  border: none;
+  padding: 3px 6px; 
+  border-radius: 3px; 
+  font-size: 12px; 
+  cursor: pointer;
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  transition: left 0.3s;
+  display: none; 
+}
+
+.notification:hover .close-button {
+  display: block;
+  right: 10px; 
+}
+
+.notif_unread {
+  background-color: black;
+  border-color: whitesmoke;  
+  border: 2px red solid;
+}
+
+.notif_read {
+  background-color: #e7f3fe;
+  border-color: #cccccc;
+  border: 2px blue solid;
+}

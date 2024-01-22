@@ -1,0 +1,29 @@
+<div class="toolbar-notification-container">
+  <div class="dropdown mat-elevation-z4" [class.open]="isOpen">
+
+    <div class="card">
+      <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
+        <div class="title">
+          <div class="name">Notifications</div>
+          <div class="extra">You have {{ getUnreadMessages() }} new notifications</div>
+        </div>
+      </div>
+
+      <ul class="notification-list" *ngIf="notifications?.length !== 0; else elseBlock;">
+        <li *ngFor="let notification of notifications">
+          <app-notification-item [notification]="notification"></app-notification-item>
+        </li>
+      </ul>
+      
+
+      <div class="footer" fxLayout="row" fxLayoutAlign="center center">
+        <div class="action" (click)="onMarkAllAsReadClick()">Mark all as read</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<ng-template #elseBlock>
+  <div class="noNotifs" fxLayout="row" fxLayoutAlign="center center">Pas de notifications</div>
+</ng-template>
