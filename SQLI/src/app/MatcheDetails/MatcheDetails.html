@@ -143,7 +143,7 @@
                     </app-cercle-plan>
                 </div>
             </div>
-            <div class="app-matche-details-buttons">
+            <div *ngIf=" (isOrganiser() || isAdmin )" class="app-matche-details-buttons">
                 <app-button *ngIf="!this.score && !(this.matchData.status=='RECORDED')" (click)="changeTeams()" buttonText="changer les équipes" />
                 <app-button *ngIf="!this.score && !(this.matchData.status=='RECORDED')" (click)="this.score=true" buttonText="Entrer les scores" buttonColor="#4CAF50"/>
                 <app-button *ngIf="this.score && !(this.matchData.status=='RECORDED')" (click)="this.score=false" buttonText="Retour"/>
