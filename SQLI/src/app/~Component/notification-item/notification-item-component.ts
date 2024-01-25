@@ -25,7 +25,7 @@ export class NotificationItemComponent implements OnInit {
   onNotificationClick(){
     if (!this.notification.read){
       this.isread = true;
-      const apiUrl = `http://localhost:8081/notifications/MAR?notificationId=${this.notification.id}`;
+      const apiUrl = `http://localhost:8081/notification/MAR?notificationId=${this.notification.id}`;
       const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
       this.http.put(apiUrl, {}, { headers }).subscribe(
         (response) => {

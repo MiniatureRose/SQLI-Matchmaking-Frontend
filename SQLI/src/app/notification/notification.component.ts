@@ -20,7 +20,7 @@ export class NotificationComponent implements OnInit {
 
     onMarkAllAsReadClick(){
       const userId = localStorage.getItem('userId');
-      const apiUrl = `http://localhost:8081/notifications/MAAR?userId=${userId}`;
+      const apiUrl = `http://localhost:8081/notification/MAAR?userId=${userId}`;
       const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
       this.http.put(apiUrl, {}, { headers }).subscribe(
         (response) => {

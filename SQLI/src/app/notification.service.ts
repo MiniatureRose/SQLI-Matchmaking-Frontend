@@ -30,6 +30,6 @@ export class NotificationService {
   }
 
   private fetchNotifications(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/notifications/user/${this.userId}`); 
+    return this.http.get<any[]>(`${this.apiUrl}/notification/user?userId=${this.userId}`); 
   }
 }
