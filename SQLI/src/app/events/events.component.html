@@ -7,18 +7,6 @@
         
         <app-multi-choice-list title="Sports" imageUrl="/assets/Filtrer.svg" [options]="FilterOptions"  (optionSelected)="onOptionSelected($event)" [selectedOptions]="selectedOptions"></app-multi-choice-list>
 
-        <div class="input-container">
-            <input class="datedebut" type="datetime-local" id="datedebut" [(ngModel)]="startDate">
-            <label for="datedebut">Date début</label>
-        </div>
-          
-        <div class="input-container">
-            <input class="datefin" type="datetime-local" id="datefin" [(ngModel)]="endDate">
-            <label for="datefin">Date fin</label>
-        </div>
-        <button (click)="setDebutFinDates()">Mettre à jour les dates</button>
-          
-
     </div>
     <div class="upcoming-matches-container" >
         <div *ngFor="let matchDetails of matches">

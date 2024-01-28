@@ -1,18 +1,18 @@
 <div class="profil">
     <app-table title="Mon Profil" >
         <div class="profil-buttons">
-            <div class="profil-buttons-left">
+            <!-- <div class="profil-buttons-left">
                 <app-button-icon (click)="navigateToHistory()" imageUrl="/assets/Historique.svg" buttonText="Historique"></app-button-icon>        
-            </div>
+            </div> -->
             <div class="profil-buttons-middle" >
-                <app-button-icon (click)="navigateToMatches()" imageUrl="/assets/Matches.svg" buttonText="Mes matches" [width]="120"></app-button-icon>
+                <!-- <app-button-icon (click)="navigateToMatches()" imageUrl="/assets/Matches.svg" buttonText="Mes matches" [width]="120"></app-button-icon> -->
                 <img class="icon-image" [src]="profileImage" >
                 <div class="profil-name">{{ lastName.toUpperCase() }} {{ firstName.toUpperCase() }}</div>
                 <div class="profil-post">{{ role }}</div>
             </div>
-            <div class="profil-buttons-right">
+            <!-- <div class="profil-buttons-right">
                 <app-button-icon (click)="navigateToStatistics()" imageUrl="/assets/Statistique.svg" buttonText="Statistique"></app-button-icon>
-            </div>
+            </div> -->
         </div>
 
         <div class="profil-infos">

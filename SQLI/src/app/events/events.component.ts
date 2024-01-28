@@ -125,8 +125,4 @@ export class EventsComponent {
     return sportCondition && incompleteCondition;
   }
 
-  setDebutFinDates(){
-    console.log("Date de début:", this.startDate);
-    console.log("Date de fin:", this.endDate);
-  }
 }
