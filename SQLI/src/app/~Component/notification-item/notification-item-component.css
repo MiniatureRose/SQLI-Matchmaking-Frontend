@@ -50,13 +50,11 @@
 }
 
 .notif_unread {
-  background-color: black;
-  border-color: whitesmoke;  
-  border: 2px red solid;
+  background-color: rgb(235, 215, 215);
+  border-color: rgb(186, 185, 185);  
 }
 
 .notif_read {
   background-color: #e7f3fe;
   border-color: #cccccc;
-  border: 2px blue solid;
 }

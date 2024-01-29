@@ -10,7 +10,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class NotificationItemComponent implements OnInit {
   isdeleted : boolean = false;
   @Input() notification : any ;
-  isread: boolean = false;
+  isread : boolean = false;
 
 
   constructor(private elementRef: ElementRef, private http: HttpClient) {
@@ -18,12 +18,12 @@ export class NotificationItemComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.notification) {
-      this.isread = this.notification.read;
+      this.isread = this.notification.isRead;
     }
   }
 
   onNotificationClick(){
-    if (!this.notification.read){
+    if (!this.notification.isRead){
       this.isread = true;
       const apiUrl = `http://localhost:8081/notification/MAR?notificationId=${this.notification.id}`;
       const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -34,19 +34,23 @@ export class NotificationItemComponent implements OnInit {
         error => {
         }
       );
+      this.notification.isRead = true;
     }
   }
 
-  Ondeleteclick(){
+  Ondeleteclick() {
     this.isdeleted = true;
-    const apiUrl = `http://localhost:8081/notifications/deleteNotification?notificationId=${this.notification.id}`;
+    const apiUrl = `http://localhost:8081/notification?notificationId=${this.notification.id}`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    this.http.post(apiUrl, {}, { headers }).subscribe(
-      (response) => {
+  
+    this.http.delete(apiUrl, { headers }).subscribe(
+      response => {
         console.log('notification deleted');
-    },
+      },
       error => {
+        console.log('Error:', error);
       }
     );
   }
+  
 }

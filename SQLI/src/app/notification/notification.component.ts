@@ -15,7 +15,6 @@ export class NotificationComponent implements OnInit {
   	constructor(private elementRef: ElementRef, private http: HttpClient) { }
 
   	ngOnInit() {
-      console.log(this.notifications);
   	}
 
     onMarkAllAsReadClick(){
@@ -32,7 +31,7 @@ export class NotificationComponent implements OnInit {
     }
 
     getUnreadMessages(){
-      const unread = this.notifications.filter(notification => !notification.read).length;
+      const unread = this.notifications.filter(notification => notification.isRead === false).length;
       return unread;
     }
 }

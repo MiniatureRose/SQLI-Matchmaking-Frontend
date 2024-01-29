@@ -1,7 +1,7 @@
 
 <div *ngIf="!isdeleted">
   <div class="notification">
-    <div [ngClass]="{'notif_unread': !isread, 'notif_read': isread}" (click)="onNotificationClick()">
+    <div [ngClass]="{'notif_read': isread, 'notif_unread': !isread}" (click)="onNotificationClick()">
       <div class="message">{{ notification?.message }}</div>
       <div class="date">{{ notification?.dateCreated }}</div>
       <button class="close-button" type="button" (click)="Ondeleteclick()">
