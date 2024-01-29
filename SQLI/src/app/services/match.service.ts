@@ -55,7 +55,7 @@ export class MatchService {
   }
 
   deleteJoinMatch(matchId: number, userId:number): Observable<any[]> {
-    return this.http.delete<any[]>(`${this.apiUrl}match/unjoin?userId=${userId}&matchId=${matchId}`);
+    return this.http.delete<any[]>(`${this.apiUrl}/match/unjoin?userId=${userId}&matchId=${matchId}`);
   }
 
   putOpenMatch(matchId: number, userId:number): Observable<any[]> {
